@@ -64,7 +64,6 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
 
                 startActivity(intent);
                 //intent.putExtra("menu_type", selItem);
-                startActivity(intent);
                 //FragmentTransaction ft = fm.beginTransaction();
                 //ft.replace(R.id.container, frag);
                 //ft.addToBackStack("back");
