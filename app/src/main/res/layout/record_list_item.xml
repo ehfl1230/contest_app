@@ -25,4 +25,11 @@
         android:text="tel"
         android:textSize="13dp"
         android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/modify_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_text"
+        android:clickable="true"
+        android:src="@drawable/add_item_image"/>
 </RelativeLayout>

@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -31,48 +33,41 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     EditText searchField;
     String keyword = "";
     ListAdapter adapter;
-    private boolean mLockListView;
-    private LayoutInflater mInflater;
-    View footerView;
-    int page_num = 1;
-    String type;
-    int totalCount;
-    int schedule_id;
-    String intent_keyword = "";
-
+    String text;
+    Spinner spinner;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment2, container, false);
         datas = new ArrayList<>();
-
+        FragmentManager fm = getFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
-        //searchBtn = (ImageView) findViewById(R.id.search_bnt);
-        //searchField = (EditText) findViewById(R.id.search_blank);
+        searchBtn = (ImageView) viewGroup.findViewById(R.id.search_hospital_btn);
+        searchBtn.setOnClickListener(this);
+        searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
+        spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
+        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(typeAdapter);
         adapter = new ListAdapter(this.getContext(), R.layout.list_item, datas);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 String name = datas.get(position).apiDongName;
                 String address = datas.get(position).apiNewAddress;
-
                 Intent intent = new Intent(Fragment2.super.getActivity(), FragmentItem.class);
-                intent.putExtra("type", "drugstore");
+                intent.putExtra("type", "hospital");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
 
                 startActivity(intent);
-                //intent.putExtra("menu_type", selItem);
-                //FragmentTransaction ft = fm.beginTransaction();
-                //ft.replace(R.id.container, frag);
-                //ft.addToBackStack("back");
-                //ft.commit();
             }
         });
         listView.setAdapter(adapter);
-//        searchBtn.setOnClickListener(this);
-        addItems();
+        addItems("", keyword);
 
         return viewGroup;
 
@@ -81,20 +76,42 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == searchBtn) {
+            if (spinner.getSelectedItem() == null)
+                text = "";
+            else {
+                text = spinner.getSelectedItem().toString();
+            }
             keyword = searchField.getText().toString();
+            if (text.equals(" 이름 ")) {
+                addItems("name", keyword);
+            }
+            if (text.equals(" 주소 ")) {
+                addItems("address", keyword);
+            }
         }
     }
 
 
-    private void addItems() {
+    private void addItems(String type, String keyword) {
         try {
             ListParser task = new ListParser();
             ArrayList<String> params = new ArrayList<>();
             String url = "";
-            url = "http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                    "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=" + "";
-            //URLEncoder.encode(intent_keyword, "UTF-8");
+            if (keyword.equals("")) {
+                url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                        "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=" ;
+            } else {
+                if (type.equals("name")) {
+                    url = "http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                            "&pageNo=1&numOfRows=100&dongName=" + URLEncoder.encode(keyword, "UTF-8");
+                }
+                if (type.equals("address")) {
+                    url = "http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                            "&pageNo=1&numOfRows=100&address=" + URLEncoder.encode(keyword, "UTF-8");
+                }
+            }
             params.add(0, url);
+            datas.clear();
             ArrayList<ItemVO> item_list = task.execute(params).get();
             for (int i = 0; i < item_list.size(); i++) {
                 datas.add(item_list.get(i));

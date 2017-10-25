@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        />
     <ListView
         android:id="@+id/record_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="#FFFFFF"
         android:dividerHeight="3dp"></ListView>
-    <android.support.design.widget.FloatingActionButton
-    android:id="@+id/add_btn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end|bottom"
-    />
+
 </LinearLayout>

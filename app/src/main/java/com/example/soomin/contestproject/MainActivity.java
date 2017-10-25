@@ -1,21 +1,23 @@
 package com.example.soomin.contestproject;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
-
     Fragment1 fragment1;
     Fragment2 fragment2;
     Fragment3 fragment3;
-
+    MyApplication myApplication;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
+
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("동물병원"));
@@ -63,6 +66,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        myApplication = (MyApplication) getApplicationContext();
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            myApplication.callPermission = true;
+        }
+
+        if (!myApplication.callPermission) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 10);
+        }
+
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 10 && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                myApplication.callPermission = true;
+            }
+        }
+        if (requestCode == 20 && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                myApplication.locationPermission = true;
+            }
+        }
+    }
+
 
 }
