@@ -57,7 +57,6 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         oldAddressView = (TextView) findViewById(R.id.old_address_text);
         callBtnView = (ImageView) findViewById(R.id.call_phone_image);
         callBtnView.setOnClickListener(this);
-        checkMapBtnView = (ImageView) findViewById(R.id.check_map_btn) ;
         checkMapBtnView.setOnClickListener(this);
         datas = new ArrayList<>();
 
@@ -74,6 +73,23 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
             telView.setText(datas.get(0).apiTel);
             newAddressView.setText(datas.get(0).apiNewAddress);
             oldAddressView.setText(datas.get(0).apiOldAddress);
+            ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+            MapView mapView = new MapView(this);
+
+
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(0).apiLat),
+                    Double.parseDouble(datas.get(0).apiLng)), true);
+            MapPOIItem marker = new MapPOIItem();
+            marker.setItemName(name);
+            marker.setTag(0);
+
+            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(0).apiLat),
+                    Double.parseDouble(datas.get(0).apiLng)));
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+            mapView.addPOIItem(marker);
+            mapViewContainer.addView(mapView);
 
         }
         myApplication = (MyApplication) getApplicationContext();
@@ -124,13 +140,6 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 Toast t = Toast.makeText(FragmentItem.this, R.string.permission_error, Toast.LENGTH_SHORT);
                 t.show();
             }
-        }
-        if (v == checkMapBtnView) {
-            Intent intent=new Intent(this, MapActivity.class);
-            intent.putExtra("name", datas.get(0).apiDongName);
-            intent.putExtra("posy", datas.get(0).apiLat);
-            intent.putExtra("posx", datas.get(0).apiLng);
-            startActivity(intent);
         }
     }
 

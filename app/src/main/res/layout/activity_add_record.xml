@@ -20,6 +20,31 @@
         android:text="날짜선택"
         android:clickable="true"
         />
+    <TextView
+        android:id="@+id/add_dong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="동물병원/약국추가"
+        android:clickable="true"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/add_record_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/add_record_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/add_record_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
     <ImageView
         android:id="@+id/save_btn"
         android:layout_width="wrap_content"

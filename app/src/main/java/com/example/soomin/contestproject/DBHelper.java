@@ -20,7 +20,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "memo," +
                 "name," +
                 "date," +
-                "type_id," +
+                "dong_name," +
+                "dong_tel," +
+                "dong_address," +
                 "type)";
         db.execSQL(medicalRecordSql);
     }

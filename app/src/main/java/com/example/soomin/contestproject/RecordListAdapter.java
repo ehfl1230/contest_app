@@ -64,7 +64,6 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         modifyBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("324424234234234234");
                 Intent intent = new Intent(context, ModifyItemActivity.class);
                 intent.putExtra("item_id", Integer.toString(id));
                 context.startActivity(intent);

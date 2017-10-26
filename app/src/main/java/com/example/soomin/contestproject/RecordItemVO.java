@@ -10,7 +10,9 @@ public class RecordItemVO {
     String content;
     String date;
     String type;
-    String type_id;
+    String dong_name;
+    String dong_tel;
+    String dong_address;
     String name;
 }
 

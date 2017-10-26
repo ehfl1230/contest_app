@@ -46,6 +46,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         searchBtn = (ImageView) viewGroup.findViewById(R.id.search_hospital_btn);
         searchBtn.setOnClickListener(this);
         searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
+        searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -59,7 +60,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 String name = datas.get(position).apiDongName;
                 String address = datas.get(position).apiNewAddress;
                 Intent intent = new Intent(Fragment2.super.getActivity(), FragmentItem.class);
-                intent.putExtra("type", "hospital");
+                intent.putExtra("type", "drugstore");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
 

@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:orientation="horizontal">
     ﻿<Spinner
         android:id="@+id/spinner_type"
@@ -16,15 +16,15 @@
         android:layout_weight="1" />
     <EditText
         android:id="@+id/search_hospital"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
     <ImageView
         android:id="@+id/search_hospital_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
         android:clickable="true"
-        android:src="@drawable/add_item_image"
-        android:layout_below="@id/search_hospital"/>
+        android:src="@drawable/iconmonstr_magnifier_4_240" />
     </LinearLayout>
     <ListView
         android:id="@+id/search_list"
