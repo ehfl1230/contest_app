@@ -57,7 +57,6 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         oldAddressView = (TextView) findViewById(R.id.old_address_text);
         callBtnView = (ImageView) findViewById(R.id.call_phone_image);
         callBtnView.setOnClickListener(this);
-        checkMapBtnView.setOnClickListener(this);
         datas = new ArrayList<>();
 
         name = getIntent().getExtras().getString("name");

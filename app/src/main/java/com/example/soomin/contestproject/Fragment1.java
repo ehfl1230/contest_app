@@ -35,7 +35,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     ListAdapter adapter;
     String text;
     Spinner spinner;
-    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,10 +84,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 text = spinner.getSelectedItem().toString();
             }
             keyword = searchField.getText().toString();
-            if (text.equals(" 이름 ")) {
+            System.out.println("ddfsdfsd" + text + keyword);
+            if (text.equals("이름")) {
                 addItems("name", keyword);
             }
-            if (text.equals(" 주소 ")) {
+            if (text.equals("주소")) {
                 addItems("address", keyword);
             }
         }

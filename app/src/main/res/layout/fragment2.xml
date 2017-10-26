@@ -4,27 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/search_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingRight="10dp"
         android:orientation="horizontal">
-        ﻿<Spinner
-        android:id="@+id/spinner_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        ﻿
+        <Spinner
+            android:id="@+id/spinner_type"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:paddingRight="10dp" />
+
+
         <EditText
             android:id="@+id/search_hospital"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@null"
+            android:inputType="text"
+            android:textColor="#6e6d6d"
+            android:textCursorDrawable="@null" />
+
         <ImageView
             android:id="@+id/search_hospital_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
-            android:src="@drawable/add_item_image"
-            android:layout_below="@id/search_hospital"/>
+            android:paddingRight="6dp"
+            android:src="@drawable/iconmonstr_magnifier_4_240" />
     </LinearLayout>
     <ListView
         android:id="@+id/search_list"

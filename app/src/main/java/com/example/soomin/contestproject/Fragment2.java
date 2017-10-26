@@ -83,10 +83,10 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 text = spinner.getSelectedItem().toString();
             }
             keyword = searchField.getText().toString();
-            if (text.equals(" 이름 ")) {
+            if (text.equals("이름")) {
                 addItems("name", keyword);
             }
-            if (text.equals(" 주소 ")) {
+            if (text.equals("주소")) {
                 addItems("address", keyword);
             }
         }
