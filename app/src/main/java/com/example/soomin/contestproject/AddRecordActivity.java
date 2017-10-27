@@ -28,6 +28,7 @@ public class AddRecordActivity extends AppCompatActivity {
     TextView addRecordTel;
     TextView addRecordAddress;
     TextView date;
+    TextView addDateBtn;
     TextView addDongBtn;
     ImageView saveBtn;
     int mYear, mMonth, mDay;
@@ -46,6 +47,7 @@ public class AddRecordActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.contents);
         date = (TextView) findViewById(R.id.date);
+        addDateBtn = (TextView) findViewById(R.id.add_date_btn);
         addDongBtn = (TextView) findViewById(R.id.add_dong);
         saveBtn = (ImageView) findViewById(R.id.save_btn);
         addRecordName = (TextView)findViewById(R.id.add_record_name);
@@ -60,7 +62,7 @@ public class AddRecordActivity extends AppCompatActivity {
                                           }
                                       }
         );
-        date.setOnClickListener(new View.OnClickListener() {
+        addDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dpd = new DatePickerDialog(AddRecordActivity.this, mDateSetListener, mYear,
