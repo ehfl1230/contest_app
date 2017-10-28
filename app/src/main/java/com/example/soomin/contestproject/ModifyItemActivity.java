@@ -26,8 +26,8 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     EditText modify_contents;
     TextView origin_date;
     TextView modify_date;
-    ImageView saveBtn;
-    ImageView deleteBtn;
+    TextView saveBtn;
+    TextView deleteBtn;
     String item_id;
     int mYear, mMonth, mDay;
 
@@ -41,8 +41,8 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         modify_contents = (EditText) findViewById(R.id.modify_contents);
         origin_date = (TextView) findViewById(R.id.origin_date);
         modify_date = (TextView) findViewById(R.id.modify_date);
-        saveBtn = (ImageView) findViewById(R.id.save_btn);
-        deleteBtn = (ImageView) findViewById(R.id.delete_btn);
+        saveBtn = (TextView) findViewById(R.id.save_btn);
+        deleteBtn = (TextView) findViewById(R.id.delete_btn);
         modify_date.setOnClickListener(this);
         saveBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);

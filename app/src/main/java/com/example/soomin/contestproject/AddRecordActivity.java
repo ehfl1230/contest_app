@@ -30,10 +30,12 @@ public class AddRecordActivity extends AppCompatActivity {
     TextView date;
     TextView addDateBtn;
     TextView addDongBtn;
-    ImageView saveBtn;
+    TextView saveBtn;
     int mYear, mMonth, mDay;
     String type = "";
     private static final int msg = 1;
+    String tel = "";
+    String address = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,14 @@ public class AddRecordActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.contents);
         date = (TextView) findViewById(R.id.date);
+        String add_init_date = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+        date.setText(add_init_date);
         addDateBtn = (TextView) findViewById(R.id.add_date_btn);
         addDongBtn = (TextView) findViewById(R.id.add_dong);
-        saveBtn = (ImageView) findViewById(R.id.save_btn);
-        addRecordName = (TextView)findViewById(R.id.add_record_name);
-        addRecordTel = (TextView)findViewById(R.id.add_record_tel);
-        addRecordAddress = (TextView)findViewById(R.id.add_record_address);
+        saveBtn = (TextView) findViewById(R.id.save_btn);
+        addRecordName = (TextView) findViewById(R.id.add_record_name);
+        // addRecordTel = (TextView)findViewById(R.id.add_record_tel);
+        // addRecordAddress = (TextView)findViewById(R.id.add_record_address);
         addDongBtn.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
@@ -77,19 +81,37 @@ public class AddRecordActivity extends AppCompatActivity {
                 DBHelper helper = new DBHelper(AddRecordActivity.this);
                 SQLiteDatabase db = helper.getWritableDatabase();
                 String result = "";
-                String date_str = "";
-                if (date.getText().toString().equals("날짜선택")) {
-                    date_str = "";
-                } else {
-                    date_str = date.getText().toString();
-                }
-                db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type) values (?,?,?,?,?,?, ?)",
-                        new String[]{title.getText().toString(), content.getText().toString(), date_str,
-                                addRecordName.getText().toString(), addRecordTel.getText().toString(),
-                                addRecordAddress.getText().toString(), type});
+                String title_str = title.getText().toString();
+                String dong_name_str = addRecordName.getText().toString();
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(AddRecordActivity.this);
 
-                db.close();
-                finish();
+                System.out.println(title_str + " " + dong_name_str);
+                if (title_str.equals("") || dong_name_str.equals("병원/약국명")) {
+
+                    System.out.println(title_str + " " + dong_name_str);
+                    alert_confirm.setMessage("데이터를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();     //닫기
+                        }
+                    });
+                } else {
+                    title_str = title.getText().toString();
+                    dong_name_str = addRecordName.getText().toString();
+                    db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type) values (?,?,?,?,?,?, ?)",
+                            new String[]{title_str, content.getText().toString(), date.getText().toString(), tel, address, type});
+
+                    db.close();
+                    alert_confirm.setMessage("저장되었습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();     //닫기
+                            finish();
+                        }
+                    });
+                }
+                AlertDialog alert = alert_confirm.create();
+                alert.show();
             }
         });
     }
@@ -100,11 +122,11 @@ public class AddRecordActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             type = data.getStringExtra("type");
             String name = data.getStringExtra("name");
-            String tel = data.getStringExtra("tel");
-            String address = data.getStringExtra("address");
+            tel = data.getStringExtra("tel");
+            address = data.getStringExtra("address");
             addRecordName.setText(name);
-            addRecordTel.setText(tel);
-            addRecordAddress.setText(address);
+            //    addRecordTel.setText(tel);
+            //    addRecordAddress.setText(address);
         }
         if (requestCode == RESULT_CANCELED) {
 
