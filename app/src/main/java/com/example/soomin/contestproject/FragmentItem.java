@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -11,10 +12,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,7 +54,10 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
+        actionBar.setTitle("");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         dongNameView = (TextView) findViewById(R.id.dong_name_text);
         telView = (TextView) findViewById(R.id.tel_text);
         newAddressView = (TextView) findViewById(R.id.new_address_text);
@@ -139,6 +146,17 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 Toast t = Toast.makeText(FragmentItem.this, R.string.permission_error, Toast.LENGTH_SHORT);
                 t.show();
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

@@ -58,6 +58,9 @@ public class Fragment3 extends Fragment{
         super.onResume();
         DBHelper helper = new DBHelper(getContext());
         SQLiteDatabase db = helper.getWritableDatabase();
+        mGroupList.clear();
+        mChildList.clear();
+        mChildListContent.clear();
         Cursor cursor = db.rawQuery("select * from medical_record order by date", null);
 
         while (cursor.moveToNext()) {
@@ -66,19 +69,21 @@ public class Fragment3 extends Fragment{
             vo._id = cursor.getInt(0);
             vo.title = cursor.getString(1);
             vo.date = cursor.getString(4);
-            vo.dong_name = cursor.getString(5);
             vo.type = cursor.getString(8);
             mGroupList.add(vo);
+             mChildListContent= new ArrayList<>();
 
-            vo.content = cursor.getString(2);
-            vo.name = cursor.getString(3);
-            vo.dong_tel = cursor.getString(6);
-            vo.dong_address = cursor.getString(7);
-            mChildListContent.add(vo);
+            RecordItemVO vo2 = new RecordItemVO();
+            vo2.content = cursor.getString(2);
+            vo2.dong_name = cursor.getString(5);
+            vo2.dong_tel = cursor.getString(6);
+            vo2.dong_address = cursor.getString(7);
+            vo2.type = cursor.getString(8);
+            mChildListContent.add(vo2);
             mChildList.add(mChildListContent);
         }
         db.close();
-        adapter = new RecordListAdapter(this.getContext(), R.layout.record_list_item, R.layout.record_list_item, mGroupList, mChildList);
+        adapter = new RecordListAdapter(this.getContext(), R.layout.record_list_item, R.layout.record_list_item2, mGroupList, mChildList);
         listView.setAdapter(adapter);
         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override

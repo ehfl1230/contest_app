@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,7 @@ public class RecordListAdapter extends BaseExpandableListAdapter {
         TextView titleView = wrapper.titleView;
         modifyBtnView = wrapper.modifyBtnView;
         final RecordItemVO vo=groupList.get(groupPosition);
-       // titleView.setText(vo.title);
+        titleView.setText(vo.title);
         dateView.setText(vo.date);
         SetOnClick(modifyBtnView, vo._id);
         return convertView;
@@ -112,17 +113,28 @@ public class RecordListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId2, null);
 
-            RecordListWrapper wrapper = new RecordListWrapper(convertView);
+            RecordList2Wrapper wrapper = new RecordList2Wrapper(convertView);
             convertView.setTag(wrapper);
         }
 
-        RecordListWrapper wrapper = (RecordListWrapper) convertView.getTag();
-        TextView dateView = wrapper.dateView;
-        TextView titleView = wrapper.titleView;
-        modifyBtnView = wrapper.modifyBtnView;
+        RecordList2Wrapper wrapper = (RecordList2Wrapper) convertView.getTag();
+        TextView itemContentsView = wrapper.itemContentsView;
+        TextView itemDongNameView = wrapper.itemDongNameView;
+        TextView itemTypeView = wrapper.itemTypeView;
+        ImageView itemCallBtn = wrapper.itemCallBtn;
+        TextView itemDongTelView = wrapper.itemDongTelView;
         final RecordItemVO vo=childList.get(groupPosition).get(childPosition);
-        titleView.setText(vo.title);
-        dateView.setText(vo.date);
+        itemDongNameView.setText(vo.dong_name);
+        itemDongTelView.setText(vo.dong_tel);
+        itemContentsView.setText(vo.content);
+        if (vo.type.equals("hospital")) {
+            itemTypeView.setText("병원");
+            itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_blue));
+        } else if (vo.type.equals("drugstore")){
+            itemTypeView.setText("약국");
+            itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_red));
+
+        }
         return convertView;
     }
 

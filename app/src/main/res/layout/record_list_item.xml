@@ -4,34 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_weight="3"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:paddingBottom="1dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="1dp"
+        android:textStyle="bold"
+         android:gravity="center"
+        android:textSize="20sp"
 
+         />
 
     <TextView
         android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/left_border"
+        android:layout_toRightOf="@id/date_text"
+        android:layout_alignParentBottom="@id/date_text"
+        android:layout_weight="7"
+        android:layout_width="0px"
         android:paddingBottom="1dp"
-        android:paddingTop="5dp"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_text"
-        android:paddingBottom="1dp"
+        android:gravity="center_vertical"
         android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textStyle="bold"
         android:paddingTop="1dp"
-        android:text="tel"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/modify_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/date_text"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
         android:clickable="true"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
         android:src="@drawable/add_item_image"/>
+    </LinearLayout>
 </RelativeLayout>

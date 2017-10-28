@@ -2,109 +2,124 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_border"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/dong_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/call_phone_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:paddingBottom="3dp"
                 android:layout_alignBottom="@id/dong_name_text"
                 android:layout_toRightOf="@id/dong_name_text"
                 android:clickable="true"
-                android:src="@drawable/add_item_image" />
+                android:src="@drawable/iconmonstr_phone_3_240" />
+
+            <RelativeLayout
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/dong_name_text"
+                android:background="@drawable/bottom_border" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="5dp"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="전화번호"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tel_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="새주소"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/new_address_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="구주소"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/old_address_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
         </RelativeLayout>
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="15dp"
-            android:stretchColumns="*">
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="전화번호"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tel_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="새주소"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/new_address_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:textSize="18dp"
-                    android:layout_weight="1"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="구주소"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/old_address_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-            </TableRow>
-        </TableLayout>
 
         <RelativeLayout
             android:id="@+id/map_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="7dp" />
+            android:padding="5dp" />
 
     </LinearLayout>
 

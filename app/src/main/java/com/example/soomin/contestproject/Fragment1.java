@@ -84,7 +84,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 text = spinner.getSelectedItem().toString();
             }
             keyword = searchField.getText().toString();
-            System.out.println("ddfsdfsd" + text + keyword);
             if (text.equals("이름")) {
                 addItems("name", keyword);
             }

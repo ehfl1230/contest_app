@@ -8,8 +8,8 @@
         android:id="@+id/record_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="#FFFFFF"
-        android:dividerHeight="3dp"></ExpandableListView>
+        android:divider="#00000000"
+    ></ExpandableListView>
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">

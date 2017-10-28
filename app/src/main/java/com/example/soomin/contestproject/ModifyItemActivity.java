@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
@@ -28,8 +30,15 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     TextView modify_date;
     TextView saveBtn;
     TextView deleteBtn;
+    TextView modifyDongBtn;
+    TextView origin_dong;
     String item_id;
+    String name;
     int mYear, mMonth, mDay;
+    String type = "";
+    private static final int msg = 1;
+    String tel = "";
+    String address = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +52,10 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         modify_date = (TextView) findViewById(R.id.modify_date);
         saveBtn = (TextView) findViewById(R.id.save_btn);
         deleteBtn = (TextView) findViewById(R.id.delete_btn);
+        modifyDongBtn = (TextView) findViewById(R.id.add_dong);
+        origin_dong = (TextView) findViewById(R.id.add_record_name);
         modify_date.setOnClickListener(this);
+        modifyDongBtn.setOnClickListener(this);
         saveBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
         item_id = getIntent().getExtras().getString("item_id");
@@ -67,6 +79,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         modify_title.setText(vo.title);
         modify_contents.setText(vo.content);
         origin_date.setText(vo.date);
+        origin_dong.setText(vo.dong_name);
     }
 
     @Override
@@ -114,9 +127,9 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                             public void onClick(DialogInterface dialog, int which) {
                                 DBHelper helper = new DBHelper(ModifyItemActivity.this);
                                 SQLiteDatabase db = helper.getWritableDatabase();
-                                db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, type=?" +
+                                db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?" +
                                                 "where _id=?",
-                                        new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), "", "", "", item_id});
+                                        new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), name, tel, address, type, item_id});
                                 db.close();
                                 finish();
                             }
@@ -154,8 +167,29 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
             dpd.show();
         }
 
-    }
+        if (v == modifyDongBtn) {
+            Intent intent = new Intent();
+            intent.setClass(this, AddDongActivity.class);
+            startActivityForResult(intent, msg);
+        }
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            type = data.getStringExtra("type");
+            name = data.getStringExtra("name");
+            tel = data.getStringExtra("tel");
+            address = data.getStringExtra("address");
+            origin_dong.setText(name);
+            //    addRecordTel.setText(tel);
+            //    addRecordAddress.setText(address);
+        }
+        if (requestCode == RESULT_CANCELED) {
+
+        }
+    }
     DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 @Override

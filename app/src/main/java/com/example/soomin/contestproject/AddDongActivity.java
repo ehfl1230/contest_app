@@ -82,7 +82,6 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             keyword = searchField.getText().toString();
-            System.out.println("dfdf " + type_dong + " " + type + "ked" + keyword);
                 addItems(type_dong, type, keyword);
 
         }
