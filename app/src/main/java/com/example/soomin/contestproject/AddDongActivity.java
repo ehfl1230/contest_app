@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
     String text;
     Spinner spinner;
     Spinner spinner_dong;
-    ImageView save_btn;
+    TextView save_btn;
     String type_dong = "";
     String type = "";
 
@@ -34,7 +35,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_dong);
         datas = new ArrayList<>();
         listView = (ListView) findViewById(R.id.search_list);
-        save_btn = (ImageView) findViewById(R.id.save_btn);
+        save_btn = (TextView) findViewById(R.id.save_btn);
         searchBtn = (ImageView) findViewById(R.id.add_dong_search_btn);
         searchField = (EditText) findViewById(R.id.add_dong_search_field);
         save_btn.setOnClickListener(this);
