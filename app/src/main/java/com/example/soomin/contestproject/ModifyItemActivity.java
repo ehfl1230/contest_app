@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
-public class ModifyItemActivity extends AppCompatActivity implements View.OnClickListener{
+public class ModifyItemActivity extends AppCompatActivity implements View.OnClickListener {
     EditText modify_title;
     EditText modify_contents;
     TextView origin_date;
@@ -73,7 +73,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
 
 
-        if (v == deleteBtn){
+        if (v == deleteBtn) {
             AlertDialog.Builder alert_confirm = new AlertDialog.Builder(ModifyItemActivity.this);
             alert_confirm.setMessage("삭제하겠습니까?").setCancelable(false).setPositiveButton("삭제하기",
                     new DialogInterface.OnClickListener() {
@@ -107,31 +107,31 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
 
+            } else {
+                alert_confirm.setMessage("저장하겠습니까?").setCancelable(false).setPositiveButton("저장하기",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DBHelper helper = new DBHelper(ModifyItemActivity.this);
+                                SQLiteDatabase db = helper.getWritableDatabase();
+                                db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, type=?" +
+                                                "where _id=?",
+                                        new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), "", "", "", item_id});
+                                db.close();
+                                finish();
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
             }
-
-            alert_confirm.setMessage("저장하겠습니까?").setCancelable(false).setPositiveButton("저장하기",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            DBHelper helper = new DBHelper(ModifyItemActivity.this);
-                            SQLiteDatabase db = helper.getWritableDatabase();
-                            db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, type=?" +
-                                            "where _id=?",
-                                    new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(),"", "", "", item_id});
-                            db.close();
-                            finish();
-                        }
-                    }).setNegativeButton("취소",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
             AlertDialog alert = alert_confirm.create();
             alert.show();
 
-             }
+        }
 
         if (v == modify_date) {
             String date = origin_date.getText().toString();
@@ -140,7 +140,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                 mYear = cal.get(Calendar.YEAR);
                 mMonth = cal.get(Calendar.MONTH);
                 mDay = cal.get(Calendar.DAY_OF_MONTH);
-            }else {
+            } else {
                 String[] dates = date.split("/");
 
                 mYear = Integer.parseInt(dates[0]);
@@ -148,13 +148,14 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                 mDay = Integer.parseInt(dates[2]);
                 mMonth -= 1;
             }
-                    System.out.println(mYear +  " " + mMonth + " " + mDay);
+            System.out.println(mYear + " " + mMonth + " " + mDay);
             DatePickerDialog dpd = new DatePickerDialog(this, mDateSetListener, mYear,
                     mMonth, mDay);
             dpd.show();
         }
 
     }
+
     DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -164,7 +165,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                     mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
-                    String add_date_str = String.format("%d/%d/%d", mYear, mMonth+1, mDay);
+                    String add_date_str = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
                     origin_date.setText(add_date_str);
 
                 }

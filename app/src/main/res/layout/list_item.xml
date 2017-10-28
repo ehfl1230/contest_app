@@ -33,12 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tel_text"
-        android:paddingBottom="2dp"
         android:paddingLeft="5dp"
         android:paddingTop="1dp"
         android:text="address"
         android:textSize="13dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingBottom="5dp"/>
 
     <ImageView
         android:id="@+id/call_btn"

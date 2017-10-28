@@ -8,24 +8,25 @@
     tools:context="com.example.soomin.contestproject.AddDongActivity">
 
 
-
     <LinearLayout
         android:id="@+id/spinner_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-        ﻿
+        android:layout_height="50dp"
+        android:padding="5dp"
 
+        android:orientation="horizontal"
+       >
+        ﻿
         <Spinner
             android:id="@+id/spinner_dong"
+            style="@style/Widget.AppCompat.DropDownItem.Spinner"
             android:layout_width="0px"
-
             android:layout_height="wrap_content"
             android:layout_weight="5" />
         ﻿
-
         <Spinner
             android:id="@+id/spinner_search_type"
+            style="@style/Widget.AppCompat.DropDownItem.Spinner"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="5" />
@@ -36,7 +37,9 @@
     <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
+        android:padding="6dp"
+        android:background="@drawable/bottom_border"
         android:layout_below="@id/spinner_layout"
         android:paddingRight="10dp"
         android:orientation="horizontal">

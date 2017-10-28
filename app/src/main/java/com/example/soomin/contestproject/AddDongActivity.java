@@ -38,17 +38,18 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         save_btn = (TextView) findViewById(R.id.save_btn);
         searchBtn = (ImageView) findViewById(R.id.add_dong_search_btn);
         searchField = (EditText) findViewById(R.id.add_dong_search_field);
+        searchField.clearFocus();
         save_btn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
         listView.setItemsCanFocus(false);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         spinner = (Spinner) findViewById(R.id.spinner_search_type);
         spinner_dong = (Spinner) findViewById(R.id.spinner_dong);
-        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.search_type, android.R.layout.simple_spinner_item);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.search_type, R.layout.custom_simple_drop_item);
+        typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner.setAdapter(typeAdapter);
-        ArrayAdapter dongAdapter = ArrayAdapter.createFromResource(this, R.array.dong_type, android.R.layout.simple_spinner_item);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter dongAdapter = ArrayAdapter.createFromResource(this, R.array.dong_type, R.layout.custom_simple_drop_item);
+        dongAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner_dong.setAdapter(dongAdapter);
 
         adapter = new AddDongAdapter(this, R.layout.add_dong_item, datas);

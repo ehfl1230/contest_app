@@ -1,12 +1,14 @@
 package com.example.soomin.contestproject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -20,8 +22,8 @@ public class AddDongAdapter extends ArrayAdapter<ItemVO> {
     Context context;
     ArrayList<ItemVO> datas;
     int resId;
-    int selectedRadioPosition = 0;
-    RadioButton lastSelectedRadioButton;
+    int selectedRadioPosition = -1;
+    View lastSelectedRadioButton;
 
     public AddDongAdapter(Context context, int resId, ArrayList<ItemVO> datas) {
         super(context, resId);
@@ -52,18 +54,16 @@ public class AddDongAdapter extends ArrayAdapter<ItemVO> {
         TextView addDongaddressView = wrapper.addDongaddressView;
         TextView addDongtelView = wrapper.addDongtelView;
         TextView addDongNameView = wrapper.addDongNameView;
-        RadioButton addDongRadioBtn = wrapper.addDongRadioBtn;
         final ItemVO vo = datas.get(position);
         addDongaddressView.setText(vo.apiNewAddress);
         addDongtelView.setText(vo.apiTel);
         addDongNameView.setText(vo.apiDongName);
         if (selectedRadioPosition == position) {
-            addDongRadioBtn.setChecked(true);
-
+            convertView.setBackgroundColor(Color.BLUE);
         } else {
-            addDongRadioBtn.setChecked(false);
+            convertView.setBackgroundColor(Color.parseColor("#d7d7d7"));
         }
-        addDongRadioBtn.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,9 +73,9 @@ public class AddDongAdapter extends ArrayAdapter<ItemVO> {
                 selectedRadioPosition = position;
 
                 if (lastSelectedRadioButton != null) {
-                    lastSelectedRadioButton.setChecked(false);
+                    lastSelectedRadioButton.setBackgroundColor(Color.parseColor("#d7d7d7"));
                 }
-                lastSelectedRadioButton = (RadioButton)v;
+                lastSelectedRadioButton =(View)v;
                 notifyDataSetChanged();
             }
         });

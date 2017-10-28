@@ -49,8 +49,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
         searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
-        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, android.R.layout.simple_spinner_item);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
+        typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner.setAdapter(typeAdapter);
         adapter = new ListAdapter(this.getContext(), R.layout.list_item, datas);
 

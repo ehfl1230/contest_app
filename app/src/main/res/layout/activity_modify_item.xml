@@ -16,7 +16,7 @@
         android:padding="5dp"
         android:textColor="#6e6d6d"
         android:textCursorDrawable="@null"
-        android:textSize="15sp" />
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/modify_contents"
@@ -33,7 +33,7 @@
         android:padding="5dp"
         android:textColor="#6e6d6d"
         android:textCursorDrawable="@null"
-        android:textSize="15sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/dong_info"
@@ -54,7 +54,7 @@
             android:padding="5dp"
 
             android:text="병원/약국명"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/add_dong"
@@ -68,7 +68,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="병원/약국선택"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +88,7 @@
             android:layout_weight="6"
             android:background="@drawable/round_border"
             android:padding="5dp"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/modify_date"
@@ -103,7 +103,7 @@
             android:padding="5dp"
             android:text="날짜변경"
 
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/button_info"
@@ -126,7 +126,7 @@
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/save"
-        android:textSize="15sp" />
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/delete_btn"
         android:layout_weight="5"
@@ -139,7 +139,7 @@
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/delete"
-        android:textSize="15sp"
+        android:textSize="20sp"
         />
     </LinearLayout>
 </RelativeLayout>
