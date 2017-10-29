@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,31 +47,53 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     public TextView newAddressView;
     public TextView oldAddressView;
     public ImageView callBtnView;
-    public ImageView checkMapBtnView;
+    public ImageView bookmarkBtn;
     String name = "";
     String type = "";
     String address = "";
+    String phone = "";
     MyApplication myApplication;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from bookmark where dong_name=?", new String[] {name});
+        if (cursor.getCount() == 0) {
+            bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_gray));
+        }
+        else {
+            bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_yellow));
+
+        }
+        db.close();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
         ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setIcon(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_gray));
         actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
         actionBar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(true);
+        name = getIntent().getExtras().getString("name");
+        type = getIntent().getExtras().getString("type");
+        address = getIntent().getExtras().getString("address");
+
+        bookmarkBtn = (ImageView) findViewById(R.id.bookmark_btn);
         dongNameView = (TextView) findViewById(R.id.dong_name_text);
         telView = (TextView) findViewById(R.id.tel_text);
         newAddressView = (TextView) findViewById(R.id.new_address_text);
         oldAddressView = (TextView) findViewById(R.id.old_address_text);
         callBtnView = (ImageView) findViewById(R.id.call_phone_image);
         callBtnView.setOnClickListener(this);
+        bookmarkBtn.setOnClickListener(this);
         datas = new ArrayList<>();
 
-        name = getIntent().getExtras().getString("name");
-        type = getIntent().getExtras().getString("type");
-        address = getIntent().getExtras().getString("address");
 
         setItems(type, name, address);
 
@@ -76,7 +101,8 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < datas.size(); i++) {
             if (datas.get(i).apiDongName.equals(name)) {
                 dongNameView.setText(datas.get(i).apiDongName);
-                telView.setText(datas.get(i).apiTel);
+                phone = datas.get(i).apiTel;
+                telView.setText(phone);
                 newAddressView.setText(datas.get(i).apiNewAddress);
                 oldAddressView.setText(datas.get(i).apiOldAddress);
                 ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
@@ -146,15 +172,38 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 t.show();
             }
         }
+        if (v == bookmarkBtn) {
+            DBHelper helper = new DBHelper(this);
+            SQLiteDatabase db = helper.getWritableDatabase();
+
+            Cursor cursor = db.rawQuery("select * from bookmark where dong_name=?", new String[] {name});
+            if (cursor.getCount() == 0) {
+                db.execSQL("insert into bookmark (dong_name, dong_address, dong_tel, type) values (?,?,?,?)",
+                        new String[]{name, address, phone, type});
+                Toast.makeText(this, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+
+                //  actionBar.setIcon(R.drawable.iconmonstr_star_6_64_yellow);
+                bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_yellow));
+            }
+            else {
+                db.execSQL("delete from bookmark where dong_name=?", new String[] {name});
+                Toast.makeText(this, "즐겨찾기에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_gray));
+            }
+            db.close();
+
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        ActionBar actionBar = getSupportActionBar();
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 // NavUtils.navigateUpFromSameTask(this);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -183,6 +232,12 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_menu, menu);
+        return true;
+    }
+
+   @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 10 && grantResults.length > 0) {

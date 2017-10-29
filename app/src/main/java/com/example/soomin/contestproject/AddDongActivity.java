@@ -3,6 +3,7 @@ package com.example.soomin.contestproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<ItemVO> datas;
     ListView listView;
     ImageView searchBtn;
+    TextView moveBookmark;
     EditText searchField;
     String keyword = "";
     AddDongAdapter adapter;
@@ -48,6 +51,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         save_btn = (TextView) findViewById(R.id.save_btn);
         searchBtn = (ImageView) findViewById(R.id.add_dong_search_btn);
         searchField = (EditText) findViewById(R.id.add_dong_search_field);
+        moveBookmark = (TextView) findViewById(R.id.move_bookmark);
         searchField.clearFocus();
         save_btn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
@@ -114,15 +118,23 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         if (v == save_btn) {
+            if(adapter.getSelectedRadioPosition() == -1){
+                Toast.makeText(this, "의료기관을 선택해주세요.", Toast.LENGTH_SHORT).show();
+            }
+            else {
             ItemVO item = datas.get(adapter.getSelectedRadioPosition());
-            System.out.println("selected" + item.apiDongName + " " + item.apiTel);
-            Intent intent = new Intent();
-            intent.putExtra("name", item.apiDongName);
-            intent.putExtra("tel", item.apiTel);
-            intent.putExtra("address", item.apiNewAddress);
-            intent.putExtra("type", type_dong);
-            setResult(RESULT_OK, intent);
-            finish();
+                Intent intent = new Intent();
+                intent.putExtra("name", item.apiDongName);
+                intent.putExtra("tel", item.apiTel);
+                intent.putExtra("address", item.apiNewAddress);
+                intent.putExtra("type", type_dong);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        }
+        if (v == moveBookmark) {
+            Intent intent = new Intent(this, BookmarkActivity.class);
+            startActivity(intent);
         }
     }
 

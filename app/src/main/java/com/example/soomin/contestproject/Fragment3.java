@@ -65,13 +65,15 @@ public class Fragment3 extends Fragment{
         mChildListContent.clear();
         Cursor cursor = db.rawQuery("select * from medical_record order by date", null);
 
-        while (cursor.moveToNext()) {
 
+        while (cursor.moveToNext()) {
             RecordItemVO vo = new RecordItemVO();
             vo._id = cursor.getInt(0);
             vo.title = cursor.getString(1);
+
             String date_str = cursor.getString(4);
-            vo.date = date_str.substring(2);
+            if (date_str != null && date_str.length() != 0 )
+                  vo.date = date_str.substring(2);
             vo.type = cursor.getString(8);
             mGroupList.add(vo);
              mChildListContent= new ArrayList<>();

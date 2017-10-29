@@ -20,14 +20,14 @@ import java.util.ArrayList;
  * Created by SOOMIN on 2017-10-26.
  */
 
-public class AddDongAdapter extends ArrayAdapter<ItemVO> {
+public class BookmarkAdapter extends ArrayAdapter<RecordItemVO> {
     Context context;
-    ArrayList<ItemVO> datas;
+    ArrayList<RecordItemVO> datas;
     int resId;
     int selectedRadioPosition = -1;
     View lastSelectedRadioButton;
 
-    public AddDongAdapter(Context context, int resId, ArrayList<ItemVO> datas) {
+    public BookmarkAdapter(Context context, int resId, ArrayList<RecordItemVO> datas) {
         super(context, resId);
         this.context = context;
         this.datas = datas;
@@ -56,10 +56,10 @@ public class AddDongAdapter extends ArrayAdapter<ItemVO> {
         TextView addDongaddressView = wrapper.addDongaddressView;
         TextView addDongtelView = wrapper.addDongtelView;
         TextView addDongNameView = wrapper.addDongNameView;
-        final ItemVO vo = datas.get(position);
-        addDongaddressView.setText(vo.apiNewAddress);
-        addDongtelView.setText(vo.apiTel);
-        addDongNameView.setText(vo.apiDongName);
+        final RecordItemVO vo = datas.get(position);
+        addDongaddressView.setText(vo.dong_address);
+        addDongtelView.setText(vo.dong_tel);
+        addDongNameView.setText(vo.dong_name);
         if (selectedRadioPosition == position) {
             convertView.setBackgroundResource(0);
             ViewCompat.setBackground(convertView, null);

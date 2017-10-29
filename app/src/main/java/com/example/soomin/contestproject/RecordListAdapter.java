@@ -121,11 +121,13 @@ public class RecordListAdapter extends BaseExpandableListAdapter {
         TextView itemContentsView = wrapper.itemContentsView;
         TextView itemDongNameView = wrapper.itemDongNameView;
         TextView itemTypeView = wrapper.itemTypeView;
+        TextView itemAnimalNameView = wrapper.itemAnimalNameView;
    //     ImageView itemCallBtn = wrapper.itemCallBtn;
   //      TextView itemDongTelView = wrapper.itemDongTelView;
         final RecordItemVO vo=childList.get(groupPosition).get(childPosition);
         itemDongNameView.setText(vo.dong_name);
         itemContentsView.setText(vo.content);
+        itemAnimalNameView.setText(vo.name);
 //        itemDongTelView.setText(vo.dong_tel);
 //        itemContentsView.setText(vo.content);
         if (vo.type.equals("hospital")) {

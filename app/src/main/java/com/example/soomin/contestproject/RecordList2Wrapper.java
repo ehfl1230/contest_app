@@ -14,6 +14,7 @@ public class RecordList2Wrapper {
    // public ImageView itemCallBtn;
     public TextView itemContentsView;
     public TextView itemTypeView;
+    public TextView itemAnimalNameView;
 
     public RecordList2Wrapper(View root) {
         itemDongNameView = (TextView) root.findViewById(R.id.item_dong_name);
@@ -21,5 +22,6 @@ public class RecordList2Wrapper {
       //  itemCallBtn = (ImageView) root.findViewById(R.id.item_call_btn);
         itemContentsView = (TextView) root.findViewById(R.id.item_contents);
         itemTypeView =  (TextView) root.findViewById(R.id.item_type);
+        itemAnimalNameView = (TextView) root.findViewById(R.id.aninmal_name);
     }
 }

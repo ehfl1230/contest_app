@@ -16,6 +16,14 @@
             android:layout_margin="5dp"
             android:background="@drawable/round_border"
             android:padding="5dp">
+            <ImageView
+                android:id="@+id/bookmark_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:paddingBottom="3dp"
+
+                android:clickable="true"
+                android:src="@drawable/iconmonstr_star_6_64_gray" />
 
             <TextView
                 android:id="@+id/dong_name_text"
@@ -23,6 +31,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="3dp"
                 android:paddingLeft="5dp"
+                android:layout_alignBottom="@id/bookmark_btn"
+                android:layout_toRightOf="@id/bookmark_btn"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textSize="25dp"
@@ -32,7 +42,6 @@
                 android:id="@+id/call_phone_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
                 android:paddingBottom="3dp"
                 android:layout_alignBottom="@id/dong_name_text"
                 android:layout_toRightOf="@id/dong_name_text"

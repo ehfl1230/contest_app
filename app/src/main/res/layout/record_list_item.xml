@@ -27,14 +27,13 @@
 
     <TextView
         android:id="@+id/title_text"
-        android:background="@drawable/left_border"
         android:layout_toRightOf="@id/date_text"
         android:layout_alignParentBottom="@id/date_text"
         android:layout_weight="7"
         android:layout_width="0px"
         android:paddingBottom="1dp"
         android:gravity="center_vertical"
-        android:paddingLeft="7dp"
+        android:paddingLeft="2dp"
         android:paddingRight="5dp"
         android:textStyle="bold"
         android:paddingTop="1dp"
