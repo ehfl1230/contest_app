@@ -37,7 +37,7 @@ import java.util.ArrayList;
  * Created by SOOMIN on 2017-10-24.
  */
 
-public class FragmentItem extends AppCompatActivity implements View.OnClickListener{
+public class FragmentItem extends AppCompatActivity implements View.OnClickListener {
     ArrayList<ItemVO> datas;
     public TextView dongNameView;
     public TextView telView;
@@ -67,43 +67,42 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         datas = new ArrayList<>();
 
         name = getIntent().getExtras().getString("name");
-
         type = getIntent().getExtras().getString("type");
-
         address = getIntent().getExtras().getString("address");
 
         setItems(type, name, address);
-        System.out.println("name" + name);
-        if (datas.size() == 1) {
-            dongNameView.setText(datas.get(0).apiDongName);
-            telView.setText(datas.get(0).apiTel);
-            newAddressView.setText(datas.get(0).apiNewAddress);
-            oldAddressView.setText(datas.get(0).apiOldAddress);
-            ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-            MapView mapView = new MapView(this);
 
 
-            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(0).apiLat),
-                    Double.parseDouble(datas.get(0).apiLng)), true);
-            MapPOIItem marker = new MapPOIItem();
-            marker.setItemName(name);
-            marker.setTag(0);
+        for (int i = 0; i < datas.size(); i++) {
+            if (datas.get(i).apiDongName.equals(name)) {
+                dongNameView.setText(datas.get(i).apiDongName);
+                telView.setText(datas.get(i).apiTel);
+                newAddressView.setText(datas.get(i).apiNewAddress);
+                oldAddressView.setText(datas.get(i).apiOldAddress);
+                ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+                MapView mapView = new MapView(this);
 
-            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(0).apiLat),
-                    Double.parseDouble(datas.get(0).apiLng)));
-            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(i).apiLat),
+                        Double.parseDouble(datas.get(i).apiLng)), true);
+                MapPOIItem marker = new MapPOIItem();
+                marker.setItemName(name);
+                marker.setTag(i);
 
-            mapView.addPOIItem(marker);
-            mapViewContainer.addView(mapView);
+                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(i).apiLat),
+                        Double.parseDouble(datas.get(i).apiLng)));
+                marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+                mapView.addPOIItem(marker);
+                mapViewContainer.addView(mapView);
 
+            }
         }
+
         myApplication = (MyApplication) getApplicationContext();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             myApplication.locationPermission = true;
         }
-
 
         if (!myApplication.locationPermission) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 20);
@@ -130,7 +129,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                                         Toast t = Toast.makeText(FragmentItem.this, R.string.no_tel, Toast.LENGTH_SHORT);
                                         t.show();
                                     }
-                                 }
+                                }
                                 intent.setData(Uri.parse("tel:" + tel));
                                 startActivity(intent);
                             }
@@ -153,7 +152,8 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
+                // NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -181,6 +181,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

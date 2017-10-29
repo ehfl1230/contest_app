@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class Fragment3 extends Fragment{
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment3, container, false);
         listView = (ExpandableListView) viewGroup.findViewById(R.id.record_list);
         fab = (FloatingActionButton) viewGroup.findViewById(R.id.add_btn);
+        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.iconmonstr_plus_5_64));
         mGroupList = new ArrayList<>();
         mChildList = new ArrayList<ArrayList<RecordItemVO>>();
         mChildListContent = new ArrayList<RecordItemVO>();
@@ -68,7 +70,8 @@ public class Fragment3 extends Fragment{
             RecordItemVO vo = new RecordItemVO();
             vo._id = cursor.getInt(0);
             vo.title = cursor.getString(1);
-            vo.date = cursor.getString(4);
+            String date_str = cursor.getString(4);
+            vo.date = date_str.substring(2);
             vo.type = cursor.getString(8);
             mGroupList.add(vo);
              mChildListContent= new ArrayList<>();

@@ -1,9 +1,15 @@
 package com.example.soomin.contestproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +29,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
     String keyword = "";
     AddDongAdapter adapter;
     String text;
-    Spinner spinner;
+    Spinner spinner_type;
     Spinner spinner_dong;
     TextView save_btn;
     String type_dong = "";
@@ -33,6 +39,10 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dong);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
+        actionBar.setTitle("");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         datas = new ArrayList<>();
         listView = (ListView) findViewById(R.id.search_list);
         save_btn = (TextView) findViewById(R.id.save_btn);
@@ -43,11 +53,12 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         searchBtn.setOnClickListener(this);
         listView.setItemsCanFocus(false);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        spinner = (Spinner) findViewById(R.id.spinner_search_type);
         spinner_dong = (Spinner) findViewById(R.id.spinner_dong);
+        spinner_type = (Spinner) findViewById(R.id.spinner_search_type);
+
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.search_type, R.layout.custom_simple_drop_item);
         typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
-        spinner.setAdapter(typeAdapter);
+        spinner_type.setAdapter(typeAdapter);
         ArrayAdapter dongAdapter = ArrayAdapter.createFromResource(this, R.array.dong_type, R.layout.custom_simple_drop_item);
         dongAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner_dong.setAdapter(dongAdapter);
@@ -58,31 +69,48 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    public static void downKeyboard(Context context, EditText editText) {
+        InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //    NavUtils.navigateUpFromSameTask(this);
+
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v == searchBtn) {
-            if (spinner.getSelectedItem() == null || type_dong.equals(""))
+            downKeyboard(this, searchField);
+            if (spinner_type.getSelectedItem() == null || spinner_type.getSelectedItem().equals(""))
                 type = "name";
             else {
-                text = spinner.getSelectedItem().toString();
+                text = spinner_type.getSelectedItem().toString();
                 if (text.equals("이름"))
                     type = "name";
                 else if (text.equals("주소"))
                     type = "address";
             }
-            if (spinner_dong.getSelectedItem() == null || type_dong.equals(""))
+            if (spinner_dong.getSelectedItem() == null || spinner_dong.getSelectedItem().equals(""))
                 type_dong = "hospital";
             else {
 
-                text = spinner.getSelectedItem().toString();
+                text = spinner_dong.getSelectedItem().toString();
                 if (text.equals("병원"))
                     type_dong = "hospital";
                 else if (text.equals("약국"))
                     type_dong = "drugstore";
             }
-
             keyword = searchField.getText().toString();
-                addItems(type_dong, type, keyword);
+            addItems(type_dong, type, keyword);
 
         }
         if (v == save_btn) {
@@ -122,7 +150,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
             if (type_dong.equals("drugstore")) {
                 if (keyword.equals("")) {
                     url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                            "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=" ;
+                            "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
                 } else {
                     if (type.equals("name")) {
                         url = "http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +

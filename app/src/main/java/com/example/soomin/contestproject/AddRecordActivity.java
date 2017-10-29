@@ -5,9 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -42,6 +46,10 @@ public class AddRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Calendar cal = new GregorianCalendar();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
+        actionBar.setTitle("");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
@@ -85,7 +93,7 @@ public class AddRecordActivity extends AppCompatActivity {
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(AddRecordActivity.this);
 
                 System.out.println(title_str + " " + name);
-                if (title_str.equals("") || name.equals("병원/약국명")) {
+                if (title_str.equals("") || name.equals("의료기관명")) {
 
                     System.out.println(title_str + " " + name);
                     alert_confirm.setMessage("데이터를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -113,7 +121,17 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //NavUtils.navigateUpFromSameTask(this);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

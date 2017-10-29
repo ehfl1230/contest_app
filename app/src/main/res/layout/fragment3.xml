@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
    >
 
     <ExpandableListView
@@ -9,6 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="#00000000"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:dividerHeight="3dp"
     ></ExpandableListView>
 <RelativeLayout
     android:layout_width="match_parent"

@@ -59,9 +59,12 @@ public class AddDongAdapter extends ArrayAdapter<ItemVO> {
         addDongtelView.setText(vo.apiTel);
         addDongNameView.setText(vo.apiDongName);
         if (selectedRadioPosition == position) {
-            convertView.setBackgroundColor(Color.BLUE);
+            convertView.setBackgroundResource(0);
+            convertView.setBackgroundResource(R.drawable.selected_round_border);
         } else {
-            convertView.setBackgroundColor(Color.parseColor("#d7d7d7"));
+            //convertView.setBackgroundResource(0);
+            convertView.setBackgroundResource(R.drawable.round_border);
+          //  convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +76,8 @@ public class AddDongAdapter extends ArrayAdapter<ItemVO> {
                 selectedRadioPosition = position;
 
                 if (lastSelectedRadioButton != null) {
-                    lastSelectedRadioButton.setBackgroundColor(Color.parseColor("#d7d7d7"));
+                    //lastSelectedRadioButton.setBackgroundResource(0);
+                    lastSelectedRadioButton.setBackgroundResource(R.drawable.round_border);
                 }
                 lastSelectedRadioButton =(View)v;
                 notifyDataSetChanged();

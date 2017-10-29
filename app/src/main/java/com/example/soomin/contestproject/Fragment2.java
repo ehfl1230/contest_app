@@ -1,5 +1,6 @@
 package com.example.soomin.contestproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -77,6 +79,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == searchBtn) {
+            downKeyboard(getContext(), searchField);
             if (spinner.getSelectedItem() == null)
                 text = "";
             else {
@@ -92,6 +95,10 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         }
     }
 
+    public static void downKeyboard(Context context, EditText editText) {
+        InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
 
     private void addItems(String type, String keyword) {
         try {

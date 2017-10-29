@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
 
     <EditText
         android:id="@+id/modify_title"
@@ -44,31 +45,30 @@
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
-
-        <TextView
-            android:id="@+id/add_record_name"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:background="@drawable/round_border"
-            android:padding="5dp"
-
-            android:text="병원/약국명"
-            android:textSize="20sp" />
-
         <TextView
             android:id="@+id/add_dong"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="4"
-
+            android:layout_marginRight="5dp"
+            android:layout_weight="3"
+            android:textColor="@color/white"
             android:background="@drawable/round_border_with_color"
             android:clickable="true"
             android:gravity="center"
             android:padding="5dp"
-            android:text="병원/약국선택"
+            android:text="@string/hospital_drug"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/add_record_name"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@drawable/round_border"
+            android:padding="5dp"
+            android:text="@string/hospital_drug_name"
+            android:textSize="20sp" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -80,30 +80,30 @@
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
-
-        <TextView
-            android:id="@+id/origin_date"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:background="@drawable/round_border"
-            android:padding="5dp"
-            android:textSize="20sp" />
-
         <TextView
             android:id="@+id/modify_date"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="4"
+            android:layout_marginRight="5dp"
+            android:layout_weight="3"
             android:background="@drawable/round_border_with_color"
-
+            android:textColor="@color/white"
             android:clickable="true"
             android:gravity="center"
             android:padding="5dp"
             android:text="날짜변경"
 
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/origin_date"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@drawable/round_border"
+            android:padding="5dp"
+            android:textSize="20sp" />
+
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/button_info"
@@ -125,6 +125,7 @@
         android:clickable="true"
         android:gravity="center"
         android:padding="8dp"
+        android:textColor="@color/white"
         android:text="@string/save"
         android:textSize="20sp" />
     <TextView
@@ -137,6 +138,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:gravity="center"
+        android:textColor="@color/white"
         android:padding="8dp"
         android:text="@string/delete"
         android:textSize="20sp"

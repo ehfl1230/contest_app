@@ -36,7 +36,12 @@
                 android:value=".MainActivity"
                 />
         </activity>
-        <activity android:name=".AddRecordActivity" />
+        <activity android:name=".AddRecordActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity"
+            />
+        </activity>
         <activity android:name=".ModifyItemActivity" />
         <activity android:name=".RecordItemActivity" />
         <activity android:name=".AddDongActivity"></activity>

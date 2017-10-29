@@ -7,4 +7,6 @@
     <string name="content_hint">추가 정보를 입력해주세요.</string>
     <string name="save">저장</string>
     <string name="delete">삭제</string>
+    <string name="hospital_drug">의료기관선택</string>
+    <string name="hospital_drug_name">의료기관이름</string>
 </resources>
