@@ -1,10 +1,15 @@
 package com.example.soomin.contestproject;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,6 +27,10 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
+        actionBar.setTitle("");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_name);
         listView = (ListView) findViewById(R.id.name_list);
         add_name = (ImageView) findViewById(R.id.add_name);
@@ -30,7 +39,22 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
         new_name.clearFocus();
 
     }
+    public static void downKeyboard(Context context, EditText editText) {
+        InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //    NavUtils.navigateUpFromSameTask(this);
 
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -59,7 +83,7 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
             } else {
                 DBHelper helper = new DBHelper(this);
                 SQLiteDatabase db = helper.getWritableDatabase();
-                Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
+                Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{new_name_str });
                 if (cursor.getCount() > 0) {
                     Toast.makeText(this, "이미 입력된 이름입니다. 다른 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {

@@ -130,6 +130,10 @@ public class RecordListAdapter extends BaseExpandableListAdapter {
         itemAnimalNameView.setText(vo.name);
 //        itemDongTelView.setText(vo.dong_tel);
 //        itemContentsView.setText(vo.content);
+        System.out.println("ddf" + vo.type);
+        if (vo.type ==null) {
+            vo.type = "hospital";
+        }
         if (vo.type.equals("hospital")) {
             itemTypeView.setText("병원");
             itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_blue));

@@ -4,13 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context="com.example.soomin.contestproject.AddRecordActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="주요정보"
+        android:background="@drawable/bottom_border"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_below="@id/title_title"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/round_border"
         android:hint="@string/title_hint"
         android:inputType="text"
@@ -19,11 +42,177 @@
         android:textCursorDrawable="@null"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/animal_name_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="동물이름"
+        android:background="@drawable/bottom_border"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/name_title"
+        android:orientation="horizontal"
+        android:layout_below="@id/animal_name_title"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+    <Spinner
+        android:id="@+id/spinner_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/animal_name_title"
+        android:layout_weight="7"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+         />
+
+    <TextView
+        android:id="@+id/manage_name"
+        android:layout_width="wrap_content"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/spinner_name"
+        android:layout_toRightOf="@id/spinner_name"
+        android:text="이름관리"
+        android:layout_margin="5dp"
+        android:background="@drawable/round_border_with_color"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/add_dong_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="의료기관정보"
+        android:background="@drawable/bottom_border"
+        android:layout_below="@id/name_title"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/add_record_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_below="@id/add_dong_title"
+        android:background="@drawable/round_border"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:text="@string/hospital_drug"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/select_dong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/add_record_name">
+
+        <TextView
+            android:id="@+id/move_bookmark"
+            android:layout_width="0px"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_border_with_color"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="즐겨찾기에서 선택" />
+
+        <TextView
+            android:id="@+id/move_search"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:clickable="true"
+            android:textSize="20sp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/round_border_with_color"
+            android:text="검색하여 선택" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/add_date_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/bottom_border"
+        android:layout_below="@id/select_dong"
+        android:text="방문날짜정보"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/date_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_date_title"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@drawable/round_border"
+            android:padding="5dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/add_date_btn"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="3"
+            android:background="@drawable/round_border_with_color"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="방문날짜선택"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+        <TextView
+            android:id="@+id/date_info_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_below="@id/date_info"
+            android:text="추가정보"
+            android:background="@drawable/bottom_border"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
     <EditText
         android:id="@+id/contents"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:layout_below="@id/title"
+        android:layout_below="@id/date_info_title"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -37,112 +226,6 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/manage_name"
-        android:textSize="20sp"
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이름관리"/>
-    <LinearLayout
-        android:id="@+id/dong_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contents"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
-
-        <TextView
-            android:id="@+id/add_dong"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="3"
-            android:textColor="@color/white"
-            android:background="@drawable/round_border_with_color"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/hospital_drug_name"
-            android:textSize="20sp" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/move_bookmark"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="즐겨찾기에서 선택"/>
-            <TextView
-                android:id="@+id/move_search"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검색하여 선택"/>
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/add_record_name"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:background="@drawable/round_border"
-            android:padding="6dp"
-            android:layout_toRightOf="@id/add_dong"
-            android:text="@string/hospital_drug"
-            android:textSize="20sp" />
-        <Spinner
-            android:id="@+id/spinner_name"
-            android:layout_width="match_parent"
-            android:layout_below="@id/add_record_name"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:paddingRight="10dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/date_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dong_info"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
-
-        <TextView
-            android:id="@+id/add_date_btn"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="3"
-            android:background="@drawable/round_border_with_color"
-
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="방문날짜선택"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_toRightOf="@id/add_date_btn"
-
-            android:background="@drawable/round_border"
-            android:padding="5dp"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <TextView
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,7 +235,8 @@
         android:clickable="true"
         android:gravity="center"
         android:padding="8dp"
-        android:textColor="@color/white"
         android:text="@string/save"
+        android:textColor="@color/white"
         android:textSize="20sp" />
+</LinearLayout></ScrollView>
 </RelativeLayout>

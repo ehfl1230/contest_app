@@ -14,14 +14,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
@@ -35,6 +40,10 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     TextView deleteBtn;
     TextView modifyDongBtn;
     TextView origin_dong;
+    TextView addDongBtn;
+    TextView moveSearch;
+    TextView manageNameBtn;
+    Spinner spinnerName;
     String item_id;
     String name;
     int mYear, mMonth, mDay;
@@ -42,7 +51,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     private static final int msg = 1;
     String tel = "";
     String address = "";
-
+    RecordItemVO vo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,20 +67,49 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         modify_date = (TextView) findViewById(R.id.modify_date);
         saveBtn = (TextView) findViewById(R.id.save_btn);
         deleteBtn = (TextView) findViewById(R.id.delete_btn);
-        modifyDongBtn = (TextView) findViewById(R.id.add_dong);
+        addDongBtn = (TextView) findViewById(R.id.move_search);
+        moveSearch = (TextView) findViewById(R.id.move_bookmark);
+        spinnerName = (Spinner) findViewById(R.id.spinner_name);
+       // modifyDongBtn = (TextView) findViewById(R.id.add_dong);
+        manageNameBtn = (TextView) findViewById(R.id.manage_name);
         origin_dong = (TextView) findViewById(R.id.add_record_name);
         modify_date.setOnClickListener(this);
-        modifyDongBtn.setOnClickListener(this);
+//        modifyDongBtn.setOnClickListener(this);
         saveBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
+        manageNameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ModifyItemActivity.this, AddNameActivity.class);
+                startActivity(intent);
+            }
+        });
+        moveSearch.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+                                              Intent intent = new Intent();
+                                              intent.setClass(ModifyItemActivity.this, BookmarkActivity.class);
+                                              startActivityForResult(intent, msg);
+                                          }
+                                      }
+        );
+        addDongBtn.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+                                              Intent intent = new Intent();
+                                              intent.setClass(ModifyItemActivity.this, AddDongActivity.class);
+                                              startActivityForResult(intent, msg);
+                                          }
+                                      }
+        );
         item_id = getIntent().getExtras().getString("item_id");
         DBHelper helper = new DBHelper(ModifyItemActivity.this);
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("select * from medical_record where _id=?",
+        Cursor cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id and mr._id=?",
                 new String[]{item_id});
         cursor.moveToNext();
-        RecordItemVO vo = new RecordItemVO();
+        vo  = new RecordItemVO();
         vo._id = cursor.getInt(0);
         vo.title = cursor.getString(1);
         vo.content = cursor.getString(2);
@@ -81,13 +119,36 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         vo.dong_tel = cursor.getString(6);
         vo.dong_address = cursor.getString(7);
         vo.type = cursor.getString(8);
+        vo.name = cursor.getString(10);
         db.close();
         modify_title.setText(vo.title);
         modify_contents.setText(vo.content);
         origin_date.setText(vo.date);
         origin_dong.setText(vo.dong_name);
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final ArrayList<String> spinner_Name = new ArrayList<>();
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
+        while (cursor.moveToNext()) {
+            NameVO nvo = new NameVO();
+            nvo._id = cursor.getInt(0);
+            nvo.name = cursor.getString(1);
+            spinner_Name.add(nvo.name);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_simple_drop_item, spinner_Name);
+        spinnerName.setAdapter(adapter);
+        int selected = -1;
+        for (int i = 0; i < spinner_Name.size(); i++) {
+            if (spinner_Name.get(i).equals(vo.name)){
+                selected = i;
+            }
+        }
+        spinnerName.setSelection(selected);
+    }
     @Override
     public void onClick(View v) {
 
@@ -133,9 +194,15 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                             public void onClick(DialogInterface dialog, int which) {
                                 DBHelper helper = new DBHelper(ModifyItemActivity.this);
                                 SQLiteDatabase db = helper.getWritableDatabase();
-                                db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?" +
+                                Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{spinnerName.getSelectedItem().toString()});
+                                NameVO nvo = new NameVO();
+                                while (cursor.moveToNext()) {
+                                    nvo._id = cursor.getInt(0);
+                                    nvo.name = cursor.getString(1);
+                                }
+                                db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?" +
                                                 "where _id=?",
-                                        new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), name, tel, address, type, item_id});
+                                        new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id), item_id});
                                 db.close();
                                 finish();
                             }

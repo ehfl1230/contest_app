@@ -3,10 +3,11 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="permission_error">권한이 없습니다.</string>
     <string name="no_tel">전화번호가 없습니다.</string>
-    <string name="title_hint">중요 정보를 입력해주세요. ex) 반려동물이름, 증상</string>
+    <string name="title_hint">주요 정보를 입력해주세요. ex) 증상, 재방문일자</string>
     <string name="content_hint">추가 정보를 입력해주세요.</string>
     <string name="save">저장</string>
     <string name="delete">삭제</string>
     <string name="hospital_drug">의료기관선택</string>
     <string name="hospital_drug_name">의료기관이름</string>
+    <string name="title_activity_intro">IntroActivity</string>
 </resources>

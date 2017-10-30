@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/delete_btn"
-            android:layout_width="25dp"
+            android:layout_width="28dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:clickable="true"
@@ -35,7 +35,6 @@
             android:padding="5dp"
             android:gravity="center"
             android:layout_alignParentRight="true"
-            android:background="@color/white"
-            android:src="@drawable/iconmonstr_pencil_10_72"/>
+            android:src="@drawable/ic_clear_black_24dp"/>
     </LinearLayout>
 </RelativeLayout>

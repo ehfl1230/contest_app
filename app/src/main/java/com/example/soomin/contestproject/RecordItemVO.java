@@ -13,6 +13,7 @@ public class RecordItemVO {
     String dong_name;
     String dong_tel;
     String dong_address;
+    int name_id;
     String name;
 }
 

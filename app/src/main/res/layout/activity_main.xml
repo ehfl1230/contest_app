@@ -20,14 +20,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="앱이름"/>
+                    android:text="동물이 행복한 전주"
+                    android:textStyle="bold"
+                    android:textSize="26sp"
+                    app:tabIndicatorHeight="4dp"
+                    android:textColor="@color/white"/>
             </android.support.v7.widget.Toolbar>
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
+                android:background="@color/blue"
+                app:tabTextColor="@color/dark_gray"
+                app:tabSelectedTextColor="@color/white"
                 android:layout_height="wrap_content"
                 app:tabGravity="fill"
-                android:background="@color/blue"
+                style="@style/MyTabLayout"
+                android:textDirection="firstStrong"
+                app:tabIndicatorColor="@android:color/white"
                 app:tabMode="fixed">
 
             </android.support.design.widget.TabLayout>

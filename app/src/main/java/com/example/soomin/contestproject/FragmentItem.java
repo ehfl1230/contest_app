@@ -62,10 +62,10 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
 
         Cursor cursor = db.rawQuery("select * from bookmark where dong_name=?", new String[] {name});
         if (cursor.getCount() == 0) {
-            bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_gray));
+            bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         else {
-            bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_yellow));
+            bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN);
 
         }
         db.close();
@@ -76,9 +76,8 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
         ActionBar actionBar = getSupportActionBar();
-        getSupportActionBar().setIcon(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_gray));
-        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
         actionBar.setTitle("");
+        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
         actionBar.setDisplayHomeAsUpEnabled(true);
         name = getIntent().getExtras().getString("name");
         type = getIntent().getExtras().getString("type");
@@ -183,12 +182,15 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
                 //  actionBar.setIcon(R.drawable.iconmonstr_star_6_64_yellow);
-                bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_yellow));
+
+               // bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_stars_black_24dp));
+                bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN);
             }
             else {
                 db.execSQL("delete from bookmark where dong_name=?", new String[] {name});
                 Toast.makeText(this, "즐겨찾기에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iconmonstr_star_6_64_gray));
+                bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
+          //      bookmarkBtn.setColorFilter(R.color.colorAccent);
             }
             db.close();
 

@@ -68,19 +68,7 @@ public class AddRecordActivity extends AppCompatActivity {
         addDongBtn = (TextView) findViewById(R.id.move_search);
         moveSearch = (TextView) findViewById(R.id.move_bookmark);
         nameSpinner = (Spinner) findViewById(R.id.spinner_name);
-        final ArrayList<String> spinner_Name = new ArrayList<>();
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
-        while (cursor.moveToNext()) {
-            NameVO vo = new NameVO();
-            vo._id = cursor.getInt(0);
-            vo.name = cursor.getString(1);
-            spinner_Name.add(vo.name);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, spinner_Name);
-        nameSpinner.setAdapter(adapter);
+
         String add_init_date = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
         date.setText(add_init_date);
         addDateBtn = (TextView) findViewById(R.id.add_date_btn);
@@ -166,8 +154,25 @@ public class AddRecordActivity extends AppCompatActivity {
         });
         }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final ArrayList<String> spinner_Name = new ArrayList<>();
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
+        while (cursor.moveToNext()) {
+            NameVO vo = new NameVO();
+            vo._id = cursor.getInt(0);
+            vo.name = cursor.getString(1);
+            spinner_Name.add(vo.name);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.custom_simple_drop_item, spinner_Name);
+        nameSpinner.setAdapter(adapter);
+    }
 
-        @Override
+    @Override
         public boolean onOptionsItemSelected (MenuItem item){
             switch (item.getItemId()) {
                 case android.R.id.home:

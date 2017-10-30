@@ -20,21 +20,22 @@
                 android:id="@+id/bookmark_btn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:paddingBottom="3dp"
-
                 android:clickable="true"
-                android:src="@drawable/iconmonstr_star_6_64_gray" />
+                android:padding="2dp"
+                android:src="@drawable/ic_stars_black_24dp" />
 
             <TextView
                 android:id="@+id/dong_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="3dp"
                 android:paddingLeft="5dp"
+                android:paddingBottom="1dp"
+                android:gravity="center_vertical"
                 android:layout_alignBottom="@id/bookmark_btn"
                 android:layout_toRightOf="@id/bookmark_btn"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
+                android:text="동물병원"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -42,11 +43,12 @@
                 android:id="@+id/call_phone_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:paddingBottom="3dp"
-                android:layout_alignBottom="@id/dong_name_text"
-                android:layout_toRightOf="@id/dong_name_text"
                 android:clickable="true"
-                android:src="@drawable/iconmonstr_phone_3_240" />
+                android:padding="2dp"
+                android:src="@drawable/iconmonstr_phone_3_240"
+                android:layout_alignBottom="@+id/dong_name_text"
+                android:layout_toRightOf="@+id/dong_name_text"
+                android:layout_toEndOf="@+id/dong_name_text" />
 
             <RelativeLayout
                 android:id="@+id/line"

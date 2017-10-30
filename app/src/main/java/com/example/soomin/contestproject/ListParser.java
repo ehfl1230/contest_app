@@ -18,7 +18,6 @@ public class ListParser extends AsyncTask<ArrayList<String>, Void, ArrayList<Ite
         XmlPullParser parser;
         URL xmlUrl;
         ArrayList<ItemVO> returnResult = new ArrayList<>();
-
         try {
             String preName = null;
             ItemVO item = new ItemVO();

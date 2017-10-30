@@ -5,9 +5,19 @@
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color>
     <color name="background_color">#F0F0F0</color>
-    <color name="blue1">#45A4ED</color>
-    <color name="blue">#0D9E8B</color>
+    <color name="dark_blue">#45A4ED</color>
+    <color name="blue">#A1CAED</color>
+    <color name="yellow">#FFE375</color>
+    <color name="gray">#8F8F8F</color>
+    <color name="blue5">#89ACC9</color>
+    92B7D6
     <color name="white">#FFFFFF</color>
+    <color name="dark_gray">#475969</color>
+
+
+    <color name="blue1">#0D9E8B</color>
+
     <color name="blue2">#45C4B8</color>
+
 
 </resources>

@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "_id integer primary key autoincrement," +
                 "title," +
                 "memo," +
-                "name," +
+                "name integer," +
                 "date," +
                 "dong_name," +
                 "dong_tel," +

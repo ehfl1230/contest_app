@@ -43,7 +43,7 @@
 
     <ImageView
         android:id="@+id/modify_btn"
-        android:layout_width="25dp"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:clickable="true"
@@ -52,6 +52,7 @@
         android:gravity="center"
         android:layout_alignParentRight="true"
         android:background="@color/white"
-        android:src="@drawable/iconmonstr_pencil_10_72"/>
+        android:tint="@color/blue"
+        android:src="@drawable/ic_mode_edit_black_24dp"/>
     </LinearLayout>
 </RelativeLayout>

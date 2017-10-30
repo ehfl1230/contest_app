@@ -63,8 +63,11 @@ public class AddNameAdapter extends ArrayAdapter<NameVO> {
                 SQLiteDatabase db = helper.getWritableDatabase();
                 db.execSQL("delete from animal where _id=?", new String[]{Integer.toString(vo._id)});
                 db.close();
+
                 Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                datas.remove(position);
                 notifyDataSetChanged();
+
             }
         });
         return convertView;

@@ -35,8 +35,8 @@ public class Fragment3 extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment3, container, false);
         listView = (ExpandableListView) viewGroup.findViewById(R.id.record_list);
-        fab = (FloatingActionButton) viewGroup.findViewById(R.id.add_btn);
-        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.iconmonstr_plus_5_64));
+       fab = (FloatingActionButton) viewGroup.findViewById(R.id.add_btn);
+       fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_black_24dp));
         mGroupList = new ArrayList<>();
         mChildList = new ArrayList<ArrayList<RecordItemVO>>();
         mChildListContent = new ArrayList<RecordItemVO>();
@@ -63,7 +63,7 @@ public class Fragment3 extends Fragment{
         mGroupList.clear();
         mChildList.clear();
         mChildListContent.clear();
-        Cursor cursor = db.rawQuery("select * from medical_record order by date", null);
+        Cursor cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id", null);
 
 
         while (cursor.moveToNext()) {
@@ -84,6 +84,7 @@ public class Fragment3 extends Fragment{
             vo2.dong_tel = cursor.getString(6);
             vo2.dong_address = cursor.getString(7);
             vo2.type = cursor.getString(8);
+            vo2.name = cursor.getString(10);
             mChildListContent.add(vo2);
             mChildList.add(mChildListContent);
         }
