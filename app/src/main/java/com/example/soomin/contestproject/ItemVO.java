@@ -14,5 +14,6 @@ public class ItemVO {
     String apiLat;
     String apiLng;
     String apiRegDate;
+    int bookmark;
 }
 

@@ -6,7 +6,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
    >
 
-    <ExpandableListView
+    <ListView
         android:id="@+id/record_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:dividerHeight="3dp"
         android:divider="@color/background_color"
         android:childDivider="#00000000"
-    ></ExpandableListView>
+    ></ListView>
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">

@@ -45,5 +45,10 @@
         android:text="address"
         android:textSize="13dp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/add_dong_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </RelativeLayout>
 </RelativeLayout>

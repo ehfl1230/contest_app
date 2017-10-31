@@ -59,7 +59,7 @@ public class AddNameAdapter extends ArrayAdapter<NameVO> {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper helper = new DBHelper(getContext());
+                              DBHelper helper = new DBHelper(getContext());
                 SQLiteDatabase db = helper.getWritableDatabase();
                 db.execSQL("delete from animal where _id=?", new String[]{Integer.toString(vo._id)});
                 db.close();

@@ -15,10 +15,12 @@ public class AddDongWrapper {
     public TextView addDongNameView;
     public TextView addDongtelView;
     public TextView addDongaddressView;
+    public TextView addDongType;
 
     public AddDongWrapper(View root) {
         addDongNameView = (TextView) root.findViewById(R.id.add_dong_name_text);
         addDongtelView = (TextView) root.findViewById(R.id.add_dong_tel_text);
         addDongaddressView = (TextView) root.findViewById(R.id.add_dong_address_text);
+        addDongType = (TextView) root.findViewById (R.id.add_dong_type);
     }
 }

@@ -2,6 +2,8 @@ package com.example.soomin.contestproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,6 +52,14 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
         searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
+        return viewGroup;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
         typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner.setAdapter(typeAdapter);
@@ -71,8 +81,6 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         });
         listView.setAdapter(adapter);
         addItems("", keyword);
-
-        return viewGroup;
 
     }
 
@@ -121,9 +129,21 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
             params.add(0, url);
             datas.clear();
             ArrayList<ItemVO> item_list = task.execute(params).get();
+            DBHelper helper = new DBHelper(getContext());
+            SQLiteDatabase db = helper.getWritableDatabase();
             for (int i = 0; i < item_list.size(); i++) {
-                datas.add(item_list.get(i));
+                ItemVO vo = item_list.get(i);
+
+                Cursor cursor = db.rawQuery("select * from bookmark where dong_name=?", new String[]{vo.apiDongName});
+                if (cursor.getCount() == 0) {
+                    vo.bookmark = 0;
+                }
+                else {
+                    vo.bookmark = 1;
+                }
+                datas.add(vo);
             }
+            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

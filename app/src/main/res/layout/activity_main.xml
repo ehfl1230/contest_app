@@ -16,14 +16,17 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
                 android:background="@color/blue">
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                android:foregroundGravity="center_horizontal"
                     android:text="동물이 행복한 전주"
                     android:textStyle="bold"
+                    android:gravity="center"
                     android:textSize="26sp"
-                    app:tabIndicatorHeight="4dp"
                     android:textColor="@color/white"/>
             </android.support.v7.widget.Toolbar>
             <android.support.design.widget.TabLayout

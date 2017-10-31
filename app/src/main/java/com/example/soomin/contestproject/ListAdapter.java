@@ -3,6 +3,8 @@ package com.example.soomin.contestproject;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -55,10 +57,17 @@ public class ListAdapter extends ArrayAdapter<ItemVO> {
         TextView telView = wrapper.telView;
         TextView addressView = wrapper.addressView;
         final ImageView callBtnView = wrapper.callBtnView;
+        ImageView bookmarkBtn = wrapper.bookmarkBtn;
         final ItemVO vo = datas.get(position);
         dongNameView.setText(vo.apiDongName);
         telView.setText(vo.apiTel);
         addressView.setText(vo.apiNewAddress);
+        if (vo.bookmark == 0) {
+            bookmarkBtn.setVisibility(View.GONE);
+        }else {
+            bookmarkBtn.setVisibility(View.VISIBLE);
+        }
+
         callBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

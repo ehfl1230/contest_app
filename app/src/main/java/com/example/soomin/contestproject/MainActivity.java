@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     Fragment1 fragment1;
     Fragment2 fragment2;
     Fragment3 fragment3;
+    Fragment4 fragment4;
+    Fragment5 fragment5;
     MyApplication myApplication;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +31,16 @@ public class MainActivity extends AppCompatActivity {
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
+        fragment4 = new Fragment4();
+        fragment5 = new Fragment5();
 
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("동물병원"));
         tabs.addTab(tabs.newTab().setText("동물약국"));
         tabs.addTab(tabs.newTab().setText("내페이지"));
+        tabs.addTab(tabs.newTab().setText("즐겨찾기"));
+        tabs.addTab(tabs.newTab().setText("길찾기"));
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -49,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
                     fragment = fragment2;
                 } else if (position == 2) {
                     fragment = fragment3;
+                }else if (position == 3) {
+                    fragment = fragment4;
+                }
+                else if (position == 4) {
+                    fragment = fragment5;
                 }
                 android.app.FragmentManager fm = getFragmentManager();
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);

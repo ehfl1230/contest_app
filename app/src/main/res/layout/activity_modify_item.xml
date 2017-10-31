@@ -68,7 +68,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/animal_name_title"
                     android:layout_weight="7"
-                    android:layout_margin="5dp"
+                    android:layout_margin="3dp"
                     android:padding="5dp"
                     />
 
@@ -167,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/add_date_title"
                 android:orientation="horizontal"
+
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
@@ -176,6 +177,7 @@
                     android:id="@+id/origin_date"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="7"
                     android:background="@drawable/round_border"
                     android:padding="5dp"

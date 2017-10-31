@@ -1,6 +1,7 @@
 package com.example.soomin.contestproject;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -70,6 +72,10 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         addDongBtn = (TextView) findViewById(R.id.move_search);
         moveSearch = (TextView) findViewById(R.id.move_bookmark);
         spinnerName = (Spinner) findViewById(R.id.spinner_name);
+        downKeyboard(this, modify_title);
+        modify_title.clearFocus();
+        downKeyboard(this, modify_contents);
+        modify_contents.clearFocus();
        // modifyDongBtn = (TextView) findViewById(R.id.add_dong);
         manageNameBtn = (TextView) findViewById(R.id.manage_name);
         origin_dong = (TextView) findViewById(R.id.add_record_name);
@@ -149,6 +155,10 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         }
         spinnerName.setSelection(selected);
     }
+    public static void downKeyboard(Context context, EditText editText) {
+        InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
     @Override
     public void onClick(View v) {
 
@@ -183,6 +193,8 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                 alert_confirm.setMessage("데이터를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        downKeyboard(ModifyItemActivity.this, modify_title);
+                        downKeyboard(ModifyItemActivity.this, modify_contents);
                         dialog.dismiss();     //닫기
                     }
                 });
@@ -200,9 +212,17 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                                     nvo._id = cursor.getInt(0);
                                     nvo.name = cursor.getString(1);
                                 }
-                                db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?" +
-                                                "where _id=?",
-                                        new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id), item_id});
+                                if (type == null || type.equals("")) {
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?" +
+                                                    "where _id=?",
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id), item_id});
+
+                                }else {
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?" +
+                                                    "where _id=?",
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id), item_id});
+
+                                }
                                 db.close();
                                 finish();
                             }

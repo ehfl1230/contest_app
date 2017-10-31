@@ -55,6 +55,7 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
             vo.dong_name = cursor.getString(1);
             vo.dong_address = cursor.getString(2);
             vo.dong_tel = cursor.getString(3);
+            vo.type = cursor.getString(4);
             datas.add(vo);
         }
           listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

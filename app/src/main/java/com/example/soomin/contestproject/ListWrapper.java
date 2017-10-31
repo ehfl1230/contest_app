@@ -13,11 +13,13 @@ public class ListWrapper {
     public TextView telView;
     public TextView addressView;
     public ImageView callBtnView;
+    public ImageView bookmarkBtn;
 
     public ListWrapper(View root) {
         dongNameView = (TextView) root.findViewById(R.id.dong_name_text);
         telView = (TextView) root.findViewById(R.id.tel_text);
         addressView = (TextView) root.findViewById(R.id.address_text);
         callBtnView = (ImageView) root.findViewById(R.id.call_btn);
+        bookmarkBtn = (ImageView) root.findViewById(R.id.bookmark_img);
     }
 }

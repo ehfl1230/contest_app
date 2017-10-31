@@ -1,6 +1,7 @@
 package com.example.soomin.contestproject;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -65,6 +67,8 @@ public class AddRecordActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.contents);
         date = (TextView) findViewById(R.id.date);
+        downKeyboard(this, title);
+        downKeyboard(this, content);
         addDongBtn = (TextView) findViewById(R.id.move_search);
         moveSearch = (TextView) findViewById(R.id.move_bookmark);
         nameSpinner = (Spinner) findViewById(R.id.spinner_name);
@@ -172,6 +176,10 @@ public class AddRecordActivity extends AppCompatActivity {
         nameSpinner.setAdapter(adapter);
     }
 
+    public static void downKeyboard(Context context, EditText editText) {
+        InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
     @Override
         public boolean onOptionsItemSelected (MenuItem item){
             switch (item.getItemId()) {
@@ -193,6 +201,7 @@ public class AddRecordActivity extends AppCompatActivity {
                 tel = data.getStringExtra("tel");
                 address = data.getStringExtra("address");
                 addRecordName.setText(name);
+                System.out.println("ddfjsdflksjdklfjksldjflksdf" + type);
                 //    addRecordTel.setText(tel);
                 //    addRecordAddress.setText(address);
             }

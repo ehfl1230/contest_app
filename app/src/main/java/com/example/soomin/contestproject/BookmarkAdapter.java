@@ -56,38 +56,48 @@ public class BookmarkAdapter extends ArrayAdapter<RecordItemVO> {
         TextView addDongaddressView = wrapper.addDongaddressView;
         TextView addDongtelView = wrapper.addDongtelView;
         TextView addDongNameView = wrapper.addDongNameView;
+        TextView addDongType = wrapper.addDongType;
         final RecordItemVO vo = datas.get(position);
         addDongaddressView.setText(vo.dong_address);
         addDongtelView.setText(vo.dong_tel);
         addDongNameView.setText(vo.dong_name);
-        if (selectedRadioPosition == position) {
-            convertView.setBackgroundResource(0);
-            ViewCompat.setBackground(convertView, null);
-            ViewCompat.setBackground(convertView, ContextCompat.getDrawable(getContext(), R.drawable.selected_round_border));
-        } else {
+        addDongType.setText(vo.type);
+        if (getContext().getClass() == MainActivity.class) {
             convertView.setBackgroundResource(0);
             ViewCompat.setBackground(convertView, null);
             ViewCompat.setBackground(convertView, ContextCompat.getDrawable(getContext(), R.drawable.round_border));
+        } else{
+            System.out.println(getContext().getClass());
+            if (selectedRadioPosition == position) {
 
-        }
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                convertView.setBackgroundResource(0);
+                ViewCompat.setBackground(convertView, null);
+                ViewCompat.setBackground(convertView, ContextCompat.getDrawable(getContext(), R.drawable.selected_round_border));
+            } else {
+                convertView.setBackgroundResource(0);
+                ViewCompat.setBackground(convertView, null);
+                ViewCompat.setBackground(convertView, ContextCompat.getDrawable(getContext(), R.drawable.round_border));
 
-                if (selectedRadioPosition == position) {
-                    return;
-                }
-                selectedRadioPosition = position;
-                if (lastSelectedRadioButton != null) {
-                    lastSelectedRadioButton.setBackgroundResource(0);
-                    ViewCompat.setBackground(lastSelectedRadioButton, null);
-                    ViewCompat.setBackground(lastSelectedRadioButton, ContextCompat.getDrawable(getContext(), R.drawable.round_border));
-
-                }
-                lastSelectedRadioButton =(View)v;
-                notifyDataSetChanged();
             }
-        });
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (selectedRadioPosition == position) {
+                        return;
+                    }
+                    selectedRadioPosition = position;
+                    if (lastSelectedRadioButton != null) {
+                        lastSelectedRadioButton.setBackgroundResource(0);
+                        ViewCompat.setBackground(lastSelectedRadioButton, null);
+                        ViewCompat.setBackground(lastSelectedRadioButton, ContextCompat.getDrawable(getContext(), R.drawable.round_border));
+
+                    }
+                    lastSelectedRadioButton = (View) v;
+                    notifyDataSetChanged();
+                }
+            });
+        }
         return convertView;
     }
 }
