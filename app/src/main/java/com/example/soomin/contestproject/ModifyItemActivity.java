@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     TextView moveSearch;
     TextView manageNameBtn;
     Spinner spinnerName;
+    RelativeLayout rl;
     String item_id;
     String name;
     int mYear, mMonth, mDay;
@@ -54,6 +56,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     String tel = "";
     String address = "";
     RecordItemVO vo;
+    InputMethodManager imm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,14 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
 
         modify_title = (EditText) findViewById(R.id.modify_title);
         modify_contents = (EditText) findViewById(R.id.modify_contents);
+        rl = (RelativeLayout) findViewById(R.id.relative_layout);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(modify_title.getWindowToken(), 0);
+            }
+        });
         origin_date = (TextView) findViewById(R.id.origin_date);
         modify_date = (TextView) findViewById(R.id.modify_date);
         saveBtn = (TextView) findViewById(R.id.save_btn);
@@ -189,16 +200,27 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         }
         if (v == saveBtn) {
             AlertDialog.Builder alert_confirm = new AlertDialog.Builder(ModifyItemActivity.this);
-            if (modify_date.equals("") || modify_title.equals("")) {
-                alert_confirm.setMessage("데이터를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            if (modify_title.getText().toString().equals("")) {
+                alert_confirm.setMessage("주요정보를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        downKeyboard(ModifyItemActivity.this, modify_title);
-                        downKeyboard(ModifyItemActivity.this, modify_contents);
                         dialog.dismiss();     //닫기
                     }
                 });
-
+            } else if (origin_dong.getText() == null || origin_dong.getText().toString().equals("의료기관선택") || origin_dong.getText().toString().equals("")) {
+                alert_confirm.setMessage("의료기관을 선택해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();     //닫기
+                    }
+                });
+            }else if (spinnerName.getSelectedItem() == null || spinnerName.getSelectedItem().toString().equals("")) {
+                alert_confirm.setMessage("반려동물이름을 선택해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();     //닫기
+                    }
+                });
             } else {
                 alert_confirm.setMessage("저장하겠습니까?").setCancelable(false).setPositiveButton("저장하기",
                         new DialogInterface.OnClickListener() {

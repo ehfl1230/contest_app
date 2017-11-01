@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +26,8 @@ import java.util.ArrayList;
 
 public class Fragment4 extends Fragment {
     ListView listView;
-    ArrayList<RecordItemVO> datas;
-    BookmarkAdapter adapter;
+    ArrayList<ItemVO> datas;
+    ListAdapter adapter;
     TextView save_btn;
 
     @Override
@@ -34,25 +35,46 @@ public class Fragment4 extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_bookmark, container, false);
 
-        DBHelper helper = new DBHelper(getContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
+
         datas = new ArrayList<>();
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
         save_btn = (TextView) viewGroup.findViewById(R.id.save_btn);
         save_btn.setVisibility(View.GONE);
-        Cursor cursor = db.rawQuery("select * from bookmark", null);
 
+        return viewGroup;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        DBHelper helper = new DBHelper(getContext());
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from bookmark", null);
+    datas.clear();
         while (cursor.moveToNext()) {
-            RecordItemVO vo = new RecordItemVO();
-            vo._id = cursor.getInt(0);
-            vo.dong_name = cursor.getString(1);
-            vo.dong_address = cursor.getString(2);
-            vo.dong_tel = cursor.getString(3);
+            ItemVO vo = new ItemVO();
+            //vo. = cursor.getInt(0);
+            vo.apiDongName = cursor.getString(1);
+            vo.apiNewAddress= cursor.getString(2);
+            vo.apiTel = cursor.getString(3);
             vo.type = cursor.getString(4);
             datas.add(vo);
         }
-        adapter = new BookmarkAdapter(getContext(), R.layout.add_dong_item, datas);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String name = datas.get(position).apiDongName;
+                String address = datas.get(position).apiNewAddress;
+                Intent intent = new Intent(Fragment4.super.getActivity(), FragmentItem.class);
+                intent.putExtra("type", datas.get(position).type);
+                intent.putExtra("name", datas.get(position).apiDongName);
+                intent.putExtra("address", datas.get(position).apiNewAddress);
+
+                startActivity(intent);
+            }
+        });
+        adapter = new ListAdapter(getContext(), R.layout.list_item, datas);
         listView.setAdapter(adapter);
-        return viewGroup;
     }
 }

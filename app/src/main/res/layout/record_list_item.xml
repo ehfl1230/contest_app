@@ -7,18 +7,17 @@
     android:background="@drawable/round_border">
     <LinearLayout
         android:id="@+id/main_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:orientation="horizontal"
         >
     <TextView
         android:id="@+id/date_text"
-        android:layout_weight="3"
-        android:layout_width="0px"
+      android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingBottom="1dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:paddingTop="1dp"
         android:textStyle="bold"
          android:gravity="center"
@@ -27,25 +26,23 @@
         <TextView
             android:id="@+id/aninmal_name"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:textSize="20sp" />
-        <ImageView
-            android:id="@+id/modify_btn"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:adjustViewBounds="true"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:background="@color/white"
-            android:tint="@color/blue"
-            android:src="@drawable/ic_mode_edit_black_24dp"/>
+
     </LinearLayout>
 
-
+    <ImageView
+        android:id="@+id/modify_btn"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:adjustViewBounds="true"
+        android:padding="5dp"
+        android:paddingTop="1dp"
+android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/main_title"
+        android:tint="@color/blue"
+        android:src="@drawable/ic_mode_edit_black_24dp"/>
 
 
 
@@ -53,6 +50,8 @@
         android:orientation="vertical"
         android:layout_below="@id/main_title"
         android:layout_width="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/title3"
@@ -60,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="주요 정보"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/title_text"
@@ -73,7 +72,7 @@
             android:paddingTop="1dp"
             android:layout_height="match_parent"
             android:stretchColumns="*"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/title2"
@@ -82,7 +81,7 @@
             android:text="병원/약국 정보"
             android:layout_below="@id/item_contents"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:textStyle="bold" />
         <LinearLayout
             android:orientation="horizontal"
@@ -113,7 +112,7 @@
             android:layout_height="wrap_content"
             android:text="상세 정보"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:textStyle="bold" />
 
         <TextView

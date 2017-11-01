@@ -53,6 +53,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
         searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
+
+        return viewGroup;
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
         typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner.setAdapter(typeAdapter);
@@ -75,10 +85,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         listView.setAdapter(adapter);
         addItems("", keyword);
 
-        return viewGroup;
-
     }
-
     @Override
     public void onClick(View v) {
         if (v == searchBtn) {
@@ -109,15 +116,15 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             ArrayList<String> params = new ArrayList<>();
             String url = "";
             if (keyword.equals("")) {
-                url = "http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
+                url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
             } else {
                 if (type.equals("name")) {
-                    url = "http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
+                    url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
                             "&pageNo=1&numOfRows=100&dongName=" + URLEncoder.encode(keyword, "UTF-8");
                 }
                 if (type.equals("address")) {
-                    url = "http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
+                    url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
                             "&pageNo=1&numOfRows=100&address=" + URLEncoder.encode(keyword, "UTF-8");
                 }
             }
@@ -136,7 +143,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 else {
                     vo.bookmark = 1;
                 }
-
+                datas.add(vo);
             }
             db.close();
         } catch (Exception e) {

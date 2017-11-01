@@ -22,11 +22,15 @@ public class ListParser extends AsyncTask<ArrayList<String>, Void, ArrayList<Ite
             String preName = null;
             ItemVO item = new ItemVO();
             xmlUrl = new URL(search[0].get(0));
+            System.out.println("dmdmdm" + search[0].get(0));
             xmlUrl.openConnection().getInputStream();
             factory = XmlPullParserFactory.newInstance();
             parser = factory.newPullParser();
             parser.setInput(xmlUrl.openStream(), "utf-8");
+            System.out.println("dmdmdm" + parser);
+
             int eventType = parser.getEventType();
+
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
                     case XmlPullParser.START_DOCUMENT:
@@ -46,6 +50,7 @@ public class ListParser extends AsyncTask<ArrayList<String>, Void, ArrayList<Ite
                         preName = null;
                         break;
                     case XmlPullParser.TEXT:
+                        System.out.println("3333333333333333" + parser.getText());
                         if (preName == null)
                         {
 

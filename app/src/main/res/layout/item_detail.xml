@@ -21,7 +21,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:clickable="true"
-                android:padding="2dp"
                 android:src="@drawable/ic_stars_black_24dp" />
 
             <TextView
@@ -30,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:paddingBottom="1dp"
+                android:layout_marginBottom="1dp"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@id/bookmark_btn"
                 android:paddingRight="5dp"
@@ -44,7 +44,7 @@
                 android:layout_height="28dp"
                 android:clickable="true"
                 android:padding="2.3dp"
-
+android:layout_marginBottom="2dp"
                 android:src="@drawable/iconmonstr_phone_3_240"
                 android:layout_above="@+id/line"
                 android:layout_alignParentRight="true"

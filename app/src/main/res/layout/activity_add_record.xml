@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/background_color"
     tools:context="com.example.soomin.contestproject.AddRecordActivity">
 <ScrollView
@@ -11,6 +13,7 @@
     android:layout_height="match_parent">
     <LinearLayout
     android:orientation="vertical"
+        android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
@@ -36,6 +39,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/round_border"
         android:hint="@string/title_hint"
+        android:windowSoftInputMode="stateAlwaysHidden"
         android:inputType="text"
         android:padding="5dp"
         android:textColor="#6e6d6d"
@@ -49,7 +53,7 @@
         android:layout_below="@id/title"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:text="동물이름"
+        android:text="반려동물이름"
         android:background="@drawable/bottom_border"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -83,7 +87,9 @@
         android:background="@drawable/round_border_with_color"
         android:clickable="true"
         android:gravity="center"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="@color/white"
         android:textSize="20sp" />
     </LinearLayout>
@@ -224,6 +230,7 @@
         android:padding="5dp"
         android:textColor="#6e6d6d"
         android:textCursorDrawable="@null"
+        android:windowSoftInputMode="stateAlwaysHidden"
         android:textSize="20sp" />
 
     <TextView

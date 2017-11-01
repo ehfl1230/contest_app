@@ -112,7 +112,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 MapPOIItem marker = new MapPOIItem();
                 marker.setItemName(name);
                 marker.setTag(i);
-
+                mapView.setZoomLevel(3, true);
                 marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(i).apiLat),
                         Double.parseDouble(datas.get(i).apiLng)));
                 marker.setMarkerType(MapPOIItem.MarkerType.BluePin);

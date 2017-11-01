@@ -115,15 +115,15 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
             String url = "";
             if (keyword.equals("")) {
                 url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                        "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=" ;
+                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
             } else {
                 if (type.equals("name")) {
-                    url = "http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                            "&pageNo=1&numOfRows=100&dongName=" + URLEncoder.encode(keyword, "UTF-8");
+                    url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                            "&pageNo=1&numOfRows=70&dongName=" + URLEncoder.encode(keyword, "UTF-8");
                 }
                 if (type.equals("address")) {
-                    url = "http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                            "&pageNo=1&numOfRows=100&address=" + URLEncoder.encode(keyword, "UTF-8");
+                    url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                            "&pageNo=1&numOfRows=70&address=" + URLEncoder.encode(keyword, "UTF-8");
                 }
             }
             params.add(0, url);
