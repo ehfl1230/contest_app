@@ -5,13 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
+    <LinearLayout
+        android:id="@+id/first_layout"
+        android:background="@drawable/round_border_with_color"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
 
+        android:layout_height="25dp">
+<TextView
+    android:id="@+id/all"
+    android:layout_width="0px"
+    android:layout_weight="1"
+    android:clickable="true"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    android:text="전체리스트"/>
+        <TextView
+            android:id="@+id/bookmark"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/left_border_with_color"
+            android:layout_height="match_parent"
+            android:text="즐겨찾기"/>
+
+        <TextView
+            android:id="@+id/near"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/left_border_with_color"
+            android:layout_height="match_parent"
+            android:text="가까운병원찾기"/>
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingRight="10dp"
         android:paddingBottom="4dp"
+        android:layout_below="@id/first_layout"
         android:orientation="horizontal">
         ﻿
         <Spinner
@@ -42,6 +85,14 @@
                 android:paddingRight="6dp"
                 android:src="@drawable/iconmonstr_magnifier_2_240" />
         </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/map_view"
+        android:layout_below="@id/first_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_above="@id/search_list"
+        android:padding="5dp" />
+
     <ListView
         android:id="@+id/search_list"
         android:paddingRight="5dp"

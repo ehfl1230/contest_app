@@ -190,7 +190,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                 MapPointBounds mapPointBounds = new MapPointBounds(polyline.getMapPoints());
                 int padding = 100; // px
                 mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding));
-                
+
                 mapViewContainer.addView(mapView);
                 nearest_data = new ArrayList<>();
                 nearest_data.add(nearest);

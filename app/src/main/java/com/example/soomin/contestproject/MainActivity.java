@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment4 fragment4;
     Fragment5 fragment5;
     MyApplication myApplication;
+    TabLayout tabs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         fragment5 = new Fragment5();
 
 
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+       tabs= (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("동물병원"));
         tabs.addTab(tabs.newTab().setText("동물약국"));
         tabs.addTab(tabs.newTab().setText("내페이지"));
         tabs.addTab(tabs.newTab().setText("즐겨찾기"));
         tabs.addTab(tabs.newTab().setText("길찾기"));
+        setupTabIcons();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -88,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 10);
         }
 
+    }  private void setupTabIcons() {
+        tabs.getTabAt(0).setIcon(R.drawable.ic_add_black_24dp);
+        tabs.getTabAt(1).setIcon(R.drawable.ic_add_black_24dp);
+        tabs.getTabAt(2).setIcon(R.drawable.ic_add_black_24dp);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -10,9 +10,11 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
+        <RelativeLayout
+            android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent" >
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -36,21 +38,23 @@ android:layout_gravity="center_horizontal"
                 android:background="@color/blue"
                 app:tabTextColor="@color/dark_gray"
                 app:tabSelectedTextColor="@color/white"
-                android:layout_height="wrap_content"
-                app:tabGravity="fill"
+                android:layout_height="55dp"
+
                 style="@style/MyTabLayout"
-                android:textDirection="firstStrong"
                 app:tabIndicatorColor="@android:color/white"
+                android:layout_alignParentBottom="true"
                 app:tabMode="fixed">
 
             </android.support.design.widget.TabLayout>
-        </android.support.design.widget.AppBarLayout>
+
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="110dp">
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="55dp">
         </FrameLayout>
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

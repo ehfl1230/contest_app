@@ -117,8 +117,8 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
             } else {
-                if (type.equals("name")) {
-                    url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                if (type.equals("name")) {http://openapi.jeonju.go.kr/rest/dongmuldrucserv
+                    url = " ice/getDongMulDruc?ServiceKey=" + new data().apiKey +
                             "&pageNo=1&numOfRows=70&dongName=" + URLEncoder.encode(keyword, "UTF-8");
                 }
                 if (type.equals("address")) {
