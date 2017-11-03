@@ -48,6 +48,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     ArrayList<ItemVO> datas;
     ListView listView;
+    ListView mapListView;
     ImageView searchBtn;
     EditText searchField;
     TextView all;
@@ -55,11 +56,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     LinearLayout search_layout;
     RelativeLayout rl;
     TextView near;
+    RelativeLayout ml;
     String keyword = "";
     ListAdapter adapter;
+    ListAdapter adapter2;
     String text;
     Spinner spinner;
-    ArrayList<ItemVO> nearest_data; MapView mapView;
+    int type = 0;
+    ArrayList<ItemVO> nearest_data;
 
     @Nullable
     @Override
@@ -69,12 +73,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         FragmentManager fm = getFragmentManager();
         fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
+        mapListView = (ListView) viewGroup.findViewById(R.id.map_search_list);
         searchBtn = (ImageView) viewGroup.findViewById(R.id.search_hospital_btn);
         all = (TextView) viewGroup.findViewById(R.id.all);
+        ml = (RelativeLayout) viewGroup.findViewById(R.id.map_layout);
         bookmark = (TextView) viewGroup.findViewById(R.id.bookmark);
         near = (TextView) viewGroup.findViewById(R.id.near);
         search_layout = (LinearLayout) viewGroup.findViewById(R.id.search_layout);
-        rl = (RelativeLayout) viewGroup.findViewById(R.id.map_view);
+        //rl = (RelativeLayout) viewGroup.findViewById(R.id.map_view);
         searchBtn.setOnClickListener(this);
         all.setOnClickListener(this);
         bookmark.setOnClickListener(this);
@@ -82,7 +88,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
         searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
-        mapView= new MapView(getActivity());
 
         return viewGroup;
 
@@ -96,23 +101,42 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
         typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner.setAdapter(typeAdapter);
+
         adapter = new ListAdapter(this.getContext(), R.layout.list_item, datas);
+        if (type==3) {
+            mapListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String name = datas.get(position).apiDongName;
+                    String address = datas.get(position).apiNewAddress;
+                    Intent intent = new Intent(Fragment1.super.getActivity(), FragmentItem.class);
+                    intent.putExtra("type", "hospital");
+                    intent.putExtra("name", name);
+                    intent.putExtra("address", address);
 
-                String name = datas.get(position).apiDongName;
-                String address = datas.get(position).apiNewAddress;
-                Intent intent = new Intent(Fragment1.super.getActivity(), FragmentItem.class);
-                intent.putExtra("type", "hospital");
-                intent.putExtra("name", name);
-                intent.putExtra("address", address);
+                    startActivity(intent);
+                }
+            });
+            mapListView.setAdapter(adapter);
 
-                startActivity(intent);
-            }
-        });
-        listView.setAdapter(adapter);
+        } else {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    String name = datas.get(position).apiDongName;
+                    String address = datas.get(position).apiNewAddress;
+                    Intent intent = new Intent(Fragment1.super.getActivity(), FragmentItem.class);
+                    intent.putExtra("type", "hospital");
+                    intent.putExtra("name", name);
+                    intent.putExtra("address", address);
+
+                    startActivity(intent);
+                }
+            });
+            listView.setAdapter(adapter);
+        }
         addItems("", keyword);
 
     }
@@ -136,14 +160,27 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         }
         if(v == all) {
+            type = 1;
             search_layout.setVisibility(View.VISIBLE);
-            rl.setVisibility(View.GONE);
+            spinner.setVisibility(View.VISIBLE);
+            searchBtn.setVisibility(View.VISIBLE);
+            searchField.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.VISIBLE);
+           // rl.setVisibility(View.GONE);
+            ml.setVisibility(View.GONE);
             datas.clear();
             addItems("", keyword);
         }
         if(v == bookmark) {
+            type=2;
             search_layout.setVisibility(View.GONE);
-            rl.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+           // rl.setVisibility(View.GONE);
+            ml.setVisibility(View.GONE);
+            spinner.setVisibility(View.GONE);
+            searchField.setVisibility(View.GONE);
+            searchBtn.setVisibility(View.GONE);
+
             DBHelper helper = new DBHelper(getActivity());
             SQLiteDatabase db = helper.getWritableDatabase();
             datas.clear();
@@ -161,9 +198,15 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             }
 
         }if (v==near) {
+            type=3;
             addItems("", "");
             search_layout.setVisibility(View.GONE);
-            rl.setVisibility(View.VISIBLE);
+            ml.setVisibility(View.VISIBLE);
+          //  rl.setVisibility(View.VISIBLE);
+
+            //search_layout.setVisibility(View.GONE);
+            //rl.setVisibility(View.VISIBLE);
+
             try {
                 LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -228,10 +271,12 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         Toast.makeText(getActivity(), "위치를 찾지 못했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    ViewGroup mapViewContainer;
-
+                    ViewGroup mapViewContainer =
+                            (ViewGroup) getActivity().findViewById(R.id.map_view);
+                //    mapViewContainer.removeAllViews();
+                    MapView mapView= new MapView(getActivity());
                     MapPolyline polyline= new MapPolyline();
-                    mapViewContainer = (ViewGroup) getActivity().findViewById(R.id.map_view);
+
                     polyline.setTag(1000);
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat), Double.parseDouble(nearest.apiLng)));
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("동물약국"));
         tabs.addTab(tabs.newTab().setText("내페이지"));
         tabs.addTab(tabs.newTab().setText("즐겨찾기"));
-        tabs.addTab(tabs.newTab().setText("길찾기"));
+        //tabs.addTab(tabs.newTab().setText("길찾기"));
         setupTabIcons();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -60,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 }else if (position == 3) {
                     fragment = fragment4;
                 }
-                else if (position == 4) {
-                    fragment = fragment5;
-                }
+             //   else if (position == 4) {
+              //      fragment = fragment5;
+             //
+                //   }
                 android.app.FragmentManager fm = getFragmentManager();
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
