@@ -54,6 +54,9 @@ public class AddRecordActivity extends AppCompatActivity {
     String tel = "";
     String address = "";
     String name = "";
+    String old_address = "";
+    String lat = "";
+    String lng = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +164,8 @@ public class AddRecordActivity extends AppCompatActivity {
                         vo._id = cursor.getInt(0);
                         vo.name = cursor.getString(1);
                     }
-                    db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type, name) values (?,?,?,?,?,?,?,?)",
-                            new String[]{title_str, content.getText().toString(), date.getText().toString(), name, tel, address, type, Integer.toString(vo._id)});
+                    db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type, name, dong_old_address, dong_lat,dong_lng) values (?,?,?,?,?,?,?,?,?,?,?)",
+                            new String[]{title_str, content.getText().toString(), date.getText().toString(), name, tel, address, type, Integer.toString(vo._id), old_address, lat, lng});
 
                     db.close();
                     alert_confirm.setMessage("저장되었습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -232,6 +235,9 @@ public class AddRecordActivity extends AppCompatActivity {
                 name = data.getStringExtra("name");
                 tel = data.getStringExtra("tel");
                 address = data.getStringExtra("address");
+                old_address = data.getStringExtra("old_address");
+                lng = data.getStringExtra("lng");
+                lat = data.getStringExtra("lat");
                 addRecordName.setText(name);
                 System.out.println("ddfjsdflksjdklfjksldjflksdf" + type);
                 //    addRecordTel.setText(tel);

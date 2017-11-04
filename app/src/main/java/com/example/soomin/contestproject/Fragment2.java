@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import java.net.URLEncoder;
@@ -37,6 +38,8 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     EditText searchField;
     String keyword = "";
     ListAdapter adapter;
+    RelativeLayout no_data;
+
     String text;
     Spinner spinner;
     @Nullable
@@ -49,6 +52,8 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
         searchBtn = (ImageView) viewGroup.findViewById(R.id.search_hospital_btn);
         searchBtn.setOnClickListener(this);
+        no_data = (RelativeLayout) viewGroup.findViewById(R.id.no_data);
+        no_data.setVisibility(View.GONE);
         searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
         searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
@@ -71,7 +76,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
 
                 String name = datas.get(position).apiDongName;
                 String address = datas.get(position).apiNewAddress;
-                String new_address = datas.get(position).apiOldAddress;
+                String old_address = datas.get(position).apiOldAddress;
                 String tel = datas.get(position).apiTel;
                 String lat = datas.get(position).apiLat;
                 String lng = datas.get(position).apiLng;
@@ -79,7 +84,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 intent.putExtra("type", "hospital");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
-                intent.putExtra("new_address", new_address);
+                intent.putExtra("old_address", old_address);
                 intent.putExtra("tel", tel);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
@@ -154,6 +159,11 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
             db.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (datas.size() == 0) {
+            no_data.setVisibility(View.VISIBLE);
+        } else {
+            no_data.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();
     }

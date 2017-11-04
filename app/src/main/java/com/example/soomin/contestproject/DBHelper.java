@@ -23,13 +23,19 @@ public class DBHelper extends SQLiteOpenHelper {
                 "dong_name," +
                 "dong_tel," +
                 "dong_address," +
-                "type)";
+                "type," +
+                "dong_old_address," +
+                "dong_lat," +
+                "dong_lng)";
         String bookmarkSql = "create table bookmark (" +
                 "_id integer primary key autoincrement," +
                 "dong_name," +
                 "dong_address," +
                 "dong_tel," +
-                "type)";
+                "type, " +
+                "dong_old_address," +
+                "dong_lat," +
+                "dong_lng)";
         String animalSql = "create table animal (" +
                 "_id integer primary key autoincrement," +
                 "animal_name)";

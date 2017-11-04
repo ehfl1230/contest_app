@@ -23,7 +23,10 @@
             android:textCursorDrawable="@null"
             android:inputType="text"
             android:textColor="#6e6d6d"
-            android:windowSoftInputMode="stateAlwaysHidden"  />
+            android:maxLength="14"
+            android:hint="반려동물이름을 입력해주세요.(최대 14글자)"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:layout_marginBottom="5dp"/>
 
         <ImageView
             android:id="@+id/add_name"

@@ -213,6 +213,8 @@
             android:background="@drawable/bottom_border"
             android:textColor="@color/black"
             android:textSize="25sp"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             android:textStyle="bold" />
 
     <EditText
@@ -226,7 +228,6 @@
         android:background="@drawable/round_border"
         android:gravity="top"
         android:hint="@string/content_hint"
-        android:inputType="text"
         android:padding="5dp"
         android:textColor="#6e6d6d"
         android:textCursorDrawable="@null"

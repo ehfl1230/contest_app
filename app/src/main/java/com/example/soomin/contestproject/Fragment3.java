@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ public class Fragment3 extends Fragment {
     TextView record;
     TextView bookmark;
     int type = 1;
+    RelativeLayout no_data;
+    RelativeLayout no_data2;
 
     @Nullable
     @Override
@@ -52,8 +55,12 @@ public class Fragment3 extends Fragment {
         record = (TextView) viewGroup.findViewById(R.id.record);
         bookmark = (TextView) viewGroup.findViewById(R.id.bookmark);
         fab = (FloatingActionButton) viewGroup.findViewById(R.id.add_btn);
-        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.iconmonstr_plus_5_240));
+        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_black_24dp));
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue)));
+        no_data = (RelativeLayout) viewGroup.findViewById(R.id.no_data);
+        no_data.setVisibility(View.GONE);
+        no_data2 = (RelativeLayout) viewGroup.findViewById(R.id.no_data2);
+        no_data2.setVisibility(View.GONE);
 
         // mGroupList = new ArrayList<>();
         //  mChildList = new ArrayList<ArrayList<RecordItemVO>>();
@@ -61,7 +68,7 @@ public class Fragment3 extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT);
+
                 Intent intent = new Intent(Fragment3.super.getActivity(), AddRecordActivity.class);
                 startActivity(intent);
                 adapter.notifyDataSetChanged();
@@ -70,6 +77,7 @@ public class Fragment3 extends Fragment {
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 type = 1;
                 onResume();
             }
@@ -78,6 +86,7 @@ public class Fragment3 extends Fragment {
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 type = 2;
                 onResume();
             }
@@ -91,15 +100,17 @@ public class Fragment3 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        no_data.setVisibility(View.GONE);
+        no_data2.setVisibility(View.GONE);
 
         DBHelper helper = new DBHelper(getContext());
         SQLiteDatabase db = helper.getWritableDatabase();
         //mGroupList.clear();
         //mChildList.clear();
         //mChildListContent.clear();
-        datas.clear();
+
         if (type == 1) {
+            datas.clear();
             Cursor cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id", null);
             while (cursor.moveToNext()) {
                 RecordItemVO vo = new RecordItemVO();
@@ -118,14 +129,23 @@ public class Fragment3 extends Fragment {
                 vo.dong_tel = cursor.getString(6);
                 vo.dong_address = cursor.getString(7);
                 vo.type = cursor.getString(8);
-                vo.name = cursor.getString(10);
+                vo.dong_old_address = cursor.getString(9);
+                vo.dong_lat = cursor.getString(10);
+                vo.dong_lng = cursor.getString(11);
+                vo.name = cursor.getString(13);
                 //mChildListContent.add(vo2);
                 // mChildList.add(mChildListContent);
                 datas.add(vo);
             }
-
             adapter = new RecordListAdapter(this.getContext(), R.layout.record_list_item, datas);
             listView.setAdapter(adapter);
+            if (type == 1 && datas.size() == 0) {
+                no_data.setVisibility(View.VISIBLE);
+                no_data2.setVisibility(View.GONE);
+            } else {
+                no_data.setVisibility(View.GONE);
+                no_data2.setVisibility(View.GONE);
+            }
         } else if (type ==2) {
             Cursor cursor = db.rawQuery("select * from bookmark", null);
             datas2.clear();
@@ -136,27 +156,49 @@ public class Fragment3 extends Fragment {
                 vo.apiNewAddress= cursor.getString(2);
                 vo.apiTel = cursor.getString(3);
                 vo.type = cursor.getString(4);
+                vo.apiOldAddress = cursor.getString(5);
+                vo.apiLat = cursor.getString(6);
+                vo.apiLng = cursor.getString(7);
                 datas2.add(vo);
             }
+
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     String name = datas2.get(position).apiDongName;
                     String address = datas2.get(position).apiNewAddress;
-                    Intent intent = new Intent(getActivity(), FragmentItem.class);
-                    intent.putExtra("type", datas2.get(position).type);
-                    intent.putExtra("name", datas2.get(position).apiDongName);
-                    intent.putExtra("address", datas2.get(position).apiNewAddress);
+                    String old_address = datas2.get(position).apiOldAddress;
+                    String tel = datas2.get(position).apiTel;
+                    String lat = datas2.get(position).apiLat;
+                    String lng = datas2.get(position).apiLng;
+                    Intent intent = new Intent(Fragment3.super.getActivity(), FragmentItem.class);
+                    intent.putExtra("type", "hospital");
+                    intent.putExtra("name", name);
+                    intent.putExtra("address", address);
+                    intent.putExtra("old_address", old_address);
+                    intent.putExtra("tel", tel);
+                    intent.putExtra("lat", lat);
+                    intent.putExtra("lng", lng);
 
                     startActivity(intent);
                 }
             });
             adapter2 = new ListAdapter(getContext(), R.layout.list_item, datas2);
             listView.setAdapter(adapter2);
-
+            if (type == 2 && datas2.size() == 0) {
+                no_data.setVisibility(View.GONE);
+                no_data2.setVisibility(View.VISIBLE);
+            } else {
+                no_data.setVisibility(View.GONE);
+                no_data2.setVisibility(View.GONE);
+            }
         }
         db.close();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        }
 }

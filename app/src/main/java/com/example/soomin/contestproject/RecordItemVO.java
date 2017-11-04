@@ -15,5 +15,8 @@ public class RecordItemVO {
     String dong_address;
     int name_id;
     String name;
+    String dong_old_address;
+    String dong_lat;
+    String dong_lng;
 }
 

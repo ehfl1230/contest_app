@@ -63,6 +63,7 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         TextView itemDongNameView = wrapper.itemDongNameView;
         TextView itemTypeView = wrapper.itemTypeView;
         TextView itemAnimalNameView = wrapper.itemAnimalNameView;
+        ImageView homeBtn = wrapper.homebtn;
         final RecordItemVO vo=datas.get(position);
         itemDongNameView.setText(vo.dong_name);
         itemContentsView.setText(vo.content);
@@ -80,6 +81,27 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
             itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_red));
 
         }
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = datas.get(position).dong_name;
+                String address = datas.get(position).dong_address;
+                String old_address = datas.get(position).dong_old_address;
+                String tel = datas.get(position).dong_tel;
+                String lat = datas.get(position).dong_lat;
+                String lng = datas.get(position).dong_lng;
+                Intent intent = new Intent(RecordListAdapter.super.getContext(), FragmentItem.class);
+                intent.putExtra("type", "hospital");
+                intent.putExtra("name", name);
+                intent.putExtra("address", address);
+                intent.putExtra("old_address", old_address);
+                intent.putExtra("tel", tel);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
+
+                getContext().startActivity(intent);
+            }
+        });
         SetOnClick(modifyBtnView, vo._id);
 
 

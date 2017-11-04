@@ -7,7 +7,40 @@
     android:orientation="vertical"
     android:background="@color/background_color"
     tools:context="com.example.soomin.contestproject.AddDongActivity">
-
+    <RelativeLayout
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        android:gravity="center"  >
+        <ImageView
+            android:id="@+id/dog"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:tint="@color/gray"
+            android:src="@drawable/dog"
+            />
+        <TextView
+            android:id="@+id/msg"
+            android:layout_below="@id/dog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/gray"
+            android:text="\n 동물의료기관을 찾지 못했습니다."/>
+        <TextView
+            android:layout_below="@id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/gray"
+            android:text="다시 검색해주세요."/>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/spinner_layout"

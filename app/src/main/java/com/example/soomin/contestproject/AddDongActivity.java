@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
     EditText searchField;
     String keyword = "";
     AddDongAdapter adapter;
+    RelativeLayout no_data;
     String text;
     Spinner spinner_type;
     Spinner spinner_dong;
@@ -52,6 +54,8 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         searchBtn = (ImageView) findViewById(R.id.add_dong_search_btn);
         searchField = (EditText) findViewById(R.id.add_dong_search_field);
         moveBookmark = (TextView) findViewById(R.id.move_bookmark);
+        no_data = (RelativeLayout) findViewById(R.id.no_data);
+        no_data.setVisibility(View.GONE);
         searchField.clearFocus();
         save_btn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
@@ -128,6 +132,9 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
                 intent.putExtra("tel", item.apiTel);
                 intent.putExtra("address", item.apiNewAddress);
                 intent.putExtra("type", type_dong);
+                intent.putExtra("old_address", item.apiOldAddress);
+                intent.putExtra("lat", item.apiLat);
+                intent.putExtra("lng", item.apiLng);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -184,6 +191,11 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
         adapter.notifyDataSetChanged();
+        if (datas.size() == 0) {
+            no_data.setVisibility(View.VISIBLE);
+        } else {
+            no_data.setVisibility(View.GONE);
+        }
     }
 
 }

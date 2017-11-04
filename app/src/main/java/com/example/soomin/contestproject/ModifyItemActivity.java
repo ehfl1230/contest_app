@@ -57,6 +57,9 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     String address = "";
     RecordItemVO vo;
     InputMethodManager imm;
+    String old_address = "";
+    String lat = "";
+    String lng = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +139,10 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         vo.dong_tel = cursor.getString(6);
         vo.dong_address = cursor.getString(7);
         vo.type = cursor.getString(8);
-        vo.name = cursor.getString(10);
+        vo.dong_old_address = cursor.getString(9);
+        vo.dong_lat= cursor.getString(10);
+        vo.dong_lng = cursor.getString(11);
+        vo.name = cursor.getString(13);
         db.close();
         modify_title.setText(vo.title);
         modify_contents.setText(vo.content);
@@ -235,14 +241,16 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                                     nvo.name = cursor.getString(1);
                                 }
                                 if (type == null || type.equals("")) {
-                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?" +
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
                                                     "where _id=?",
-                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id), item_id});
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id),
+                                                    old_address, lat, lng, item_id});
 
                                 }else {
-                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?" +
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
                                                     "where _id=?",
-                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id), item_id});
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id),
+                                                    old_address, lat, lng, item_id});
 
                                 }
                                 db.close();
@@ -297,6 +305,9 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
             name = data.getStringExtra("name");
             tel = data.getStringExtra("tel");
             address = data.getStringExtra("address");
+            old_address = data.getStringExtra("old_address");
+            lng = data.getStringExtra("lng");
+            lat = data.getStringExtra("lat");
             origin_dong.setText(name);
             //    addRecordTel.setText(tel);
             //    addRecordAddress.setText(address);

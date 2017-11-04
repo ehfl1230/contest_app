@@ -5,28 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/round_border">
+
     <LinearLayout
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        >
-    <TextView
-        android:id="@+id/date_text"
-      android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingBottom="1dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="1dp"
-        android:textStyle="bold"
-         android:gravity="center"
-        android:textSize="20sp"
-         />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="1dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/aninmal_name"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -35,24 +38,24 @@
         android:id="@+id/modify_btn"
         android:layout_width="30dp"
         android:layout_height="match_parent"
-        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/main_title"
         android:adjustViewBounds="true"
+        android:clickable="true"
         android:padding="5dp"
         android:paddingTop="1dp"
-android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/main_title"
-        android:tint="@color/blue"
-        android:src="@drawable/ic_mode_edit_black_24dp"/>
-
+        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:tint="@color/blue" />
 
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_below="@id/main_title"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_title"
+        android:orientation="vertical"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_height="wrap_content">
+        android:paddingRight="5dp">
+
         <TextView
             android:id="@+id/title3"
             android:layout_width="wrap_content"
@@ -61,48 +64,58 @@ android:layout_alignParentRight="true"
             android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/title_text"
             android:layout_width="match_parent"
-            android:paddingBottom="1dp"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
+            android:paddingBottom="1dp"
             android:paddingLeft="2dp"
             android:paddingRight="5dp"
-            android:textStyle="bold"
             android:paddingTop="1dp"
-            android:layout_height="match_parent"
             android:stretchColumns="*"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="병원/약국 정보"
             android:layout_below="@id/item_contents"
+            android:text="병원/약국 정보"
             android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold" />
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/item_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_border_with_blue"
-                android:text="병원"
-                android:padding="1dp"
                 android:layout_margin="2dp"
-                android:textColor="#FFFFFF"/>
+                android:background="@drawable/round_border_with_blue"
+                android:padding="1dp"
+                android:text="병원"
+                android:textColor="#FFFFFF" />
+
             <TextView
                 android:id="@+id/item_dong_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:textSize="18sp" />
-
+            <ImageView
+                android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:tint="@color/blue5"
+                android:src="@drawable/ic_home_black_24dp"/>
 
         </LinearLayout>
 

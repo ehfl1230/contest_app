@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +93,28 @@ public class Fragment5 extends android.support.v4.app.Fragment {
         getLocation();
         mapViewContainer.addView(mapView);
         adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String name = nearest_data.get(position).apiDongName;
+                String address = nearest_data.get(position).apiNewAddress;
+                String new_address = nearest_data.get(position).apiOldAddress;
+                String tel = nearest_data.get(position).apiTel;
+                String lat = nearest_data.get(position).apiLat;
+                String lng = nearest_data.get(position).apiLng;
+                Intent intent = new Intent(Fragment5.super.getActivity(), FragmentItem.class);
+                intent.putExtra("type", "hospital");
+                intent.putExtra("name", name);
+                intent.putExtra("address", address);
+                intent.putExtra("new_address", new_address);
+                intent.putExtra("tel", tel);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
+
+                startActivity(intent);
+            }
+        });
         listView.setAdapter(adapter);
         return viewGroup;
     }
@@ -211,22 +234,8 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        System.out.println("onPause dfjslkdfjlksjflksdf");
-        //mapViewContainer.removeAllViews();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        System.out.println("onStop dfjslkdfjlksjflksdf");
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        System.out.println("onResume ksjdflkjsdklfjslkdjflkj");
         mapView.refreshMapTiles();
         if (type != 0) {
 

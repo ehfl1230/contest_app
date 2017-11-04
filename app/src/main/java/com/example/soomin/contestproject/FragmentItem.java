@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.daum.android.map.MapViewController;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -52,12 +53,13 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     String type = "";
     String address = "";
     String phone = "";
-    String new_address = "";
+    String old_address = "";
     String tel = "";
     String lat = "";
     String lng = "";
     MyApplication myApplication;
-
+    MapView mapView;
+    ViewGroup mapViewContainer;
     @Override
     protected void onResume() {
         super.onResume();
@@ -86,8 +88,8 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         name = getIntent().getExtras().getString("name");
         type = getIntent().getExtras().getString("type");
         address = getIntent().getExtras().getString("address");
-        new_address = getIntent().getExtras().getString("new_address");
-        tel = getIntent().getExtras().getString("tel");
+        old_address = getIntent().getExtras().getString("old_address");
+        phone = getIntent().getExtras().getString("tel");
         lat = getIntent().getExtras().getString("lat");
         lng = getIntent().getExtras().getString("lng");
 
@@ -100,8 +102,8 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         callBtnView.setOnClickListener(this);
         bookmarkBtn.setOnClickListener(this);
         datas = new ArrayList<>();
-
-
+    mapView = null;
+        mapView = new MapView(this);
       //  setItems(type, name, address);
 
 
@@ -110,10 +112,11 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 dongNameView.setText(name);
                 //phone = datas.get(i).apiTel;
                 telView.setText(phone);
-                newAddressView.setText(new_address);
-                oldAddressView.setText(address);
-                ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-                MapView mapView = new MapView(this);
+                newAddressView.setText(address);
+                oldAddressView.setText(old_address);
+                mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+
+
 
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(lat), Double.parseDouble(lng)), true);
                 MapPOIItem marker = new MapPOIItem();
@@ -154,13 +157,13 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                                 intent.setAction(Intent.ACTION_CALL);
                                 String tel = "";
 
-                                if (datas.size() == 1) {
+
                                     tel = phone;
                                     if (tel.equals("")) {
                                         Toast t = Toast.makeText(FragmentItem.this, R.string.no_tel, Toast.LENGTH_SHORT);
                                         t.show();
                                     }
-                                }
+
                                 intent.setData(Uri.parse("tel:" + tel));
                                 startActivity(intent);
                             }
@@ -183,8 +186,8 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
 
             Cursor cursor = db.rawQuery("select * from bookmark where dong_name=?", new String[] {name});
             if (cursor.getCount() == 0) {
-                db.execSQL("insert into bookmark (dong_name, dong_address, dong_tel, type) values (?,?,?,?)",
-                        new String[]{name, address, phone, type});
+                db.execSQL("insert into bookmark (dong_name, dong_address, dong_tel, type, dong_old_address, dong_lat, dong_lng) values (?,?,?,?,?,?,?)",
+                        new String[]{name, address, phone, type, old_address, lat, lng});
                 Toast.makeText(this, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
                 //  actionBar.setIcon(R.drawable.iconmonstr_star_6_64_yellow);
@@ -258,5 +261,11 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 myApplication.locationPermission = true;
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 }

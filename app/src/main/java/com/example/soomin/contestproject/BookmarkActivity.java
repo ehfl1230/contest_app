@@ -56,6 +56,9 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
             vo.dong_address = cursor.getString(2);
             vo.dong_tel = cursor.getString(3);
             vo.type = cursor.getString(4);
+            vo.dong_old_address = cursor.getString(5);
+            vo.dong_lat = cursor.getString(6);
+            vo.dong_lng = cursor.getString(7);
             datas.add(vo);
         }
           listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -88,6 +91,9 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
                 intent.putExtra("tel", item.dong_tel);
                 intent.putExtra("address", item.dong_address);
                 intent.putExtra("type", item.type);
+                intent.putExtra("old_address", item.dong_old_address);
+                intent.putExtra("lat", item.dong_lat);
+                intent.putExtra("lng", item.dong_lng);
                 setResult(RESULT_OK, intent);
                 finish();
             }

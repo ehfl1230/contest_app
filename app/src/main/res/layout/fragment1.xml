@@ -5,6 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
+    <RelativeLayout
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+     android:gravity="center"  >
+        <ImageView
+            android:id="@+id/dog"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:tint="@color/gray"
+            android:src="@drawable/dog"
+            />
+        <TextView
+            android:id="@+id/msg"
+            android:layout_below="@id/dog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/gray"
+            android:text="\n 동물병원을 찾지 못했습니다."/>
+        <TextView
+            android:layout_below="@id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/gray"
+            android:text="다시 검색해주세요."/>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/search_layout"
@@ -13,7 +47,7 @@
 
         android:orientation="horizontal"
         android:paddingBottom="4dp"
-        android:paddingRight="10dp">
+        android:paddingRight="5dp">
         ﻿
 
         <Spinner
@@ -37,9 +71,9 @@
 
         <ImageView
             android:id="@+id/search_hospital_btn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
             android:paddingRight="6dp"
             android:src="@drawable/iconmonstr_magnifier_2_240" />
