@@ -16,6 +16,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/round_border"
             android:padding="5dp">
+
             <ImageView
                 android:id="@+id/bookmark_btn"
                 android:layout_width="30dp"
@@ -27,29 +28,29 @@
                 android:id="@+id/dong_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingBottom="1dp"
                 android:layout_marginBottom="1dp"
-                android:gravity="center_vertical"
                 android:layout_toRightOf="@id/bookmark_btn"
+                android:gravity="center_vertical"
+                android:paddingBottom="1dp"
+                android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:textColor="@color/black"
                 android:text="동물병원"
+                android:textColor="@color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/call_phone_image"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:clickable="true"
-                android:padding="2.3dp"
-android:layout_marginBottom="2dp"
-                android:src="@drawable/iconmonstr_phone_3_240"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
                 android:layout_above="@+id/line"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="2dp"
+                android:clickable="true"
+                android:padding="2.2dp"
+                android:src="@drawable/iconmonstr_phone_3_240" />
 
             <RelativeLayout
                 android:id="@+id/line"
@@ -131,7 +132,9 @@ android:layout_marginBottom="2dp"
             android:id="@+id/map_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" />
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
     </LinearLayout>
 

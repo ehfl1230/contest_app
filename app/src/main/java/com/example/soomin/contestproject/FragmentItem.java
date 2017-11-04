@@ -52,6 +52,10 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     String type = "";
     String address = "";
     String phone = "";
+    String new_address = "";
+    String tel = "";
+    String lat = "";
+    String lng = "";
     MyApplication myApplication;
 
     @Override
@@ -82,6 +86,10 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         name = getIntent().getExtras().getString("name");
         type = getIntent().getExtras().getString("type");
         address = getIntent().getExtras().getString("address");
+        new_address = getIntent().getExtras().getString("new_address");
+        tel = getIntent().getExtras().getString("tel");
+        lat = getIntent().getExtras().getString("lat");
+        lng = getIntent().getExtras().getString("lng");
 
         bookmarkBtn = (ImageView) findViewById(R.id.bookmark_btn);
         dongNameView = (TextView) findViewById(R.id.dong_name_text);
@@ -94,34 +102,32 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         datas = new ArrayList<>();
 
 
-        setItems(type, name, address);
+      //  setItems(type, name, address);
 
 
-        for (int i = 0; i < datas.size(); i++) {
-            if (datas.get(i).apiDongName.equals(name)) {
-                dongNameView.setText(datas.get(i).apiDongName);
-                phone = datas.get(i).apiTel;
+       // for (int i = 0; i < datas.size(); i++) {
+        //    if (datas.get(i).apiDongName.equals(name)) {
+                dongNameView.setText(name);
+                //phone = datas.get(i).apiTel;
                 telView.setText(phone);
-                newAddressView.setText(datas.get(i).apiNewAddress);
-                oldAddressView.setText(datas.get(i).apiOldAddress);
+                newAddressView.setText(new_address);
+                oldAddressView.setText(address);
                 ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
                 MapView mapView = new MapView(this);
 
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(i).apiLat),
-                        Double.parseDouble(datas.get(i).apiLng)), true);
+                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(lat), Double.parseDouble(lng)), true);
                 MapPOIItem marker = new MapPOIItem();
                 marker.setItemName(name);
-                marker.setTag(i);
+                marker.setTag(0);
                 mapView.setZoomLevel(3, true);
-                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(datas.get(i).apiLat),
-                        Double.parseDouble(datas.get(i).apiLng)));
+                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(lat), Double.parseDouble(lng)));
                 marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
                 marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
                 mapView.addPOIItem(marker);
                 mapViewContainer.addView(mapView);
 
-            }
-        }
+        //    }
+       // }
 
         myApplication = (MyApplication) getApplicationContext();
 
@@ -149,7 +155,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                                 String tel = "";
 
                                 if (datas.size() == 1) {
-                                    tel = datas.get(0).apiTel;
+                                    tel = phone;
                                     if (tel.equals("")) {
                                         Toast t = Toast.makeText(FragmentItem.this, R.string.no_tel, Toast.LENGTH_SHORT);
                                         t.show();

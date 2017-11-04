@@ -39,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
        tabs= (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("동물병원"));
         tabs.addTab(tabs.newTab().setText("동물약국"));
+        tabs.addTab(tabs.newTab().setText("가까운의료기관"));
         tabs.addTab(tabs.newTab().setText("내페이지"));
-        tabs.addTab(tabs.newTab().setText("즐겨찾기"));
-        //tabs.addTab(tabs.newTab().setText("길찾기"));
+        //tabs.addTab(tabs.newTab().setText("즐겨찾기"));
+
         setupTabIcons();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -52,18 +53,38 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
 
                 if (position == 0) {
+
                     fragment = fragment1;
+                    tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
                 } else if (position == 1) {
+
                     fragment = fragment2;
+                    tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_point_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
                 } else if (position == 2) {
-                    fragment = fragment3;
-                }else if (position == 3) {
-                    fragment = fragment4;
+                    tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_point_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
+                    fragment = fragment5;
+
                 }
-             //   else if (position == 4) {
-              //      fragment = fragment5;
-             //
-                //   }
+                else if (position == 3) {
+                    tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_point_24dp);
+                    fragment = fragment3;
+                }
+                //else if (position == 3) {
+                 //   fragment = fragment4;
+               // }
+
                 android.app.FragmentManager fm = getFragmentManager();
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -92,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }  private void setupTabIcons() {
-        tabs.getTabAt(0).setIcon(R.drawable.ic_add_black_24dp);
-        tabs.getTabAt(1).setIcon(R.drawable.ic_add_black_24dp);
-        tabs.getTabAt(2).setIcon(R.drawable.ic_add_black_24dp);
+        tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
+        tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
+        tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
+        tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

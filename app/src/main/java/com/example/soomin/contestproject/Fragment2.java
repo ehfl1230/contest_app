@@ -71,10 +71,18 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
 
                 String name = datas.get(position).apiDongName;
                 String address = datas.get(position).apiNewAddress;
+                String new_address = datas.get(position).apiOldAddress;
+                String tel = datas.get(position).apiTel;
+                String lat = datas.get(position).apiLat;
+                String lng = datas.get(position).apiLng;
                 Intent intent = new Intent(Fragment2.super.getActivity(), FragmentItem.class);
-                intent.putExtra("type", "drugstore");
+                intent.putExtra("type", "hospital");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
+                intent.putExtra("new_address", new_address);
+                intent.putExtra("tel", tel);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
 
                 startActivity(intent);
             }

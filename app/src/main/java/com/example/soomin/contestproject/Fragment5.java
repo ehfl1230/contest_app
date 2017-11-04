@@ -44,11 +44,18 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     ListView listView;
     TextView hospitalBtn;
     TextView drugBtn;
+    MapPOIItem marker;
+    MapPOIItem marker2;
+    MapPOIItem marker3;
     ViewGroup mapViewContainer;
     MapView mapView;
+    ItemVO nearest;
+    ItemVO second_nearest;
+    int type = 0;
     MapPolyline polyline;
     String url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
             "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -57,14 +64,15 @@ public class Fragment5 extends android.support.v4.app.Fragment {
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
         //if (myApplication.locationPermission) {
         hospitalBtn = (TextView) viewGroup.findViewById(R.id.find_nearest_hospital);
-
+        mapViewContainer = (ViewGroup) viewGroup.findViewById(R.id.map_view);
         mapView = new MapView(getActivity());
-         polyline = new MapPolyline();
+        polyline = new MapPolyline();
         hospitalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
+                type = 1;
                 onResume();
             }
         });
@@ -73,19 +81,22 @@ public class Fragment5 extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
+                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=";
+                type = 2;
                 onResume();
             }
         });
-
+        datas = new ArrayList<>();
+        nearest_data = new ArrayList<>();
+        addItems("", "");
+        getLocation();
+        mapViewContainer.addView(mapView);
+        adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
+        listView.setAdapter(adapter);
         return viewGroup;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        datas = new ArrayList<>();
-        addItems("", "");
+    public void getLocation() {
 
         try {
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -124,12 +135,11 @@ public class Fragment5 extends android.support.v4.app.Fragment {
             if (lastKnownLocation != null) {
                 double lng = lastKnownLocation.getLongitude();
                 double lat = lastKnownLocation.getLatitude();
-                ItemVO nearest = new ItemVO();
-
-                ItemVO second_nearest= new ItemVO();
+                nearest = new ItemVO();
+                second_nearest = new ItemVO();
                 Double distance = -1.0;
                 Double second_distance = -1.0;
-                for (int i = 0; i <datas.size(); i++) {
+                for (int i = 0; i < datas.size(); i++) {
 
                     double distanceMeter =
                             distance(lng, lat, Double.parseDouble(datas.get(i).apiLng), Double.parseDouble(datas.get(i).apiLat), "meter");
@@ -146,63 +156,104 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                             distance(lng, lat, Double.parseDouble(datas.get(i).apiLng), Double.parseDouble(datas.get(i).apiLat), "kilometer");
 
 
-
                 }
                 if (nearest.apiLat == null || second_nearest.apiLat == null) {
                     Toast.makeText(getActivity(), "위치를 찾지 못했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
+                } else {
+
+                    polyline.setTag(1000);
+                    polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat), Double.parseDouble(nearest.apiLng)));
+                    polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
+
+                    polyline.addPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
+
+                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
+                    marker = new MapPOIItem();
+                    marker.setItemName(nearest.apiDongName);
+                    marker.setTag(0);
+
+                    marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),
+                            Double.parseDouble(nearest.apiLng)));
+                    marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                    marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+
+                    marker2 = new MapPOIItem();
+                    marker2.setItemName(second_nearest.apiDongName);
+                    marker2.setTag(0);
+
+                    marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
+                    marker2.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                    marker2.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+
+                    marker3 = new MapPOIItem();
+                    marker3.setItemName("현재위치");
+                    marker3.setTag(0);
+
+                    marker3.setMapPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
+                    marker3.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                    marker3.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+                    mapView.addPOIItem(marker);
+                    mapView.addPOIItem(marker2);
+                    mapView.addPOIItem(marker3);
+                    MapPointBounds mapPointBounds = new MapPointBounds(polyline.getMapPoints());
+                    int padding = 100; // px
+                    mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding));
+
+
+                    nearest_data.clear();
+                    nearest_data.add(nearest);
+                    nearest_data.add(second_nearest);
                 }
-                mapViewContainer = (ViewGroup) getActivity().findViewById(R.id.map_view);
-                polyline.setTag(1000);
-                polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),   Double.parseDouble(nearest.apiLng)));
-                polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat),   Double.parseDouble(second_nearest.apiLng)));
-
-                polyline.addPoint(MapPoint.mapPointWithGeoCoord(lat,lng));
-
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
-                MapPOIItem marker = new MapPOIItem();
-                marker.setItemName(nearest.apiDongName);
-                marker.setTag(0);
-
-                marker.setMapPoint(MapPoint.mapPointWithGeoCoord( Double.parseDouble(nearest.apiLat),
-                        Double.parseDouble(nearest.apiLng)));
-                marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
-
-                MapPOIItem marker2 = new MapPOIItem();
-                marker2.setItemName(second_nearest.apiDongName);
-                marker2.setTag(0);
-
-                marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
-                marker2.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                marker2.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
-
-                MapPOIItem marker3 = new MapPOIItem();
-                marker3.setItemName("현재위치");
-                marker3.setTag(0);
-
-                marker3.setMapPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
-                marker3.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                marker3.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
-                mapView.addPOIItem(marker);
-                mapView.addPOIItem(marker2);
-                mapView.addPOIItem(marker3);
-                MapPointBounds mapPointBounds = new MapPointBounds(polyline.getMapPoints());
-                int padding = 100; // px
-                mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding));
-
-                mapViewContainer.addView(mapView);
-                nearest_data = new ArrayList<>();
-                nearest_data.add(nearest);
-                nearest_data.add(second_nearest);
             }
-
-            adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
-            listView.setAdapter(adapter);
         } catch (SecurityException e) {
 
         }
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.out.println("onPause dfjslkdfjlksjflksdf");
+        //mapViewContainer.removeAllViews();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        System.out.println("onStop dfjslkdfjlksjflksdf");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("onResume ksjdflkjsdklfjslkdjflkj");
+        mapView.refreshMapTiles();
+        if (type != 0) {
+
+            mapView.removePOIItem(marker);
+            mapView.removePOIItem(marker2);
+            addItems("", "");
+            getLocation();
+
+            //mapView.removePOIItem(marker);
+            //         mapView.removeAllPOIItems();
+
+
+          /*  marker = new MapPOIItem();
+            marker.setItemName(nearest.apiDongName);
+            marker.setTag(0);
+            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),
+                    Double.parseDouble(nearest.apiLng)));
+            marker2 = new MapPOIItem();
+            marker2.setItemName(second_nearest.apiDongName);
+            marker2.setTag(1);
+            marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat),
+                    Double.parseDouble(second_nearest.apiLng)));
+          */  //  mapView.removePOIItem(marker);
+            // mapView.addPOIItem(marker);
+            //    mapView.refreshMapTiles();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void addItems(String type, String keyword) {
@@ -219,7 +270,9 @@ public class Fragment5 extends android.support.v4.app.Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }}
+        }
+    }
+
     /**
      * 두 지점간의 거리 계산
      *
