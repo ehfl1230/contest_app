@@ -66,6 +66,7 @@ public class AddNameAdapter extends ArrayAdapter<NameVO> {
 
                 Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 datas.remove(position);
+
                 notifyDataSetChanged();
 
             }

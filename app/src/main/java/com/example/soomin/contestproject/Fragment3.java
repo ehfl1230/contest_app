@@ -180,7 +180,6 @@ public class Fragment3 extends Fragment {
                     intent.putExtra("tel", tel);
                     intent.putExtra("lat", lat);
                     intent.putExtra("lng", lng);
-
                     startActivity(intent);
                 }
             });

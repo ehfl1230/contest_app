@@ -32,13 +32,15 @@ import net.daum.mf.map.api.MapView;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by SOOMIN on 2017-11-01.
  */
 
 public class Fragment5 extends android.support.v4.app.Fragment {
     MyApplication myApplication;
-
     ArrayList<ItemVO> datas;
     ArrayList<ItemVO> nearest_data;
     ListAdapter adapter;
@@ -51,16 +53,18 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     ViewGroup mapViewContainer;
     MapView mapView;
     ItemVO nearest;
+    String from = "";
     ItemVO second_nearest;
+    private static final int msg = 1;
     int type = 0;
     MapPolyline polyline;
+    ViewGroup viewGroup;
     String url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
             "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment5, container, false);
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment5, container, false);
         MyApplication myApplication = (MyApplication) getActivity().getApplicationContext();
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
         //if (myApplication.locationPermission) {
@@ -68,6 +72,12 @@ public class Fragment5 extends android.support.v4.app.Fragment {
         mapViewContainer = (ViewGroup) viewGroup.findViewById(R.id.map_view);
         mapView = new MapView(getActivity());
         polyline = new MapPolyline();
+        datas = new ArrayList<>();
+        nearest_data = new ArrayList<>();
+        addItems("", "");
+        getLocation();
+        mapViewContainer.addView(mapView);
+        adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
         hospitalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,32 +97,30 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                 onResume();
             }
         });
-        datas = new ArrayList<>();
-        nearest_data = new ArrayList<>();
-        addItems("", "");
-        getLocation();
-        mapViewContainer.addView(mapView);
-        adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String name = nearest_data.get(position).apiDongName;
                 String address = nearest_data.get(position).apiNewAddress;
-                String new_address = nearest_data.get(position).apiOldAddress;
+                String old_address = nearest_data.get(position).apiOldAddress;
                 String tel = nearest_data.get(position).apiTel;
                 String lat = nearest_data.get(position).apiLat;
                 String lng = nearest_data.get(position).apiLng;
-                Intent intent = new Intent(Fragment5.super.getActivity(), FragmentItem.class);
+                Intent intent = new Intent();
+                intent.setClass(Fragment5.super.getActivity(), FragmentItem.class);
+                intent.putExtra("from", "near");
                 intent.putExtra("type", "hospital");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
-                intent.putExtra("new_address", new_address);
+                intent.putExtra("old_address", old_address);
                 intent.putExtra("tel", tel);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
+                mapViewContainer.removeAllViews();
 
-                startActivity(intent);
+                startActivityForResult(intent, msg);
             }
         });
         listView.setAdapter(adapter);
@@ -180,10 +188,16 @@ public class Fragment5 extends android.support.v4.app.Fragment {
 
 
                 }
+                marker = new MapPOIItem();
+                marker2 = new MapPOIItem();
+                marker3 = new MapPOIItem();
                 if (nearest.apiLat == null || second_nearest.apiLat == null) {
                     Toast.makeText(getActivity(), "위치를 찾지 못했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
 
+                } else {
+                    if (from.equals("item")) {
+                        mapView = new MapView(getActivity());
+                    }
                     polyline.setTag(1000);
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat), Double.parseDouble(nearest.apiLng)));
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
@@ -191,7 +205,6 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
 
                     mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
-                    marker = new MapPOIItem();
                     marker.setItemName(nearest.apiDongName);
                     marker.setTag(0);
 
@@ -200,7 +213,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
                     marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
-                    marker2 = new MapPOIItem();
+
                     marker2.setItemName(second_nearest.apiDongName);
                     marker2.setTag(0);
 
@@ -208,7 +221,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     marker2.setMarkerType(MapPOIItem.MarkerType.BluePin);
                     marker2.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
-                    marker3 = new MapPOIItem();
+
                     marker3.setItemName("현재위치");
                     marker3.setTag(0);
 
@@ -226,6 +239,12 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     nearest_data.clear();
                     nearest_data.add(nearest);
                     nearest_data.add(second_nearest);
+                    if (from.equals("item")) {
+                        System.out.println("다시 붙여!");
+                        mapViewContainer.addView(mapView);
+
+                        from = "";
+                    }
                 }
             }
         } catch (SecurityException e) {
@@ -234,13 +253,30 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            from = data.getStringExtra("from");
+            addItems("", "");
+            getLocation();
+        }
+        if (requestCode == RESULT_CANCELED) {
+
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mapView.refreshMapTiles();
-        if (type != 0) {
+        if (type != 0 && mapView != null) {
+            try {
+                mapView.removePOIItem(marker);
+                mapView.removePOIItem(marker2);
+            } catch (NullPointerException e) {
 
-            mapView.removePOIItem(marker);
-            mapView.removePOIItem(marker2);
+            }
+
             addItems("", "");
             getLocation();
 
@@ -258,10 +294,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
             marker2.setTag(1);
             marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat),
                     Double.parseDouble(second_nearest.apiLng)));
-          */  //  mapView.removePOIItem(marker);
-            // mapView.addPOIItem(marker);
-            //    mapView.refreshMapTiles();
-            adapter.notifyDataSetChanged();
+          */    adapter.notifyDataSetChanged();
         }
     }
 
@@ -309,8 +342,6 @@ public class Fragment5 extends android.support.v4.app.Fragment {
 
         return (dist);
     }
-
-
     // This function converts decimal degrees to radians
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);

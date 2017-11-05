@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
     ImageView add_name;
     ArrayList<NameVO> datas;
     AddNameAdapter adapter;
+    RelativeLayout no_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
         actionBar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_name);
+        no_data = (RelativeLayout) findViewById(R.id.no_data);
         listView = (ListView) findViewById(R.id.name_list);
         add_name = (ImageView) findViewById(R.id.add_name);
         new_name = (EditText) findViewById(R.id.new_name);
@@ -69,9 +72,14 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
             datas.add(vo);
         }
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
+        if (datas.size() == 0) {
+            no_data.setVisibility(View.VISIBLE);
+        } else {
+            no_data.setVisibility(View.GONE);
+        }
         adapter = new AddNameAdapter(this, R.layout.add_name_item, datas);
         listView.setAdapter(adapter);
+
     }
 
     public void onClick(View v) {

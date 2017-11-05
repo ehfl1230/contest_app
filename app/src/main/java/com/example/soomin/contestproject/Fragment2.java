@@ -57,6 +57,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
         searchField.clearFocus();
         spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
+        downKeyboard(getContext(), searchField);
         return viewGroup;
 
     }

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -20,12 +19,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,9 +75,9 @@ public class AddRecordActivity extends AppCompatActivity {
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
-               // imm.hideSoftInputFromWindow(content.getWindowToken(), 0);
+                // imm.hideSoftInputFromWindow(content.getWindowToken(), 0);
             }
         });
         addDongBtn = (TextView) findViewById(R.id.move_search);
@@ -127,57 +123,7 @@ public class AddRecordActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper helper = new DBHelper(AddRecordActivity.this);
-                SQLiteDatabase db = helper.getWritableDatabase();
-                String title_str = title.getText().toString();
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(AddRecordActivity.this);
-
-                if (title_str.equals("")) {
-                    alert_confirm.setMessage("주요정보를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();     //닫기
-                        }
-                    });
-                } else if (name.equals("의료기관선택") || name.equals("")|| name == null) {
-                    alert_confirm.setMessage("의료기관을 선택해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();     //닫기
-                        }
-                    });
-                }else if (nameSpinner.getSelectedItem() == null || nameSpinner.getSelectedItem().toString().equals("")) {
-                    alert_confirm.setMessage("반려동물이름을 선택해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();     //닫기
-                        }
-                    });
-                }
-                    else
-                 {
-                    title_str = title.getText().toString();
-                    String animal_name = nameSpinner.getSelectedItem().toString();
-                    Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{animal_name});
-                    NameVO vo = new NameVO();
-                    while (cursor.moveToNext()) {
-                        vo._id = cursor.getInt(0);
-                        vo.name = cursor.getString(1);
-                    }
-                    db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type, name, dong_old_address, dong_lat,dong_lng) values (?,?,?,?,?,?,?,?,?,?,?)",
-                            new String[]{title_str, content.getText().toString(), date.getText().toString(), name, tel, address, type, Integer.toString(vo._id), old_address, lat, lng});
-
-                    db.close();
-                    alert_confirm.setMessage("저장되었습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();     //닫기
-                            finish();
-                        }
-                    });
-                }
-                AlertDialog alert = alert_confirm.create();
-                alert.show();
+                save();
             }
         });
         manageNameBtn.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +137,44 @@ public class AddRecordActivity extends AppCompatActivity {
         content.clearFocus();
         downKeyboard(this, title);
         downKeyboard(this, content);
+    }
+
+    public void save() {
+        DBHelper helper = new DBHelper(AddRecordActivity.this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String title_str = title.getText().toString();
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(AddRecordActivity.this);
+
+        if (title_str.equals("")) {
+            Toast.makeText(AddRecordActivity.this, "주요정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+        } else if (name.equals("의료기관선택") || name.equals("") || name == null) {
+            Toast.makeText(AddRecordActivity.this, "의료기관을 선택해주세요.", Toast.LENGTH_SHORT).show();
+        } else if (nameSpinner.getSelectedItem() == null || nameSpinner.getSelectedItem().toString().equals("")) {
+            Toast.makeText(AddRecordActivity.this, "반려동물이름을 선택해주세요.", Toast.LENGTH_SHORT).show();
+        } else {
+            title_str = title.getText().toString();
+            String animal_name = nameSpinner.getSelectedItem().toString();
+            Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{animal_name});
+            NameVO vo = new NameVO();
+            while (cursor.moveToNext()) {
+                vo._id = cursor.getInt(0);
+                vo.name = cursor.getString(1);
+            }
+            db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type, name, dong_old_address, dong_lat,dong_lng) values (?,?,?,?,?,?,?,?,?,?,?)",
+                    new String[]{title_str, content.getText().toString(), date.getText().toString(), name, tel, address, type, Integer.toString(vo._id), old_address, lat, lng});
+
+            db.close();
+            alert_confirm.setMessage("저장하였습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();     //닫기
+                    finish();
+                }
+            });
         }
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
+    }
 
     @Override
     protected void onResume() {
@@ -211,53 +194,101 @@ public class AddRecordActivity extends AppCompatActivity {
         nameSpinner.setAdapter(adapter);
     }
 
+    public void select_save() {
+
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(AddRecordActivity.this);
+
+        alert_confirm.setMessage("수정사항을 저장하겠습니까?").setCancelable(false).setPositiveButton("저장하기",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper helper = new DBHelper(AddRecordActivity.this);
+                        SQLiteDatabase db = helper.getWritableDatabase();
+                        String title_str = title.getText().toString();
+                        if (title_str.equals("")) {
+                            Toast.makeText(AddRecordActivity.this, "주요정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                        } else if (name.equals("의료기관선택") || name.equals("") || name == null) {
+                            Toast.makeText(AddRecordActivity.this, "의료기관을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                        } else if (nameSpinner.getSelectedItem() == null || nameSpinner.getSelectedItem().toString().equals("")) {
+                            Toast.makeText(AddRecordActivity.this, "반려동물이름을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            title_str = title.getText().toString();
+                            String animal_name = nameSpinner.getSelectedItem().toString();
+                            Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{animal_name});
+                            NameVO vo = new NameVO();
+                            while (cursor.moveToNext()) {
+                                vo._id = cursor.getInt(0);
+                                vo.name = cursor.getString(1);
+                            }
+                            db.execSQL("insert into medical_record (title, memo, date, dong_name, dong_tel, dong_address, type, name, dong_old_address, dong_lat,dong_lng) values (?,?,?,?,?,?,?,?,?,?,?)",
+                                    new String[]{title_str, content.getText().toString(), date.getText().toString(), name, tel, address, type, Integer.toString(vo._id), old_address, lat, lng});
+
+                            db.close();
+                            finish();
+                        }
+                    }}).setNegativeButton("저장하지 않고 종료",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick (DialogInterface dialog,int which){
+                            finish();
+                        }
+                    });
+                    AlertDialog alert = alert_confirm.create();
+        alert.show();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        select_save();
+    }
+
     public static void downKeyboard(Context context, EditText editText) {
-        InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager mInputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
+
     @Override
-        public boolean onOptionsItemSelected (MenuItem item){
-            switch (item.getItemId()) {
-                case android.R.id.home:
-                    //NavUtils.navigateUpFromSameTask(this);
-                    finish();
-                    return true;
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //NavUtils.navigateUpFromSameTask(this);
+                select_save();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
-            if (resultCode == RESULT_OK) {
-                type = data.getStringExtra("type");
-                name = data.getStringExtra("name");
-                tel = data.getStringExtra("tel");
-                address = data.getStringExtra("address");
-                old_address = data.getStringExtra("old_address");
-                lng = data.getStringExtra("lng");
-                lat = data.getStringExtra("lat");
-                addRecordName.setText(name);
-                System.out.println("ddfjsdflksjdklfjksldjflksdf" + type);
-                //    addRecordTel.setText(tel);
-                //    addRecordAddress.setText(address);
-            }
-            if (requestCode == RESULT_CANCELED) {
-
-            }
-        }
-
-        DatePickerDialog.OnDateSetListener mDateSetListener =
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        // TODO Auto-generated method stub
-                        mYear = year;
-                        mMonth = monthOfYear;
-                        mDay = dayOfMonth;
-                        String add_date_str = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
-                        date.setText(add_date_str);
-                    }
-                };
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            type = data.getStringExtra("type");
+            name = data.getStringExtra("name");
+            tel = data.getStringExtra("tel");
+            address = data.getStringExtra("address");
+            old_address = data.getStringExtra("old_address");
+            lng = data.getStringExtra("lng");
+            lat = data.getStringExtra("lat");
+            addRecordName.setText(name);
+            //    addRecordTel.setText(tel);
+            //    addRecordAddress.setText(address);
+        }
+        if (requestCode == RESULT_CANCELED) {
+
+        }
+    }
+
+    DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    // TODO Auto-generated method stub
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+                    String add_date_str = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+                    date.setText(add_date_str);
+                }
+            };
+}

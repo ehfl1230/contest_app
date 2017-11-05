@@ -57,6 +57,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     String tel = "";
     String lat = "";
     String lng = "";
+    String from = "";
     MyApplication myApplication;
     MapView mapView;
     ViewGroup mapViewContainer;
@@ -85,6 +86,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         actionBar.setTitle("");
         actionBar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.blue));
         actionBar.setDisplayHomeAsUpEnabled(true);
+        from = getIntent().getExtras().getString("from");
         name = getIntent().getExtras().getString("name");
         type = getIntent().getExtras().getString("type");
         address = getIntent().getExtras().getString("address");
@@ -102,7 +104,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         callBtnView.setOnClickListener(this);
         bookmarkBtn.setOnClickListener(this);
         datas = new ArrayList<>();
-    mapView = null;
+        System.out.println("skdjfldjf"  + mapView);
         mapView = new MapView(this);
       //  setItems(type, name, address);
 
@@ -140,6 +142,18 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
 
         if (!myApplication.locationPermission) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 20);
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if (from != null && from.equals("near")) {
+            mapViewContainer.removeAllViews();
+            Intent intent = new Intent();
+            intent.putExtra("from", "item");
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            finish();
         }
     }
 
@@ -211,7 +225,15 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         ActionBar actionBar = getSupportActionBar();
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                if (from != null && from.equals("near")) {
+                    mapViewContainer.removeAllViews();
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+
+                    finish();
+                } else {
+                    finish();
+                }
                 // NavUtils.navigateUpFromSameTask(this);
                 return true;
 

@@ -177,6 +177,48 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
     @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(ModifyItemActivity.this);
+
+        alert_confirm.setMessage("수정사항을 저장하겠습니까?").setCancelable(false).setPositiveButton("저장하기",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper helper = new DBHelper(ModifyItemActivity.this);
+                        SQLiteDatabase db = helper.getWritableDatabase();
+                        Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{spinnerName.getSelectedItem().toString()});
+                        NameVO nvo = new NameVO();
+                        while (cursor.moveToNext()) {
+                            nvo._id = cursor.getInt(0);
+                            nvo.name = cursor.getString(1);
+                        }
+                        if (type == null || type.equals("")) {
+                            db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
+                                            "where _id=?",
+                                    new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id),
+                                            old_address, lat, lng, item_id});
+
+                        }else {
+                            db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
+                                            "where _id=?",
+                                    new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id),
+                                            old_address, lat, lng, item_id});
+
+                        }
+                        db.close();
+                        finish();
+                    }
+                }).setNegativeButton("저장하지 않고 종료",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
+    }
+    @Override
     public void onClick(View v) {
 
 
@@ -320,8 +362,45 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
-                finish();
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(ModifyItemActivity.this);
+
+                alert_confirm.setMessage("수정사항을 저장하겠습니까?").setCancelable(false).setPositiveButton("저장하기",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DBHelper helper = new DBHelper(ModifyItemActivity.this);
+                                SQLiteDatabase db = helper.getWritableDatabase();
+                                Cursor cursor = db.rawQuery("select * from animal where animal_name=?", new String[]{spinnerName.getSelectedItem().toString()});
+                                NameVO nvo = new NameVO();
+                                while (cursor.moveToNext()) {
+                                    nvo._id = cursor.getInt(0);
+                                    nvo.name = cursor.getString(1);
+                                }
+                                if (type == null || type.equals("")) {
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
+                                                    "where _id=?",
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id),
+                                                    old_address, lat, lng, item_id});
+
+                                }else {
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
+                                                    "where _id=?",
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id),
+                                                    old_address, lat, lng, item_id});
+
+                                }
+                                db.close();
+                                finish();
+                            }
+                        }).setNegativeButton("저장하지 않고 종료",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                AlertDialog alert = alert_confirm.create();
+                alert.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
