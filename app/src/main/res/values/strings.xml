@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ContestProject</string>
+    <string name="app_name">동물이 행복한 전주</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="permission_error">권한이 없습니다.</string>
     <string name="no_tel">전화번호가 없습니다.</string>

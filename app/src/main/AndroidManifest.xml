@@ -43,7 +43,8 @@
         <activity android:name=".AddNameActivity" />
         <activity
             android:name=".IntroActivity"
-            android:label="@string/title_activity_intro"
+            android:label="@string/app_name"
+            android:icon="@drawable/icon_footprint"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
