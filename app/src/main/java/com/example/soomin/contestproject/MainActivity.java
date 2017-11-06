@@ -1,6 +1,7 @@
 package com.example.soomin.contestproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment4 fragment4;
     Fragment5 fragment5;
     MyApplication myApplication;
+    ImageView btn;
     TabLayout tabs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         // ActionBar actionBar = getSupportActionBar();
         //actionBar.setDisplayShowTitleEnabled(false);
-
+        btn = (ImageView) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(intent);
+            }
+        });
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
@@ -58,19 +69,19 @@ public class MainActivity extends AppCompatActivity {
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
                     tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
                 } else if (position == 1) {
 
                     fragment = fragment2;
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_point_24dp);
                     tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
                 } else if (position == 2) {
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
                     tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_point_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
                     fragment = fragment5;
 
                 }
@@ -78,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
                     tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_point_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_point_24dp);
                     fragment = fragment3;
                 }
                 //else if (position == 3) {
@@ -116,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
         tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
         tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-        tabs.getTabAt(3).setIcon(R.drawable.ic_view_list_black_24dp);
+        tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

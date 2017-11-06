@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/iconmonstr_phone_3_240"
+    android:src="@drawable/ic_pets_black_24dp"
     android:tileMode="repeat"
     />

@@ -5,18 +5,10 @@
     android:gravity="center"
     android:background="@color/blue"
 
-    > <ImageView
-    android:id="@+id/image"
-    android:gravity="center"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:tint="#ED6D76"
-    android:layout_centerInParent="true"
- android:src="@drawable/footprint"/>
+    >
+
     <TextView
         android:id="@+id/title"
-        android:gravity="center"
-        android:layout_below="@id/image"
         android:layout_marginTop="8dp"
         android:text="동물이 행복한"
         android:layout_width="wrap_content"
@@ -27,7 +19,7 @@
 
         android:textColor="@color/white"/>
     <TextView
-
+        android:id="@+id/title2"
         android:gravity="center"
         android:text="전주"
         android:layout_below="@id/title"
@@ -38,5 +30,31 @@
         android:textSize="35sp"
 
         android:textColor="@color/white"
-       />
+        />
+    <ImageView
+        android:id="@+id/center"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/image1"
+        android:gravity="center"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/title2"
+        android:tint="#ED6D76"
+        android:layout_toLeftOf="@id/center"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_pets_black_24dp"/>
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="40dp"
+        android:layout_below="@id/image1"
+        android:layout_height="40dp"
+        android:tint="#ED6D76"
+        android:layout_toRightOf="@id/center"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_pets_black_24dp"/>
+
 </RelativeLayout>
