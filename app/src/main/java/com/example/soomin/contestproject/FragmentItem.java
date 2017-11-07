@@ -72,7 +72,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
             bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         else {
-            bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN);
+            bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.light_red), android.graphics.PorterDuff.Mode.SRC_IN);
 
         }
         db.close();
@@ -104,7 +104,6 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         callBtnView.setOnClickListener(this);
         bookmarkBtn.setOnClickListener(this);
         datas = new ArrayList<>();
-        System.out.println("skdjfldjf"  + mapView);
         mapView = new MapView(this);
       //  setItems(type, name, address);
 
@@ -117,8 +116,6 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 newAddressView.setText(address);
                 oldAddressView.setText(old_address);
                 mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-
-
 
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(lat), Double.parseDouble(lng)), true);
                 MapPOIItem marker = new MapPOIItem();
@@ -199,6 +196,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
             SQLiteDatabase db = helper.getWritableDatabase();
 
             Cursor cursor = db.rawQuery("select * from bookmark where dong_name=?", new String[] {name});
+            System.out.println("dksjdfklsjdkfjksdjfklsjfskd" + cursor.getCount());
             if (cursor.getCount() == 0) {
                 db.execSQL("insert into bookmark (dong_name, dong_address, dong_tel, type, dong_old_address, dong_lat, dong_lng) values (?,?,?,?,?,?,?)",
                         new String[]{name, address, phone, type, old_address, lat, lng});
@@ -207,7 +205,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 //  actionBar.setIcon(R.drawable.iconmonstr_star_6_64_yellow);
 
                // bookmarkBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_stars_black_24dp));
-                bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN);
+                bookmarkBtn.setColorFilter(ContextCompat.getColor(this, R.color.light_red), android.graphics.PorterDuff.Mode.SRC_IN);
             }
             else {
                 db.execSQL("delete from bookmark where dong_name=?", new String[] {name});
@@ -228,6 +226,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 if (from != null && from.equals("near")) {
                     mapViewContainer.removeAllViews();
                     Intent intent = new Intent();
+                    intent.putExtra("from", "item");
                     setResult(RESULT_OK, intent);
 
                     finish();

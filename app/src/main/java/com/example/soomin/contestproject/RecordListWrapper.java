@@ -14,7 +14,7 @@ public class RecordListWrapper {
     public ImageView modifyBtnView;
     public TextView itemContentsView;
     public TextView itemDongNameView;
-    public TextView itemTypeView;
+    public ImageView itemTypeView;
     public TextView itemAnimalNameView;
     public ImageView homebtn;
 
@@ -24,7 +24,7 @@ public class RecordListWrapper {
         modifyBtnView = (ImageView) root.findViewById(R.id.modify_btn);
         itemContentsView = (TextView) root.findViewById(R.id.item_contents);
         itemDongNameView = (TextView) root.findViewById(R.id.item_dong_name);
-        itemTypeView = (TextView) root.findViewById(R.id.item_type);
+        itemTypeView = (ImageView) root.findViewById(R.id.item_type);
         itemAnimalNameView = (TextView) root.findViewById(R.id.aninmal_name);
         homebtn = (ImageView) root.findViewById(R.id.home);
 

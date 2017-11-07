@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context="com.example.soomin.contestproject.InfoActivity">
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_border"
+        android:layout_margin="10dp"
+        >
+        <ImageView
+            android:id="@+id/title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/ic_pets_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/title1"
+            android:text="Image "
+            android:id="@+id/textView" />
+
+        <TextView
+            android:id="@+id/publish"
+            android:layout_below="@id/title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:text="Published by Freepik"/>
 
-</android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_below="@id/publish"
+            android:src="@drawable/ic_pets_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/title3"
+            android:text="Text "
+            android:layout_below="@id/publish" />
+
+        <TextView
+            android:layout_below="@id/title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="이 페이지에는 네이버에서 제공한 나눔글꼴이 적용되어 있습니다."/>
+    </RelativeLayout>
+
+</RelativeLayout>

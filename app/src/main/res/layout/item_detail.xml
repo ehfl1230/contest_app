@@ -23,7 +23,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="3dp"
                 android:clickable="true"
-                android:src="@drawable/ic_stars_black_24dp" />
+                android:src="@drawable/ic_favorite_black_24dp" />
 
             <TextView
                 android:id="@+id/dong_name_text"

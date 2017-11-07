@@ -40,6 +40,7 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
         new_name = (EditText) findViewById(R.id.new_name);
         add_name.setOnClickListener(this);
         new_name.clearFocus();
+        downKeyboard(this, new_name);
 
     }
     public static void downKeyboard(Context context, EditText editText) {
@@ -85,6 +86,7 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
 
         if (v == add_name) {
+            downKeyboard(this, new_name);
             String new_name_str = new_name.getText().toString();
             if (new_name_str == null || new_name_str.equals("")) {
                 Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();

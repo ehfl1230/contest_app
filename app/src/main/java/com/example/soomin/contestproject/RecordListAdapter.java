@@ -61,7 +61,7 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         modifyBtnView = wrapper.modifyBtnView;
         TextView itemContentsView = wrapper.itemContentsView;
         TextView itemDongNameView = wrapper.itemDongNameView;
-        TextView itemTypeView = wrapper.itemTypeView;
+        ImageView itemTypeView = wrapper.itemTypeView;
         TextView itemAnimalNameView = wrapper.itemAnimalNameView;
         ImageView homeBtn = wrapper.homebtn;
         final RecordItemVO vo=datas.get(position);
@@ -74,12 +74,16 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
             vo.type = "hospital";
         }
         if (vo.type.equals("hospital")) {
-            itemTypeView.setText("병원");
-            itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_blue));
-        } else if (vo.type.equals("drugstore")){
-            itemTypeView.setText("약국");
-            itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_red));
+            //itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_hospital_black_24dp));
+                    //.setText("병원
 
+            itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
+           // itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_blue));
+        } else if (vo.type.equals("drugstore")){
+           //itemTypeView.setText("약국");
+           // itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_red));
+            itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_pharmacy_black_24dp));
+            itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

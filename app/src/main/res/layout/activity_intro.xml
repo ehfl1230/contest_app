@@ -7,30 +7,18 @@
 
     >
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_marginTop="8dp"
-        android:text="동물이 행복한"
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="35sp"
-
-        android:textColor="@color/white"/>
-    <TextView
+    <ImageView
         android:id="@+id/title2"
-        android:gravity="center"
-        android:text="전주"
-        android:layout_below="@id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+    android:src="@drawable/title6"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
+
         android:textStyle="bold"
         android:textSize="35sp"
+        android:textColor="@color/white"/>
 
-        android:textColor="@color/white"
-        />
     <ImageView
         android:id="@+id/center"
         android:gravity="center"

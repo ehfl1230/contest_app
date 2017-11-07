@@ -223,10 +223,11 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:inputType="textMultiLine"
                 android:background="@drawable/round_border"
                 android:gravity="top"
                 android:hint="@string/content_hint"
-                android:inputType="text"
+
                 android:padding="5dp"
                 android:textColor="#6e6d6d"
                 android:textCursorDrawable="@null"

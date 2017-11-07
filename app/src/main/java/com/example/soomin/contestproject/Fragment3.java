@@ -118,7 +118,7 @@ public class Fragment3 extends Fragment {
                 vo.title = cursor.getString(1);
                 String date_str = cursor.getString(4);
                 if (date_str != null && date_str.length() != 0)
-                    vo.date = date_str.substring(2);
+                    vo.date = date_str;
                 vo.type = cursor.getString(8);
                 //  mGroupList.add(vo);
                 //   mChildListContent= new ArrayList<>();
@@ -138,6 +138,11 @@ public class Fragment3 extends Fragment {
                 datas.add(vo);
             }
             adapter = new RecordListAdapter(this.getContext(), R.layout.record_list_item, datas);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                }
+            });
             listView.setAdapter(adapter);
             if (type == 1 && datas.size() == 0) {
                 no_data.setVisibility(View.VISIBLE);
@@ -159,6 +164,7 @@ public class Fragment3 extends Fragment {
                 vo.apiOldAddress = cursor.getString(5);
                 vo.apiLat = cursor.getString(6);
                 vo.apiLng = cursor.getString(7);
+                vo.bookmark = 1;
                 datas2.add(vo);
             }
 

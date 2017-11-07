@@ -7,6 +7,9 @@
     <color name="background_color">#F0F0F0</color>
     <color name="dark_blue">#45A4ED</color>
     <color name="blue">#A1CAED</color>
+    <color name="red">#FF150D</color>
+    <color name="light_red">#ED6D76</color>
+    <color name="yellow_white">#FFFCF0</color>
     <color name="point_color">#FFFFFF</color>
     <color name="yellow">#FFE375</color>
     <color name="gray">#8F8F8F</color>
