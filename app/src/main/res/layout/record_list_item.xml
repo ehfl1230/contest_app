@@ -9,13 +9,15 @@
 
     <LinearLayout
         android:id="@+id/main_title"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#CFEAFF"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/date_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingBottom="1dp"
@@ -23,39 +25,41 @@
             android:paddingRight="5dp"
             android:paddingTop="1dp"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="19sp"
+            android:text="date_text"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/aninmal_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
+            android:layout_weight="7"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp" />
-
+            android:text="aninmal_name"
+            android:textSize="19sp" />
+        <ImageView
+            android:id="@+id/modify_btn"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/main_title"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:padding="5dp"
+            android:paddingTop="1dp"
+            android:src="@drawable/ic_mode_edit_black_24dp"
+            android:tint="@color/blue" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/modify_btn"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/main_title"
-        android:adjustViewBounds="true"
-        android:clickable="true"
-        android:padding="5dp"
-        android:paddingTop="1dp"
-        android:src="@drawable/ic_mode_edit_black_24dp"
-        android:tint="@color/blue" />
 
+<TableLayout
+    android:id="@+id/main_title2"
+    android:layout_below="@id/main_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<TableRow>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_title"
-        android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
 
         <TextView
             android:id="@+id/title3"
@@ -78,7 +82,8 @@
             android:stretchColumns="*"
             android:textSize="18sp"
             android:textStyle="bold" />
-
+</TableRow>
+    <TableRow>
         <TextView
             android:id="@+id/title2"
             android:layout_width="wrap_content"
@@ -90,6 +95,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -107,7 +113,7 @@
                 android:id="@+id/item_dong_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:stretchColumns="*"
                 android:textSize="18sp" />
             <ImageView
                 android:id="@+id/home"
@@ -118,9 +124,11 @@
                 android:src="@drawable/ic_home_black_24dp"/>
 
         </LinearLayout>
-
+    </TableRow>
+</TableLayout>
         <TextView
             android:id="@+id/title1"
+            android:layout_below="@id/main_title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="상세 정보"
@@ -135,5 +143,5 @@
             android:layout_below="@id/title1"
             android:textSize="18sp" />
 
-    </LinearLayout>
+
 </RelativeLayout>

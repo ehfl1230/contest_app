@@ -1,5 +1,7 @@
 package com.example.soomin.contestproject;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -87,6 +89,7 @@ public class ListParser extends AsyncTask<ArrayList<String>, Void, ArrayList<Ite
         }
         return returnResult;
     }
+
 
     @Override
     protected void onPostExecute(ArrayList<ItemVO> s) {

@@ -188,6 +188,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             no_data.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();
+    } @Override
+    public void onDestroy() {
+        super.onDestroy();
+        downKeyboard(getContext(), searchField);
     }
 
 }

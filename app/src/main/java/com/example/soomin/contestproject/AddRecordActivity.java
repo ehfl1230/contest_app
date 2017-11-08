@@ -91,6 +91,7 @@ public class AddRecordActivity extends AppCompatActivity {
         //addDongBtn = (TextView) findViewById(R.id.add_dong);
         saveBtn = (TextView) findViewById(R.id.save_btn);
         addRecordName = (TextView) findViewById(R.id.add_record_name);
+        addRecordName.setVisibility(View.GONE);
         // addRecordTel = (TextView)findViewById(R.id.add_record_tel);
         // addRecordAddress = (TextView)findViewById(R.id.add_record_address);
         moveSearch.setOnClickListener(new View.OnClickListener() {
@@ -262,6 +263,7 @@ public class AddRecordActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK) {
             type = data.getStringExtra("type");
             name = data.getStringExtra("name");
@@ -270,8 +272,11 @@ public class AddRecordActivity extends AppCompatActivity {
             old_address = data.getStringExtra("old_address");
             lng = data.getStringExtra("lng");
             lat = data.getStringExtra("lat");
-            addRecordName.setText(name);
-            //    addRecordTel.setText(tel);
+            if (!name.equals("")) {
+                addRecordName.setText(name);
+                addRecordName.setVisibility(View.VISIBLE);
+            }
+                //    addRecordTel.setText(tel);
             //    addRecordAddress.setText(address);
         }
         if (requestCode == RESULT_CANCELED) {

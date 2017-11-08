@@ -70,7 +70,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter dongAdapter = ArrayAdapter.createFromResource(this, R.array.dong_type, R.layout.custom_simple_drop_item);
         dongAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner_dong.setAdapter(dongAdapter);
-
+        downKeyboard(this, searchField);
         adapter = new AddDongAdapter(this, R.layout.add_dong_item, datas);
         listView.setAdapter(adapter);
         addItems("hospital", "", keyword);
@@ -122,6 +122,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         if (v == save_btn) {
+            downKeyboard(this, searchField);
             if(adapter.getSelectedRadioPosition() == -1){
                 Toast.makeText(this, "의료기관을 선택해주세요.", Toast.LENGTH_SHORT).show();
             }

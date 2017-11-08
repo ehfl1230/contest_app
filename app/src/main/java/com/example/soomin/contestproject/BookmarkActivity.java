@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<RecordItemVO> datas;
     BookmarkAdapter adapter;
     TextView save_btn;
+    RelativeLayout no_data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
         datas = new ArrayList<>();
         listView = (ListView) findViewById(R.id.search_list);
         save_btn = (TextView) findViewById(R.id.save_btn);
+        no_data = (RelativeLayout) findViewById(R.id.no_data2);
         save_btn.setOnClickListener(this);
         Cursor cursor = db.rawQuery("select * from bookmark", null);
 
@@ -62,7 +65,11 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
             datas.add(vo);
         }
           listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
+        if (datas.size() == 0) {
+            no_data.setVisibility(View.VISIBLE);
+        } else {
+            no_data.setVisibility(View.GONE);
+        }
         adapter = new BookmarkAdapter(this, R.layout.add_dong_item, datas);
         listView.setAdapter(adapter);
     }

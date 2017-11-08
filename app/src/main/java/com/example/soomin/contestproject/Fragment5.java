@@ -205,7 +205,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
 
                     mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
-                    marker.setItemName(nearest.apiDongName);
+                    marker.setItemName(nearest.apiDongName + " " + distance / 1000 + "km");
                     marker.setTag(0);
 
                     marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),
@@ -214,7 +214,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
 
-                    marker2.setItemName(second_nearest.apiDongName);
+                    marker2.setItemName(second_nearest.apiDongName +  " " + second_distance / 1000 + "km");
                     marker2.setTag(0);
 
                     marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
@@ -240,9 +240,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     nearest_data.add(nearest);
                     nearest_data.add(second_nearest);
                     if (from.equals("item")) {
-                        System.out.println("다시 붙여!");
                         mapViewContainer.addView(mapView);
-
                         from = "";
                     }
                 }

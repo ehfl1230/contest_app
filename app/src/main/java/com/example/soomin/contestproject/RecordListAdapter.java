@@ -72,11 +72,13 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         dateView.setText(vo.date);
         if (vo.type ==null) {
             vo.type = "hospital";
+            itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_hospital_black_24dp));
+            itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         if (vo.type.equals("hospital")) {
             //itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_hospital_black_24dp));
                     //.setText("병원
-
+            itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_hospital_black_24dp));
             itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
            // itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_blue));
         } else if (vo.type.equals("drugstore")){

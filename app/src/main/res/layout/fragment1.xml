@@ -75,6 +75,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
+            android:padding="5dp"
             android:paddingRight="6dp"
             android:src="@drawable/iconmonstr_magnifier_2_240" />
     </LinearLayout>

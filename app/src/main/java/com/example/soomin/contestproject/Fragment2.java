@@ -168,5 +168,11 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         }
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        downKeyboard(getContext(), searchField);
+    }
 }
 

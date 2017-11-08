@@ -73,6 +73,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:paddingRight="6dp"
+            android:padding="5dp"
             android:src="@drawable/iconmonstr_magnifier_2_240" />
     </LinearLayout>
     <ListView
