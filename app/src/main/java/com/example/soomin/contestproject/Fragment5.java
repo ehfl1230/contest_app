@@ -3,15 +3,10 @@ package com.example.soomin.contestproject;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +24,6 @@ import net.daum.mf.map.api.MapPointBounds;
 import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -61,6 +55,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     ViewGroup viewGroup;
     String url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
             "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -205,7 +200,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
 
                     mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
-                    marker.setItemName(nearest.apiDongName + " " + distance / 1000 + "km");
+                    marker.setItemName(nearest.apiDongName);
                     marker.setTag(0);
 
                     marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),
@@ -214,7 +209,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
 
-                    marker2.setItemName(second_nearest.apiDongName +  " " + second_distance / 1000 + "km");
+                    marker2.setItemName(second_nearest.apiDongName);
                     marker2.setTag(0);
 
                     marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
@@ -240,7 +235,9 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     nearest_data.add(nearest);
                     nearest_data.add(second_nearest);
                     if (from.equals("item")) {
+                        System.out.println("다시 붙여!");
                         mapViewContainer.addView(mapView);
+
                         from = "";
                     }
                 }
@@ -292,7 +289,8 @@ public class Fragment5 extends android.support.v4.app.Fragment {
             marker2.setTag(1);
             marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat),
                     Double.parseDouble(second_nearest.apiLng)));
-          */    adapter.notifyDataSetChanged();
+          */
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -340,6 +338,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
 
         return (dist);
     }
+
     // This function converts decimal degrees to radians
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
