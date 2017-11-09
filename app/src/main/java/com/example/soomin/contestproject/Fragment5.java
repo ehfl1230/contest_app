@@ -200,7 +200,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
                     polyline.addPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
 
                     mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
-                    marker.setItemName(nearest.apiDongName);
+                    marker.setItemName(nearest.apiDongName +  " " + String.format("%.2f",(distance /1000)) + "km");
                     marker.setTag(0);
 
                     marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),

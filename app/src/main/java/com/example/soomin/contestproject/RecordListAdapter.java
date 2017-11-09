@@ -70,7 +70,9 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         itemAnimalNameView.setText(vo.name);
         titleView.setText(vo.title);
         dateView.setText(vo.date);
-        if (vo.type ==null) {
+        System.out.println("ddddddfffffffffffffffffffffffdddddddddd" + vo.content);
+        System.out.println("ddddddddddddddddddddddddddddddddddd" + vo.type);
+        if (vo.type ==null || vo.type.equals("")) {
             vo.type = "hospital";
             itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_hospital_black_24dp));
             itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);

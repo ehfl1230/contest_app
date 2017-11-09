@@ -17,9 +17,8 @@
 
         <TextView
             android:id="@+id/date_text"
-            android:layout_width="0px"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
             android:gravity="center"
             android:paddingBottom="1dp"
             android:paddingLeft="5dp"
@@ -32,20 +31,20 @@
 
         <TextView
             android:id="@+id/aninmal_name"
-            android:layout_width="0px"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+
             android:text="aninmal_name"
             android:textColor="@color/black"
             android:textSize="19sp" />
 
         <ImageView
             android:id="@+id/modify_btn"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/main_title"
-            android:layout_weight="1"
+
             android:adjustViewBounds="true"
             android:clickable="true"
             android:padding="5dp"

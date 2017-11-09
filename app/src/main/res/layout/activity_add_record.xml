@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:text="주요정보"
+        android:text="증상"
         android:background="@drawable/bottom_border"
         android:textColor="@color/black"
         android:textSize="25sp"
