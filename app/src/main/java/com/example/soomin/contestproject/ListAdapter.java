@@ -71,7 +71,8 @@ public class ListAdapter extends ArrayAdapter<ItemVO> {
         callBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MyApplication myApplication = (MyApplication) context.getApplicationContext();
+                               if (myApplication.callPermission) {
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
                 alert_confirm.setMessage("통화를 시도하겠습니까?").setCancelable(false).setPositiveButton("전화 걸기",
                         new DialogInterface.OnClickListener() {
@@ -98,8 +99,13 @@ public class ListAdapter extends ArrayAdapter<ItemVO> {
                         });
                 AlertDialog alert = alert_confirm.create();
                 alert.show();
+                               } else {
+                                   Toast t = Toast.makeText(context, R.string.permission_error, Toast.LENGTH_SHORT);
+                                   t.show();
+                               }
             }
         });
+
         return convertView;
         }
     }

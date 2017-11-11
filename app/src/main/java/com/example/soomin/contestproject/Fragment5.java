@@ -1,11 +1,12 @@
 package com.example.soomin.contestproject;
-
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.ActivityCompat;
 
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
@@ -64,61 +68,74 @@ public class Fragment5 extends android.support.v4.app.Fragment {
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
         //if (myApplication.locationPermission) {
         hospitalBtn = (TextView) viewGroup.findViewById(R.id.find_nearest_hospital);
-        mapViewContainer = (ViewGroup) viewGroup.findViewById(R.id.map_view);
-        mapView = new MapView(getActivity());
-        polyline = new MapPolyline();
         datas = new ArrayList<>();
         nearest_data = new ArrayList<>();
         addItems("", "");
-        getLocation();
-        mapViewContainer.addView(mapView);
-        adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
-        hospitalBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
-                        "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
-                type = 1;
-                onResume();
-            }
-        });
-        drugBtn = (TextView) viewGroup.findViewById(R.id.find_nearest_drugstore);
-        drugBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=";
-                type = 2;
-                onResume();
-            }
-        });
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        myApplication.locationPermission = true;
+                    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (!myApplication.locationPermission) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 20);
+                    }
 
-                String name = nearest_data.get(position).apiDongName;
-                String address = nearest_data.get(position).apiNewAddress;
-                String old_address = nearest_data.get(position).apiOldAddress;
-                String tel = nearest_data.get(position).apiTel;
-                String lat = nearest_data.get(position).apiLat;
-                String lng = nearest_data.get(position).apiLng;
-                Intent intent = new Intent();
-                intent.setClass(Fragment5.super.getActivity(), FragmentItem.class);
-                intent.putExtra("from", "near");
-                intent.putExtra("type", "hospital");
-                intent.putExtra("name", name);
-                intent.putExtra("address", address);
-                intent.putExtra("old_address", old_address);
-                intent.putExtra("tel", tel);
-                intent.putExtra("lat", lat);
-                intent.putExtra("lng", lng);
-                mapViewContainer.removeAllViews();
+                        if (((MyApplication)getActivity().getApplicationContext()).locationPermission) {
+                        mapViewContainer = (ViewGroup) viewGroup.findViewById(R.id.map_view);
+                        mapView = new MapView(getActivity());
+                        polyline = new MapPolyline();
+                        getLocation();
+                        mapViewContainer.addView(mapView);
+                        adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
+                        hospitalBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                                        url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
+                                                        "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
+                                        type = 1;
+                                        onResume();
+                                    }
+            });
+                        drugBtn = (TextView) viewGroup.findViewById(R.id.find_nearest_drugstore);
+                        drugBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                                        url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                                                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=";
+                                        type = 2;
+                                        onResume();
+                                   }
+            });
 
-                startActivityForResult(intent, msg);
-            }
-        });
-        listView.setAdapter(adapter);
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                        String name = nearest_data.get(position).apiDongName;
+                                                String address = nearest_data.get(position).apiNewAddress;
+                                                String old_address = nearest_data.get(position).apiOldAddress;
+                                                String tel = nearest_data.get(position).apiTel;
+                                                String lat = nearest_data.get(position).apiLat;
+                                                String lng = nearest_data.get(position).apiLng;
+                                                Intent intent = new Intent();
+                                                intent.setClass(Fragment5.super.getActivity(), FragmentItem.class);
+                                                intent.putExtra("from", "near");
+                                                intent.putExtra("type", "hospital");
+                                                intent.putExtra("name", name);
+                                                intent.putExtra("address", address);
+                                                intent.putExtra("old_address", old_address);
+                                                intent.putExtra("tel", tel);
+                                                intent.putExtra("lat", lat);
+                                                intent.putExtra("lng", lng);
+                                                mapViewContainer.removeAllViews();
+
+                                                        startActivityForResult(intent, msg);
+                                            }
+            });
+                        listView.setAdapter(adapter);
+                    }
+                else {
+                        Toast.makeText(getActivity(), "위치 권한이 없습니다.  설정을 변경해주세요.", Toast.LENGTH_SHORT).show();
+                   }
         return viewGroup;
     }
 
@@ -263,6 +280,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (((MyApplication)getActivity().getApplicationContext()).locationPermission) {
         mapView.refreshMapTiles();
         if (type != 0 && mapView != null) {
             try {
@@ -274,7 +292,7 @@ public class Fragment5 extends android.support.v4.app.Fragment {
 
             addItems("", "");
             getLocation();
-
+        }
             //mapView.removePOIItem(marker);
             //         mapView.removeAllPOIItems();
 

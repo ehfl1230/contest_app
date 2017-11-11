@@ -249,7 +249,7 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         if (v == saveBtn) {
             AlertDialog.Builder alert_confirm = new AlertDialog.Builder(ModifyItemActivity.this);
             if (modify_title.getText().toString().equals("")) {
-                alert_confirm.setMessage("주요정보를 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                alert_confirm.setMessage("증상을 입력해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();     //닫기

@@ -147,7 +147,7 @@ public class AddRecordActivity extends AppCompatActivity {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(AddRecordActivity.this);
 
         if (title_str.equals("")) {
-            Toast.makeText(AddRecordActivity.this, "주요정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddRecordActivity.this, "증상을 입력해주세요.", Toast.LENGTH_SHORT).show();
         } else if (name.equals("의료기관선택") || name.equals("") || name == null) {
             Toast.makeText(AddRecordActivity.this, "의료기관을 선택해주세요.", Toast.LENGTH_SHORT).show();
         } else if (nameSpinner.getSelectedItem() == null || nameSpinner.getSelectedItem().toString().equals("")) {
@@ -207,7 +207,7 @@ public class AddRecordActivity extends AppCompatActivity {
                         SQLiteDatabase db = helper.getWritableDatabase();
                         String title_str = title.getText().toString();
                         if (title_str.equals("")) {
-                            Toast.makeText(AddRecordActivity.this, "주요정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddRecordActivity.this, "증상을 입력해주세요.", Toast.LENGTH_SHORT).show();
                         } else if (name.equals("의료기관선택") || name.equals("") || name == null) {
                             Toast.makeText(AddRecordActivity.this, "의료기관을 선택해주세요.", Toast.LENGTH_SHORT).show();
                         } else if (nameSpinner.getSelectedItem() == null || nameSpinner.getSelectedItem().toString().equals("")) {

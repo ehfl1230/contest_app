@@ -56,7 +56,7 @@ public class Fragment3 extends Fragment {
         bookmark = (TextView) viewGroup.findViewById(R.id.bookmark);
         fab = (FloatingActionButton) viewGroup.findViewById(R.id.add_btn);
         fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_black_24dp));
-        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue)));
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_red)));
         no_data = (RelativeLayout) viewGroup.findViewById(R.id.no_data);
         no_data.setVisibility(View.GONE);
         no_data2 = (RelativeLayout) viewGroup.findViewById(R.id.no_data2);

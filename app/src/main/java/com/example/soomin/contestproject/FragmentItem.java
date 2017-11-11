@@ -131,15 +131,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         //    }
        // }
 
-        myApplication = (MyApplication) getApplicationContext();
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            myApplication.locationPermission = true;
-        }
-
-        if (!myApplication.locationPermission) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 20);
-        }
     }
     @Override
     public void onBackPressed() {
