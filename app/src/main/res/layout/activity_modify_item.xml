@@ -8,7 +8,7 @@
     android:focusable="true"
     android:id="@+id/relative_layout"
     android:focusableInTouchMode="true"
-    tools:context="com.example.soomin.contestproject.AddRecordActivity">
+    tools:context="com.contest.soomin.contestproject.AddRecordActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,8 +39,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/round_border"
-                android:maxLength="17"
-                android:hint="증상을 입력해주세요.(최대 17글자)"
+                android:maxLength="15"
+                android:hint="증상을 입력해주세요.(최대 15글자)"
                 android:inputType="text"
                 android:padding="5dp"
                 android:textColor="#6e6d6d"
@@ -184,7 +184,7 @@
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/round_border"
                     android:padding="5dp"
                     android:textSize="20sp" />
@@ -193,7 +193,7 @@
                     android:id="@+id/modify_date"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:background="@drawable/round_border_with_color"
                     android:clickable="true"
                     android:gravity="center"

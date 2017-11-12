@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context="com.example.soomin.contestproject.InfoActivity">
+    tools:context="com.contest.soomin.contestproject.InfoActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -76,7 +76,7 @@
     <LinearLayout
         android:id="@+id/first_layout"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="34dp"
         android:layout_margin="5dp"
         android:orientation="horizontal">
 
@@ -92,7 +92,7 @@
             android:layout_marginRight="2dp"
             android:background="@drawable/border"
             android:textColor="@color/dark_gray"
-            android:textStyle="bold"
+
             android:textSize="23sp" />
 
         <TextView
@@ -104,7 +104,6 @@
             android:gravity="center_horizontal"
             android:text="즐겨찾기"
             android:layout_marginLeft="2dp"
-            android:textStyle="bold"
             android:padding="2dp"
             android:background="@drawable/border"
             android:textColor="@color/dark_gray"

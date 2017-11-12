@@ -6,13 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_color"
-    tools:context="com.example.soomin.contestproject.AddDongActivity">
+    tools:context="com.contest.soomin.contestproject.AddDongActivity">
     <RelativeLayout
         android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color"
-        android:gravity="center"  >
+        android:gravity="center"
+        android:focusable="true"
+
+        android:focusableInTouchMode="true">
+
+        <requestFocus/>
         <ImageView
             android:id="@+id/dog"
             android:layout_width="80dp"
