@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 import java.util.ArrayList;
 
 public class AddNameActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,6 +28,10 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
     AddNameAdapter adapter;
     RelativeLayout no_data;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -26,6 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
@@ -60,6 +62,11 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     String old_address = "";
     String lat = "";
     String lng = "";
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

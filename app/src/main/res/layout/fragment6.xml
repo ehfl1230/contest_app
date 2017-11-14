@@ -28,7 +28,7 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:textColor="@color/gray"
-            android:text="\n 동물병원을 찾지 못했습니다."/>
+            android:text="\n 기타정보를 찾지 못했습니다."/>
         <TextView
             android:layout_below="@id/msg"
             android:layout_width="wrap_content"

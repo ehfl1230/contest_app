@@ -26,6 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -35,6 +37,11 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
     BookmarkAdapter adapter;
     TextView save_btn;
     RelativeLayout no_data;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

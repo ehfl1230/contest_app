@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -40,6 +42,10 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
     String type_dong = "";
     String type = "";
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

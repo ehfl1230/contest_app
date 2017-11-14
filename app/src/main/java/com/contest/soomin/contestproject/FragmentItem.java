@@ -1,12 +1,14 @@
 package com.contest.soomin.contestproject;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -28,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import net.daum.android.map.MapViewController;
 import net.daum.mf.map.api.MapPOIItem;
@@ -79,6 +83,10 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
@@ -123,8 +131,10 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                 marker.setTag(0);
                 mapView.setZoomLevel(3, true);
                 marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(lat), Double.parseDouble(lng)));
-                marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+             //   marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                marker.setCustomImageResourceId(R.drawable.marker2); // 마커 이미지.
+               // marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
                 mapView.addPOIItem(marker);
                 mapViewContainer.addView(mapView);
 

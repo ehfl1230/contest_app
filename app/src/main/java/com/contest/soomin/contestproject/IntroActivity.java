@@ -23,4 +23,5 @@ public class IntroActivity extends Activity {
             }
         }, 800);
     }
+
 }
