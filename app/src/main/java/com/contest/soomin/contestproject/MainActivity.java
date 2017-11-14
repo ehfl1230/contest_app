@@ -1,6 +1,7 @@
 package com.contest.soomin.contestproject;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 public class MainActivity extends AppCompatActivity {
 
     Fragment1 fragment1;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment3 fragment3;
     Fragment4 fragment4;
     Fragment5 fragment5;
+    Fragment6 fragment6;
     MyApplication myApplication;
     ImageView btn;
     TabLayout tabs;
@@ -30,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private final long FINISH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +59,16 @@ public class MainActivity extends AppCompatActivity {
         fragment3 = new Fragment3();
         fragment4 = new Fragment4();
         fragment5 = new Fragment5();
+        fragment6 = new Fragment6();
 
 
        tabs= (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("동물병원"));
         tabs.addTab(tabs.newTab().setText("동물약국"));
+        tabs.addTab(tabs.newTab().setText("기타정보"));
         tabs.addTab(tabs.newTab().setText("가까운의료기관"));
         tabs.addTab(tabs.newTab().setText("내페이지"));
-        //tabs.addTab(tabs.newTab().setText("즐겨찾기"));
+
 
         setupTabIcons();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
@@ -74,28 +84,41 @@ public class MainActivity extends AppCompatActivity {
                     fragment = fragment1;
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
-                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_library_books_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(4).setIcon(R.drawable.ic_face_black_24dp);
                 } else if (position == 1) {
 
                     fragment = fragment2;
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_point_24dp);
-                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_library_books_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(4).setIcon(R.drawable.ic_face_black_24dp);
                 } else if (position == 2) {
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
-                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_point_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
-                    fragment = fragment5;
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_library_books_point_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(4).setIcon(R.drawable.ic_face_black_24dp);
+                    fragment = fragment6;
+
 
                 }
-                else if (position == 3) {
+                else if (position ==3 ) {
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
-                    tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-                    tabs.getTabAt(3).setIcon(R.drawable.ic_face_point_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_library_books_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_point_24dp);
+                    tabs.getTabAt(4).setIcon(R.drawable.ic_face_black_24dp);
+                    fragment = fragment5;
+                }
+                else if (position == 4) {
+                    tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_black_24dp);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_library_books_black_24dp);
+                    tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_black_24dp);
+                    tabs.getTabAt(4).setIcon(R.drawable.ic_face_point_24dp);
                     fragment = fragment3;
                 }
                 //else if (position == 3) {
@@ -135,8 +158,9 @@ public class MainActivity extends AppCompatActivity {
     }  private void setupTabIcons() {
         tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
         tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
-        tabs.getTabAt(2).setIcon(R.drawable.ic_location_on_black_24dp);
-        tabs.getTabAt(3).setIcon(R.drawable.ic_face_black_24dp);
+        tabs.getTabAt(2).setIcon(R.drawable.ic_library_books_black_24dp);
+        tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_black_24dp);
+        tabs.getTabAt(4).setIcon(R.drawable.ic_face_black_24dp);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

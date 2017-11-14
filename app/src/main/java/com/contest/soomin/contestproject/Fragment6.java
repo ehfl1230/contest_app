@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * Created by SOOMIN on 2017-10-24.
  */
 
-public class Fragment2 extends Fragment implements View.OnClickListener {
+public class Fragment6 extends Fragment implements View.OnClickListener {
 
     ArrayList<ItemVO> datas;
     ListView listView;
@@ -39,25 +40,59 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     String keyword = "";
     ListAdapter adapter;
     RelativeLayout no_data;
-
+    TextView registerBtn;
+    TextView missingBtn;
     String text;
+    String url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
+            "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
     Spinner spinner;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment2, container, false);
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment6, container, false);
         datas = new ArrayList<>();
         FragmentManager fm = getFragmentManager();
         fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+
         listView = (ListView) viewGroup.findViewById(R.id.search_list);
-        searchBtn = (ImageView) viewGroup.findViewById(R.id.search_hospital_btn);
-        searchBtn.setOnClickListener(this);
+      //  searchBtn = (ImageView) viewGroup.findViewById(R.id.search_hospital_btn);
+     //   searchBtn.setOnClickListener(this);
         no_data = (RelativeLayout) viewGroup.findViewById(R.id.no_data);
         no_data.setVisibility(View.GONE);
-        searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
-        searchField.clearFocus();
-        spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
-        downKeyboard(getContext(), searchField);
+   //     searchField = (EditText) viewGroup.findViewById(R.id.search_hospital);
+    //    searchField.clearFocus();
+     //   spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
+     //   downKeyboard(getContext(), searchField);
+        registerBtn = (TextView) viewGroup.findViewById(R.id.find_register_hospital);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
+                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
+              //  type = 1;
+                onResume();
+                registerBtn.setBackgroundResource(R.drawable.border_solid);
+                registerBtn.setTextColor(getResources().getColor(R.color.white));
+                missingBtn.setBackgroundResource(R.drawable.border);
+                missingBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+
+            }
+        });
+        missingBtn = (TextView) viewGroup.findViewById(R.id.find_missing);
+        missingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                url = "http://openapi.jeonju.go.kr/rest/yugidongmulservice?ServiceKey=" + new data().apiKey +
+                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=";
+           //     type = 2;
+                onResume();
+                missingBtn.setBackgroundResource(R.drawable.border_solid);
+                missingBtn.setTextColor(getResources().getColor(R.color.white));
+                registerBtn.setBackgroundResource(R.drawable.border);
+                registerBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+            }
+        });
         return viewGroup;
 
     }
@@ -66,9 +101,9 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
-        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
-        typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
-        spinner.setAdapter(typeAdapter);
+    //    ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
+    //    typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
+//        spinner.setAdapter(typeAdapter);
         adapter = new ListAdapter(this.getContext(), R.layout.list_item, datas);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,7 +116,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 String tel = datas.get(position).apiTel;
                 String lat = datas.get(position).apiLat;
                 String lng = datas.get(position).apiLng;
-                Intent intent = new Intent(Fragment2.super.getActivity(), FragmentItem.class);
+                Intent intent = new Intent(Fragment6.super.getActivity(), FragmentItem.class);
                 intent.putExtra("type", "hospital");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
@@ -101,7 +136,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == searchBtn) {
-            downKeyboard(getContext(), searchField);
+           // downKeyboard(getContext(), searchField);
             if (spinner.getSelectedItem() == null)
                 text = "";
             else {
@@ -128,15 +163,15 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
             ArrayList<String> params = new ArrayList<>();
             String url = "";
             if (keyword.equals("")) {
-                url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                url = " http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
             } else {
                 if (type.equals("name")) {
-                    url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
-                            "&pageNo=1&numOfRows=70&dongName=" + URLEncoder.encode(keyword, "UTF-8");
+                url = " http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput " + new data().apiKey +
+                        "&pageNo=1&numOfRows=70&dongName=" + URLEncoder.encode(keyword, "UTF-8");
                 }
                 if (type.equals("address")) {
-                    url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                    url = " http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput ?ServiceKey=" + new data().apiKey +
                             "&pageNo=1&numOfRows=70&address=" + URLEncoder.encode(keyword, "UTF-8");
                 }
             }
@@ -172,7 +207,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        downKeyboard(getContext(), searchField);
+       // downKeyboard(getContext(), searchField);
     }
 }
 

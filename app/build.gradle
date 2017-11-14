@@ -1,19 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
+    defaultConfig {
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
-    defaultConfig {
         applicationId "com.contest.soomin.contestproject"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 3
-        versionName "0.0.2"
+        versionCode 4
+        versionName "0.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            debuggable false
+         //   debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -29,5 +29,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.tsengvn:Typekit:1.0.0'
     testCompile 'junit:junit:4.12'
 }

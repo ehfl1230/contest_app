@@ -9,3 +9,4 @@
 .externalNativeBuild
 data.java
 /app/src/main/res/drawable
+/app/src/main/assets

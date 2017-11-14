@@ -12,11 +12,11 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/main_round"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/main_round"
         android:supportsRtl="true"
-        android:debuggable="false"
+
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -53,7 +53,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".IntroActivity"
-            android:icon="@drawable/icon_footprint"
+            android:icon="@drawable/main_round"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
 

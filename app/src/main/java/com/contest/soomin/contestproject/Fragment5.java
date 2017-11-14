@@ -77,8 +77,8 @@ public class Fragment5 extends android.support.v4.app.Fragment {
         no_data= (RelativeLayout) viewGroup.findViewById(R.id.no_data);
         adapter = new ListAdapter(getContext(), R.layout.list_item, nearest_data);
 ll = (LinearLayout) viewGroup.findViewById(R.id.data);
-        addItems("", "");
-
+   //     addItems("", "");
+//
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             no_data.setVisibility(View.VISIBLE);
             ll.setVisibility(View.GONE);
@@ -92,7 +92,12 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
             public void onClick(View v) {
                 url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
-                type = 1;                onResume();
+                type = 1;
+                hospitalBtn.setBackgroundResource(R.drawable.border_solid);
+                hospitalBtn.setTextColor(getResources().getColor(R.color.white));
+                drugBtn.setBackgroundResource(R.drawable.border);
+                drugBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+                onResume();
 
             }
         });
@@ -103,6 +108,10 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
                 url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=";
                 type = 2;
+                drugBtn.setBackgroundResource(R.drawable.border_solid);
+                drugBtn.setTextColor(getResources().getColor(R.color.white));
+                hospitalBtn.setBackgroundResource(R.drawable.border);
+                hospitalBtn.setTextColor(getResources().getColor(R.color.dark_gray));
                 onResume();
             }
         });
@@ -143,7 +152,7 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
             marker3 = new MapPOIItem();
 
             polyline = new MapPolyline();
-            getLocation();
+         //   getLocation();
             System.out.println("32322111111111111111111111111111" + mapView);
             mapViewContainer.removeAllViews();
 
@@ -217,7 +226,7 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
 
 
                 }
-
+                System.out.print(nearest.apiLat + " " +  second_nearest.apiLat );
                 if (nearest.apiLat == null || second_nearest.apiLat == null) {
                     Toast.makeText(getActivity(), "위치를 찾지 못했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
 
@@ -297,7 +306,7 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
         super.onResume();
 
 
-        if (type != 0 && mapView != null) {
+        if (mapView != null) {
 
             try {
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

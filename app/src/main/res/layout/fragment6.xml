@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:orientation="vertical">
+    android:background="@color/background_color">
     <RelativeLayout
         android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color"
-        android:gravity="center"  >
+     android:gravity="center"  >
         <ImageView
-            android:id="@+id/giraffe"
+            android:id="@+id/dog"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
             android:tint="@color/gray"
-            android:src="@drawable/giraffe"
+            android:src="@drawable/dog"
             />
         <TextView
             android:id="@+id/msg"
-            android:layout_below="@id/giraffe"
+            android:layout_below="@id/dog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:textColor="@color/gray"
-            android:text="\n 권한이 없습니다."/>
+            android:text="\n 동물병원을 찾지 못했습니다."/>
         <TextView
             android:layout_below="@id/msg"
             android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:textColor="@color/gray"
-            android:text="애플리케이션 설정을 변경해주세요."/>
+            android:text="다시 검색해주세요."/>
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/data"
@@ -46,7 +47,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/find_nearest_hospital"
+            android:id="@+id/find_register_hospital"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -57,13 +58,13 @@
             android:gravity="center_horizontal"
             android:padding="2dp"
             android:paddingRight="4dp"
-            android:text="가까운 동물병원"
+            android:text="동물등록제대행업소"
             android:textColor="@color/white"
             android:textSize="23sp"
-             />
+            />
 
         <TextView
-            android:id="@+id/find_nearest_drugstore"
+            android:id="@+id/find_missing"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -73,26 +74,20 @@
             android:clickable="true"
             android:gravity="center_horizontal"
             android:padding="2dp"
-            android:text="가까운 동물약국"
+            android:text="유기동물보호소"
             android:textColor="@color/dark_gray"
             android:textSize="23sp"
-      />
+            />
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/map_view"
-        android:layout_width="wrap_content"
-        android:layout_height="295dp"
-        android:padding="5dp" />
-
     <ListView
         android:id="@+id/search_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/map_view"
+        android:layout_below="@id/search_layout"
         android:divider="#00000000"
         android:dividerHeight="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"></ListView>
 
-</LinearLayout>
+
+</RelativeLayout>

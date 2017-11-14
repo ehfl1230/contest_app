@@ -77,7 +77,10 @@ public class Fragment3 extends Fragment {
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                record.setBackgroundResource(R.drawable.border_solid);
+                record.setTextColor(getResources().getColor(R.color.white));
+                bookmark.setBackgroundResource(R.drawable.border);
+                bookmark.setTextColor(getResources().getColor(R.color.dark_gray));
                 type = 1;
                 onResume();
             }
@@ -86,7 +89,10 @@ public class Fragment3 extends Fragment {
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                bookmark.setBackgroundResource(R.drawable.border_solid);
+                bookmark.setTextColor(getResources().getColor(R.color.white));
+                record.setBackgroundResource(R.drawable.border);
+                record.setTextColor(getResources().getColor(R.color.dark_gray));
                 type = 2;
                 onResume();
             }
