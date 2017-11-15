@@ -83,31 +83,34 @@
         <TextView
             android:id="@+id/record"
             android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="2dp"
+            android:layout_weight="5"
+            android:background="@drawable/border_solid"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:text="진료기록"
             android:padding="2dp"
-            android:layout_marginRight="2dp"
-            android:background="@drawable/border_solid"
+            android:paddingRight="4dp"
             android:textColor="@color/white"
-
-            android:textSize="23sp" />
+            android:textSize="23sp"
+            android:text="진료기록" />
 
         <TextView
             android:id="@+id/bookmark"
             android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="5"
+            android:background="@drawable/border"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:text="즐겨찾기"
-            android:layout_marginLeft="2dp"
             android:padding="2dp"
-            android:background="@drawable/border"
             android:textColor="@color/dark_gray"
-            android:textSize="23sp" />
+            android:textSize="23sp"
+            android:text="즐겨찾기"
+     />
 
     </LinearLayout>
 

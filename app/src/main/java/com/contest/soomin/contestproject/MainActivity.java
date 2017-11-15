@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = fragment1;
                     tabs.getTabAt(0).setIcon(R.drawable.ic_local_hospital_point_24dp);
                     tabs.getTabAt(1).setIcon(R.drawable.ic_local_pharmacy_black_24dp);
-                    tabs.getTabAt(1).setIcon(R.drawable.ic_library_books_black_24dp);
+                    tabs.getTabAt(2).setIcon(R.drawable.ic_library_books_black_24dp);
                     tabs.getTabAt(3).setIcon(R.drawable.ic_location_on_black_24dp);
                     tabs.getTabAt(4).setIcon(R.drawable.ic_face_black_24dp);
                 } else if (position == 1) {

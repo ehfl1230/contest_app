@@ -75,8 +75,10 @@ public class ListParser extends AsyncTask<ArrayList<String>, Void, ArrayList<Ite
                             item.apiLng = parser.getText();
                         }
                         else if (preName.equalsIgnoreCase("apiRegDate")) {
-                            item.apiRegDate = parser.getText();
-                        }
+                           item.apiRegDate = parser.getText();
+                       } else if (preName.equalsIgnoreCase("apiYugiName")) {
+                           item.apiDongName = parser.getText();
+                       }
 
                         break;
                 }

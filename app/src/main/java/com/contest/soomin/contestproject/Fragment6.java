@@ -46,6 +46,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
     String url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
             "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
     Spinner spinner;
+    int type = 1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
-              //  type = 1;
+               type = 1;
                 onResume();
                 registerBtn.setBackgroundResource(R.drawable.border_solid);
                 registerBtn.setTextColor(getResources().getColor(R.color.white));
@@ -83,9 +84,9 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
         missingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://openapi.jeonju.go.kr/rest/yugidongmulservice?ServiceKey=" + new data().apiKey +
-                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=";
-           //     type = 2;
+                url = "http://openapi.jeonju.go.kr/rest/yugidongmulservice/getYugi?ServiceKey=" + new data().apiKey +
+                        "&pageNo=1&numOfRows=70";
+               type = 2;
                 onResume();
                 missingBtn.setBackgroundResource(R.drawable.border_solid);
                 missingBtn.setTextColor(getResources().getColor(R.color.white));
@@ -105,7 +106,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
     //    typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
 //        spinner.setAdapter(typeAdapter);
         adapter = new ListAdapter(this.getContext(), R.layout.list_item, datas);
-
+        addItems("", keyword);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -129,7 +130,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
             }
         });
         listView.setAdapter(adapter);
-        addItems("", keyword);
+
 
     }
 
@@ -161,20 +162,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
         try {
             ListParser task = new ListParser();
             ArrayList<String> params = new ArrayList<>();
-            String url = "";
-            if (keyword.equals("")) {
-                url = " http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
-                        "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
-            } else {
-                if (type.equals("name")) {
-                url = " http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput " + new data().apiKey +
-                        "&pageNo=1&numOfRows=70&dongName=" + URLEncoder.encode(keyword, "UTF-8");
-                }
-                if (type.equals("address")) {
-                    url = " http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput ?ServiceKey=" + new data().apiKey +
-                            "&pageNo=1&numOfRows=70&address=" + URLEncoder.encode(keyword, "UTF-8");
-                }
-            }
+            System.out.println("url:" + url);
             params.add(0, url);
             datas.clear();
             ArrayList<ItemVO> item_list = task.execute(params).get();

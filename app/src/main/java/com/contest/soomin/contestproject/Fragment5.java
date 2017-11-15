@@ -246,24 +246,30 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
 
                     marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(nearest.apiLat),
                             Double.parseDouble(nearest.apiLng)));
-                    marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                    marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+                    marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                    marker.setCustomImageResourceId(R.drawable.marker2); // 마커 이미지.
+                    //marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                    //marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
 
                     marker2.setItemName(second_nearest.apiDongName + " \n" + String.format("%.2f", (second_distance / 1000)) + "km");
                     marker2.setTag(0);
 
                     marker2.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(second_nearest.apiLat), Double.parseDouble(second_nearest.apiLng)));
-                    marker2.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                    marker2.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+                    marker2.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                    marker2.setCustomImageResourceId(R.drawable.marker2); // 마커 이미지.
+                    //marker2.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                    //marker2.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
 
                     marker3.setItemName("현재위치");
                     marker3.setTag(0);
 
                     marker3.setMapPoint(MapPoint.mapPointWithGeoCoord(lat, lng));
-                    marker3.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                    marker3.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+                    marker3.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                    marker3.setCustomImageResourceId(R.drawable.crosshair); // 마커 이미지.
+                //    marker3.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                 //   marker3.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
                     mapView.addPOIItem(marker);
                     mapView.addPOIItem(marker2);
                     mapView.addPOIItem(marker3);

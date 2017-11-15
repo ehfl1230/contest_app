@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="1dp"
-
+        android:gravity="left"
         android:paddingTop="5dp"
         android:textSize="20dp"
         android:paddingLeft="5dp"

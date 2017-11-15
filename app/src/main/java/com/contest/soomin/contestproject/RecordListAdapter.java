@@ -1,11 +1,13 @@
 package com.contest.soomin.contestproject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +25,13 @@ import java.util.ArrayList;
 
 public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
     Context context;
-//    ArrayList<RecordItemVO> groupList;
- //   ArrayList<ArrayList<RecordItemVO>> childList;
+    //    ArrayList<RecordItemVO> groupList;
+    //   ArrayList<ArrayList<RecordItemVO>> childList;
     ArrayList<RecordItemVO> datas;
     int resId;
     int resId2;
     ImageView modifyBtnView = null;
+    ImageView deleteBtnView = null;
 
 
     public RecordListAdapter(Context context, int resId, ArrayList<RecordItemVO> datas) {
@@ -40,10 +43,12 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         this.resId = resId;
         //this.resId2 = resId2;
     }
+
     @Override
     public int getCount() {
         return datas.size();
     }
+
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
@@ -59,20 +64,27 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
         TextView dateView = wrapper.dateView;
         TextView titleView = wrapper.titleView;
         modifyBtnView = wrapper.modifyBtnView;
+        deleteBtnView = wrapper.deleteBtnView;
         TextView itemContentsView = wrapper.itemContentsView;
         TextView itemDongNameView = wrapper.itemDongNameView;
         ImageView itemTypeView = wrapper.itemTypeView;
         TextView itemAnimalNameView = wrapper.itemAnimalNameView;
         ImageView homeBtn = wrapper.homebtn;
-        final RecordItemVO vo=datas.get(position);
+        final RecordItemVO vo = datas.get(position);
         itemDongNameView.setText(vo.dong_name);
-        itemContentsView.setText(vo.content);
+        if (vo.content.equals("")) {
+            itemContentsView.setVisibility(View.GONE);
+        }else {
+            itemContentsView.setVisibility(View.VISIBLE);
+
+            itemContentsView.setText(vo.content);
+
+        }
         itemAnimalNameView.setText(vo.name);
         titleView.setText(vo.title);
         dateView.setText(vo.date);
-        System.out.println("ddddddfffffffffffffffffffffffdddddddddd" + vo.content);
-        System.out.println("ddddddddddddddddddddddddddddddddddd" + vo.type);
-        if (vo.type ==null || vo.type.equals("")) {
+
+     /*   if (vo.type ==null || vo.type.equals("")) {
             vo.type = "hospital";
             itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_hospital_black_24dp));
             itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -88,7 +100,7 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
            // itemTypeView.setBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.round_border_with_red));
             itemTypeView.setImageDrawable(ContextCompat.getDrawable(this.context, R.drawable.ic_local_pharmacy_black_24dp));
             itemTypeView.setColorFilter(ContextCompat.getColor(this.context, R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
+        }*/
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,10 +123,43 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
             }
         });
         SetOnClick(modifyBtnView, vo._id);
+        deleteBtnView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
 
 
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
+                alert_confirm.setMessage("삭제하겠습니까?").setCancelable(false).setPositiveButton("삭제하기",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DBHelper helper = new DBHelper(getContext());
+                                SQLiteDatabase db = helper.getWritableDatabase();
+                                db.execSQL("delete from medical_record where _id=?", new String[]{Integer.toString(vo._id)});
+                                db.close();
+
+                                Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                datas.remove(position);
+
+                                notifyDataSetChanged();
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alert = alert_confirm.create();
+                alert.show();
+             
+
+            }
+        });
         return convertView;
     }
+
     public void SetOnClick(final ImageView modifyBtnView, final int id) {
         modifyBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +170,7 @@ public class RecordListAdapter extends ArrayAdapter<RecordItemVO> {
             }
         });
     }
+
 /*
     @Override
     public RecordItemVO getGroup(int groupPosition) {

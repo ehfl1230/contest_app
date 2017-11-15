@@ -68,7 +68,6 @@ public class Fragment3 extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Fragment3.super.getActivity(), AddRecordActivity.class);
                 startActivity(intent);
                 adapter.notifyDataSetChanged();

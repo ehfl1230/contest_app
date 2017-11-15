@@ -62,7 +62,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         moveBookmark = (TextView) findViewById(R.id.move_bookmark);
         no_data = (RelativeLayout) findViewById(R.id.no_data);
         no_data.setVisibility(View.GONE);
-
+        searchField.clearFocus();
         save_btn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
         listView.setItemsCanFocus(false);
