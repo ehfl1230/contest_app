@@ -58,7 +58,7 @@
             android:gravity="center_horizontal"
             android:padding="2dp"
             android:paddingRight="4dp"
-            android:text="동물등록제대행업소"
+            android:text="등록제대행업소"
             android:textColor="@color/white"
             android:textSize="23sp"
             />
@@ -78,6 +78,21 @@
             android:textColor="@color/dark_gray"
             android:textSize="23sp"
             />
+        <TextView
+            android:id="@+id/sell_btn"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="5"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:padding="2dp"
+            android:text="동물판매업소"
+            android:textColor="@color/dark_gray"
+            android:textSize="23sp"
+            />
     </LinearLayout>
     <ListView
         android:id="@+id/search_list"
@@ -88,6 +103,4 @@
         android:dividerHeight="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"></ListView>
-
-
 </RelativeLayout>

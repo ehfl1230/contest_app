@@ -42,6 +42,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
     RelativeLayout no_data;
     TextView registerBtn;
     TextView missingBtn;
+    TextView sellBtn;
     String text;
     String url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
             "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
@@ -77,6 +78,8 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
                 registerBtn.setTextColor(getResources().getColor(R.color.white));
                 missingBtn.setBackgroundResource(R.drawable.border);
                 missingBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+                sellBtn.setBackgroundResource(R.drawable.border);
+                sellBtn.setTextColor(getResources().getColor(R.color.dark_gray));
 
             }
         });
@@ -92,6 +95,24 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
                 missingBtn.setTextColor(getResources().getColor(R.color.white));
                 registerBtn.setBackgroundResource(R.drawable.border);
                 registerBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+                sellBtn.setBackgroundResource(R.drawable.border);
+                sellBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+            }
+        });
+        sellBtn = (TextView) viewGroup.findViewById(R.id.sell_btn);
+        sellBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                url = "http://openapi.jeonju.go.kr/rest/dongmulsellservice/getDongMulSell?ServiceKey=" + new data().apiKey +
+                        "&pageNo=1&numOfRows=70";
+                type = 3;
+                onResume();
+                missingBtn.setBackgroundResource(R.drawable.border);
+                missingBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+                registerBtn.setBackgroundResource(R.drawable.border);
+                registerBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+                sellBtn.setBackgroundResource(R.drawable.border_solid);
+                sellBtn.setTextColor(getResources().getColor(R.color.white));
             }
         });
         return viewGroup;

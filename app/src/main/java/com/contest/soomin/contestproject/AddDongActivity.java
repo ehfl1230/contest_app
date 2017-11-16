@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -73,9 +74,35 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.search_type, R.layout.custom_simple_drop_item);
         typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner_type.setAdapter(typeAdapter);
+
         ArrayAdapter dongAdapter = ArrayAdapter.createFromResource(this, R.array.dong_type, R.layout.custom_simple_drop_item);
         dongAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
         spinner_dong.setAdapter(dongAdapter);
+        spinner_dong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id)
+            {
+                String str = (String) spinner_dong.getSelectedItem();
+                if (str == null || str.equals(""))
+                    type_dong = "hospital";
+                else {
+                    if (str.equals("병원"))
+                        type_dong = "hospital";
+                    else if (str.equals("약국"))
+                        type_dong = "drugstore";
+                }
+                keyword = "";
+                addItems(type_dong, type, keyword);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
+
+            }
+        });
 
         adapter = new AddDongAdapter(this, R.layout.add_dong_item, datas);
         listView.setAdapter(adapter);
