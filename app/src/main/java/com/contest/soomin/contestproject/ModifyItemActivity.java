@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -62,6 +63,8 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
     String old_address = "";
     String lat = "";
     String lng = "";
+    int selected = -1;
+    final ArrayList<String> spinner_Name = new ArrayList<>();
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -150,33 +153,48 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         vo.dong_lat= cursor.getString(10);
         vo.dong_lng = cursor.getString(11);
         vo.name = cursor.getString(13);
-        db.close();
+
         modify_title.setText(vo.title);
         modify_contents.setText(vo.content);
         origin_date.setText(vo.date);
         origin_dong.setText(vo.dong_name);
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        final ArrayList<String> spinner_Name = new ArrayList<>();
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
-        while (cursor.moveToNext()) {
+
+        Cursor cursor2 = db.rawQuery("select * from animal order by animal_name", null);
+        while (cursor2.moveToNext()) {
             NameVO nvo = new NameVO();
-            nvo._id = cursor.getInt(0);
-            nvo.name = cursor.getString(1);
+            nvo._id = cursor2.getInt(0);
+            nvo.name = cursor2.getString(1);
             spinner_Name.add(nvo.name);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_simple_drop_item, spinner_Name);
         spinnerName.setAdapter(adapter);
-        int selected = -1;
         for (int i = 0; i < spinner_Name.size(); i++) {
             if (spinner_Name.get(i).equals(vo.name)){
                 selected = i;
             }
         }
+        db.close();
+        spinnerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id)
+            {
+                selected = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
+
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         spinnerName.setSelection(selected);
     }
     public static void downKeyboard(Context context, EditText editText) {

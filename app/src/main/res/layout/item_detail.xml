@@ -41,12 +41,23 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/call_phone_image"
+                android:id="@+id/call_map_image"
                 android:layout_width="31dp"
                 android:layout_height="31dp"
                 android:layout_above="@+id/line"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="2dp"
+                android:clickable="true"
+                android:padding="2.2dp"
+                android:src="@drawable/iconmonstr_map_5_240" />
+            <ImageView
+                android:id="@+id/call_phone_image"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:layout_above="@+id/line"
+                android:layout_toLeftOf="@id/call_map_image"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="2dp"
                 android:clickable="true"

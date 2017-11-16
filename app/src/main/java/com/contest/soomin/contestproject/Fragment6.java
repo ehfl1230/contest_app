@@ -126,7 +126,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
     //    ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
     //    typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
 //        spinner.setAdapter(typeAdapter);
-        adapter = new ListAdapter(this.getContext(), R.layout.list_item, datas);
+        adapter = new ListAdapter(this.getContext(), R.layout.list_item2, datas);
         addItems("", keyword);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -139,7 +139,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
                 String lat = datas.get(position).apiLat;
                 String lng = datas.get(position).apiLng;
                 Intent intent = new Intent(Fragment6.super.getActivity(), FragmentItem.class);
-                intent.putExtra("type", "hospital");
+                intent.putExtra("type", "extra");
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
                 intent.putExtra("old_address", old_address);

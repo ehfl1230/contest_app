@@ -116,7 +116,7 @@ public class Fragment3 extends Fragment {
 
         if (type == 1) {
             datas.clear();
-            Cursor cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id", null);
+            Cursor cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id order by date", null);
             while (cursor.moveToNext()) {
                 RecordItemVO vo = new RecordItemVO();
                 vo._id = cursor.getInt(0);

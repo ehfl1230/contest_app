@@ -61,13 +61,15 @@ public class ListAdapter extends ArrayAdapter<ItemVO> {
         final ItemVO vo = datas.get(position);
         dongNameView.setText(vo.apiDongName);
         telView.setText(vo.apiTel);
-        addressView.setText(vo.apiNewAddress);
-        if (vo.bookmark == 0) {
-            bookmarkBtn.setVisibility(View.GONE);
-        }else {
-            bookmarkBtn.setVisibility(View.VISIBLE);
-        }
 
+        addressView.setText(vo.apiNewAddress);
+        if (bookmarkBtn != null) {
+            if (vo.bookmark == 0) {
+                bookmarkBtn.setVisibility(View.GONE);
+            } else {
+                bookmarkBtn.setVisibility(View.VISIBLE);
+            }
+        }
         callBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

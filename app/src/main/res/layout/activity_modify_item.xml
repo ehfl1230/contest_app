@@ -9,7 +9,47 @@
     android:id="@+id/relative_layout"
     android:focusableInTouchMode="true"
     tools:context="com.contest.soomin.contestproject.AddRecordActivity">
+    <LinearLayout
+        android:id="@+id/button_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <TextView
+            android:id="@+id/save_btn"
+            android:layout_width="0px"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_info"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_border_with_color"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/delete_btn"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/round_border_with_color"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:text="@string/delete"
+            android:textSize="20sp"
+            />
+    </LinearLayout>
     <ScrollView
+        android:layout_above="@id/button_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -234,44 +274,7 @@
                 android:textColor="#6e6d6d"
                 android:textCursorDrawable="@null"
                 android:textSize="20sp" />
-        <LinearLayout
-            android:id="@+id/button_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/date_info"
-            android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
-            <TextView
-                android:id="@+id/save_btn"
-                android:layout_width="0px"
-                android:layout_weight="5"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/date_info"
-                android:layout_margin="5dp"
-                android:background="@drawable/round_border_with_color"
-                android:clickable="true"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/save"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/delete_btn"
-                android:layout_weight="5"
-                android:layout_width="0dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/round_border_with_color"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:padding="8dp"
-                android:text="@string/delete"
-                android:textSize="20sp"
-                />
-        </LinearLayout></LinearLayout></ScrollView>
+       </LinearLayout></ScrollView>
+
 </RelativeLayout>
 

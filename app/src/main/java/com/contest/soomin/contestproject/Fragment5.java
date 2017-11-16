@@ -153,7 +153,6 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
 
             polyline = new MapPolyline();
          //   getLocation();
-            System.out.println("32322111111111111111111111111111" + mapView);
             mapViewContainer.removeAllViews();
 
                 mapView = new MapView(getActivity());
@@ -277,14 +276,11 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
                     int padding = 100; // px
                     mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding));
 
-
                     nearest_data.clear();
                     nearest_data.add(nearest);
                     nearest_data.add(second_nearest);
                     if (from.equals("item")) {
-                        System.out.println("다시 붙여!");
                         mapViewContainer.addView(mapView);
-
                         from = "";
                     }
                 }
@@ -316,8 +312,9 @@ ll = (LinearLayout) viewGroup.findViewById(R.id.data);
 
             try {
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    no_data.setVisibility(View.VISIBLE);
                     ll.setVisibility(View.GONE);
+                    no_data.setVisibility(View.VISIBLE);
+
                 } else {
                     no_data.setVisibility(View.GONE);
                     ll.setVisibility(View.VISIBLE);

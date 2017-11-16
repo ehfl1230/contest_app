@@ -9,8 +9,10 @@
     android:background="@color/background_color"
     tools:context="com.contest.soomin.contestproject.AddRecordActivity">
 <ScrollView
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_above="@id/save_btn">
     <LinearLayout
     android:orientation="vertical"
         android:id="@+id/relative_layout"
@@ -237,12 +239,16 @@
         android:windowSoftInputMode="stateAlwaysHidden"
         android:textSize="20sp" />
 
+
+
+
+    </LinearLayout></ScrollView>
     <TextView
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/date_info"
         android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/round_border_with_color"
         android:clickable="true"
         android:gravity="center"
@@ -250,5 +256,4 @@
         android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="20sp" />
-</LinearLayout></ScrollView>
 </RelativeLayout>

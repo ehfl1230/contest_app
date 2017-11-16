@@ -9,6 +9,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -21,6 +24,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +57,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
     public TextView oldAddressView;
     public ImageView callBtnView;
     public ImageView bookmarkBtn;
+    public ImageView mapBtnView;
     String name = "";
     String type = "";
     String address = "";
@@ -104,12 +109,18 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         lng = getIntent().getExtras().getString("lng");
 
         bookmarkBtn = (ImageView) findViewById(R.id.bookmark_btn);
+        if (type.equals("extra"))
+            bookmarkBtn.setVisibility(View.GONE);
         dongNameView = (TextView) findViewById(R.id.dong_name_text);
         telView = (TextView) findViewById(R.id.tel_text);
         newAddressView = (TextView) findViewById(R.id.new_address_text);
         oldAddressView = (TextView) findViewById(R.id.old_address_text);
         callBtnView = (ImageView) findViewById(R.id.call_phone_image);
         callBtnView.setOnClickListener(this);
+        if (phone == null ||phone.trim().equals(""))
+            callBtnView.setVisibility(View.GONE);
+        mapBtnView = (ImageView) findViewById(R.id.call_map_image);
+        mapBtnView.setOnClickListener(this);
         bookmarkBtn.setOnClickListener(this);
         datas = new ArrayList<>();
         mapView = new MapView(this);
@@ -188,6 +199,58 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
                         });
                 AlertDialog alert = alert_confirm.create();
                 alert.show();
+            } else {
+                Toast t = Toast.makeText(FragmentItem.this, R.string.permission_error, Toast.LENGTH_SHORT);
+                t.show();
+            }
+        }
+        if (v == mapBtnView) {
+            MyApplication myApplication = (MyApplication) getApplicationContext();
+            if (myApplication.locationPermission) {
+                try {
+
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                Log.d("Main", "isGPSEnabled=" + isGPSEnabled);
+                Log.d("Main", "isNetworkEnabled=" + isNetworkEnabled);
+
+                LocationListener locationListener = new LocationListener() {
+                    public void onLocationChanged(Location location) {
+                        double lat = location.getLatitude();
+                        double lng = location.getLongitude();
+
+                        //logView.setText("latitude: " + lat + ", longitude: " + lng);
+                    }
+
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                        // logView.setText("onStatusChanged");
+                    }
+
+                    public void onProviderEnabled(String provider) {
+                        // logView.setText("onProviderEnabled");
+                    }
+
+                    public void onProviderDisabled(String provider) {
+                        //  logView.setText("onProviderDisabled");
+                    }
+                };
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+                String locationProvider = LocationManager.GPS_PROVIDER;
+                Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+                if (lastKnownLocation != null) {
+                    double my_lng = lastKnownLocation.getLongitude();
+                    double my_lat = lastKnownLocation.getLatitude();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("daummaps://route?sp=" + my_lat + "," + my_lng + "&ep=" +lat + ","+ lng+ "&by=PUBLICTRANSIT"));
+                    startActivity(intent);
+                }
+                } catch (SecurityException e) {
+
+                }
             } else {
                 Toast t = Toast.makeText(FragmentItem.this, R.string.permission_error, Toast.LENGTH_SHORT);
                 t.show();
