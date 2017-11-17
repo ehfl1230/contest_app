@@ -51,7 +51,7 @@
                 android:layout_marginBottom="2dp"
                 android:clickable="true"
                 android:padding="2.2dp"
-                android:src="@drawable/iconmonstr_map_5_240" />
+                android:src="@drawable/iconmonstr_map_6_240" />
             <ImageView
                 android:id="@+id/call_phone_image"
                 android:layout_width="31dp"
@@ -62,7 +62,7 @@
                 android:layout_marginBottom="2dp"
                 android:clickable="true"
                 android:padding="2.2dp"
-                android:src="@drawable/iconmonstr_phone_3_240" />
+                android:src="@drawable/iconmonstr_phone_4_240" />
 
             <RelativeLayout
                 android:id="@+id/line"

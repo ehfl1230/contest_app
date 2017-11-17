@@ -209,6 +209,8 @@ public class Fragment3 extends Fragment {
 
     @Override
     public void onDestroy() {
+
         super.onDestroy();
+        type =1;
         }
 }

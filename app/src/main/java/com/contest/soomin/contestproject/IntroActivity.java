@@ -1,13 +1,20 @@
 package com.contest.soomin.contestproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 
 public class IntroActivity extends Activity {
     /** Called when the activity is first created. */
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

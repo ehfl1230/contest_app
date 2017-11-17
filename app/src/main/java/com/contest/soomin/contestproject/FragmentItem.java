@@ -117,7 +117,7 @@ public class FragmentItem extends AppCompatActivity implements View.OnClickListe
         oldAddressView = (TextView) findViewById(R.id.old_address_text);
         callBtnView = (ImageView) findViewById(R.id.call_phone_image);
         callBtnView.setOnClickListener(this);
-        if (phone == null ||phone.trim().equals(""))
+        if (phone == null || phone.trim().equals("") || phone.trim().equals("-"))
             callBtnView.setVisibility(View.GONE);
         mapBtnView = (ImageView) findViewById(R.id.call_map_image);
         mapBtnView.setOnClickListener(this);

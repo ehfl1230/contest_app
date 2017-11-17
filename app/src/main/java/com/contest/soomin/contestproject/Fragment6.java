@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * Created by SOOMIN on 2017-10-24.
  */
 
-public class Fragment6 extends Fragment implements View.OnClickListener {
+public class Fragment6 extends Fragment {
 
     ArrayList<ItemVO> datas;
     ListView listView;
@@ -67,12 +67,22 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
      //   spinner = (Spinner) viewGroup.findViewById(R.id.spinner_type);
      //   downKeyboard(getContext(), searchField);
         registerBtn = (TextView) viewGroup.findViewById(R.id.find_register_hospital);
+        missingBtn = (TextView) viewGroup.findViewById(R.id.find_missing);
+        sellBtn = (TextView) viewGroup.findViewById(R.id.sell_btn);
+        return viewGroup;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
-               type = 1;
+                type = 1;
                 onResume();
                 registerBtn.setBackgroundResource(R.drawable.border_solid);
                 registerBtn.setTextColor(getResources().getColor(R.color.white));
@@ -83,13 +93,13 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
 
             }
         });
-        missingBtn = (TextView) viewGroup.findViewById(R.id.find_missing);
+
         missingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 url = "http://openapi.jeonju.go.kr/rest/yugidongmulservice/getYugi?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70";
-               type = 2;
+                type = 2;
                 onResume();
                 missingBtn.setBackgroundResource(R.drawable.border_solid);
                 missingBtn.setTextColor(getResources().getColor(R.color.white));
@@ -99,7 +109,7 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
                 sellBtn.setTextColor(getResources().getColor(R.color.dark_gray));
             }
         });
-        sellBtn = (TextView) viewGroup.findViewById(R.id.sell_btn);
+
         sellBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,14 +125,6 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
                 sellBtn.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        return viewGroup;
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     //    ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.search_type, R.layout.custom_simple_drop_item);
     //    typeAdapter.setDropDownViewResource(R.layout.custom_simple_drop_item);
 //        spinner.setAdapter(typeAdapter);
@@ -153,25 +155,6 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
         listView.setAdapter(adapter);
 
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == searchBtn) {
-           // downKeyboard(getContext(), searchField);
-            if (spinner.getSelectedItem() == null)
-                text = "";
-            else {
-                text = spinner.getSelectedItem().toString();
-            }
-            keyword = searchField.getText().toString();
-            if (text.equals("이름")) {
-                addItems("name", keyword);
-            }
-            if (text.equals("주소")) {
-                addItems("address", keyword);
-            }
-        }
     }
 
     public static void downKeyboard(Context context, EditText editText) {
@@ -216,6 +199,8 @@ public class Fragment6 extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        url = "http://openapi.jeonju.go.kr/rest/dongmulinputservice/getDongMulInput?ServiceKey=" + new data().apiKey +
+                "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
        // downKeyboard(getContext(), searchField);
     }
 }

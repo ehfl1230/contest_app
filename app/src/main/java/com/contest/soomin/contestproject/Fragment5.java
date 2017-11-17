@@ -65,6 +65,13 @@ public class Fragment5 extends android.support.v4.app.Fragment {
     String url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
             "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        url = " http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
+                "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

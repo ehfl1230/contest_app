@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -55,6 +56,7 @@ public class AddRecordActivity extends AppCompatActivity {
     String old_address = "";
     String lat = "";
     String lng = "";
+    int selected = -1;
 
     @Override
     protected void onPause() {
@@ -67,6 +69,7 @@ public class AddRecordActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +154,34 @@ public class AddRecordActivity extends AppCompatActivity {
         content.clearFocus();
         downKeyboard(this, title);
         downKeyboard(this, content);
+        final ArrayList<String> spinner_Name = new ArrayList<>();
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
+        while (cursor.moveToNext()) {
+            NameVO vo = new NameVO();
+            vo._id = cursor.getInt(0);
+            vo.name = cursor.getString(1);
+            spinner_Name.add(vo.name);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_simple_drop_item, spinner_Name);
+        nameSpinner.setAdapter(adapter);
+
+        nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                selected = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
     }
+
 
     public void save() {
         DBHelper helper = new DBHelper(AddRecordActivity.this);
@@ -178,34 +208,19 @@ public class AddRecordActivity extends AppCompatActivity {
                     new String[]{title_str, content.getText().toString(), date.getText().toString(), name, tel, address, type, Integer.toString(vo._id), old_address, lat, lng});
 
             db.close();
-            alert_confirm.setMessage("저장하였습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();     //닫기
-                    finish();
-                }
-            });
+            Toast.makeText(AddRecordActivity.this, "저장하였습니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
-        AlertDialog alert = alert_confirm.create();
-        alert.show();
+
     }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        final ArrayList<String> spinner_Name = new ArrayList<>();
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
-        while (cursor.moveToNext()) {
-            NameVO vo = new NameVO();
-            vo._id = cursor.getInt(0);
-            vo.name = cursor.getString(1);
-            spinner_Name.add(vo.name);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.custom_simple_drop_item, spinner_Name);
-        nameSpinner.setAdapter(adapter);
+        nameSpinner.setSelection(selected);
+
     }
 
     public void select_save() {
@@ -240,13 +255,14 @@ public class AddRecordActivity extends AppCompatActivity {
                             db.close();
                             finish();
                         }
-                    }}).setNegativeButton("저장하지 않고 종료",new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick (DialogInterface dialog,int which){
-                            finish();
-                        }
-                    });
-                    AlertDialog alert = alert_confirm.create();
+                    }
+                }).setNegativeButton("저장하지 않고 종료", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog alert = alert_confirm.create();
         alert.show();
 
     }
@@ -289,7 +305,7 @@ public class AddRecordActivity extends AppCompatActivity {
                 addRecordName.setText(name);
                 addRecordName.setVisibility(View.VISIBLE);
             }
-                //    addRecordTel.setText(tel);
+            //    addRecordTel.setText(tel);
             //    addRecordAddress.setText(address);
         }
         if (requestCode == RESULT_CANCELED) {
