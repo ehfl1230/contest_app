@@ -39,7 +39,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     String keyword = "";
     ListAdapter adapter;
     RelativeLayout no_data;
-
+    String url = "";
     String text;
     Spinner spinner;
     @Nullable
@@ -126,7 +126,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         try {
             ListParser task = new ListParser();
             ArrayList<String> params = new ArrayList<>();
-            String url = "";
+
             if (keyword.equals("")) {
                 url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
@@ -172,6 +172,8 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        url = " http://openapi.jeonju.go.kr/rest/dongmuldrucservice/getDongMulDruc?ServiceKey=" + new data().apiKey +
+                "&pageNo=1&numOfRows=70&address=" + "" + "&dongName=" ;
         downKeyboard(getContext(), searchField);
     }
 }

@@ -58,7 +58,7 @@
             android:gravity="center_horizontal"
             android:padding="2dp"
             android:paddingRight="4dp"
-            android:text="등록제대행업소"
+            android:text="동물등록대행"
             android:textColor="@color/white"
             android:textSize="23sp"
             />

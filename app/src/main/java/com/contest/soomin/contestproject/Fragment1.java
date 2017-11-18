@@ -52,7 +52,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     EditText searchField;
     LinearLayout search_layout;
     RelativeLayout no_data;
-
+    String url = "";
     String keyword = "";
     ListAdapter adapter;
     String text;
@@ -148,7 +148,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         try {
             ListParser task = new ListParser();
             ArrayList<String> params = new ArrayList<>();
-            String url = "";
+
             if (keyword.equals("")) {
                 url = "http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
                         "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
@@ -191,6 +191,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     } @Override
     public void onDestroy() {
         super.onDestroy();
+        url = "http://openapi.jeonju.go.kr/rest/dongmulhospitalservice/getDongMulHospital?ServiceKey=" + new data().apiKey +
+                "&pageNo=1&numOfRows=100&address=" + "" + "&dongName=";
         downKeyboard(getContext(), searchField);
     }
 

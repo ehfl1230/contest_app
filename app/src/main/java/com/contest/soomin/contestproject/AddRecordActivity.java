@@ -154,32 +154,7 @@ public class AddRecordActivity extends AppCompatActivity {
         content.clearFocus();
         downKeyboard(this, title);
         downKeyboard(this, content);
-        final ArrayList<String> spinner_Name = new ArrayList<>();
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
-        while (cursor.moveToNext()) {
-            NameVO vo = new NameVO();
-            vo._id = cursor.getInt(0);
-            vo.name = cursor.getString(1);
-            spinner_Name.add(vo.name);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_simple_drop_item, spinner_Name);
-        nameSpinner.setAdapter(adapter);
 
-        nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                selected = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-
-            }
-        });
     }
 
 
@@ -219,6 +194,32 @@ public class AddRecordActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        final ArrayList<String> spinner_Name = new ArrayList<>();
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from animal order by animal_name", null);
+        while (cursor.moveToNext()) {
+            NameVO vo = new NameVO();
+            vo._id = cursor.getInt(0);
+            vo.name = cursor.getString(1);
+            spinner_Name.add(vo.name);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_simple_drop_item, spinner_Name);
+        nameSpinner.setAdapter(adapter);
+
+        nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                selected = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
         nameSpinner.setSelection(selected);
 
     }

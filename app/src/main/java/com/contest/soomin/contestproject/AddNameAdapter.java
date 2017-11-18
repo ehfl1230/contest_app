@@ -1,6 +1,7 @@
 package com.contest.soomin.contestproject;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -59,16 +60,20 @@ public class AddNameAdapter extends ArrayAdapter<NameVO> {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                              DBHelper helper = new DBHelper(getContext());
+                DBHelper helper = new DBHelper(getContext());
                 SQLiteDatabase db = helper.getWritableDatabase();
-                db.execSQL("delete from animal where _id=?", new String[]{Integer.toString(vo._id)});
-                db.close();
+                Cursor cursor = db.rawQuery("select * from medical_record where name=?", new String[]{Integer.toString(vo._id)});
+                if (cursor.getCount() > 0) {
+                    Toast.makeText(getContext(), vo.name + "의 진료기록이 남아있습니다.\n진료기록 삭제 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    db.execSQL("delete from animal where _id=?", new String[]{Integer.toString(vo._id)});
+                    db.close();
 
-                Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                datas.remove(position);
+                    Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    datas.remove(position);
 
-                notifyDataSetChanged();
-
+                    notifyDataSetChanged();
+                }
             }
         });
         return convertView;

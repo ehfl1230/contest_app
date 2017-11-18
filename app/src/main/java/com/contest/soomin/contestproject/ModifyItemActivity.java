@@ -159,7 +159,17 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         origin_date.setText(vo.date);
         origin_dong.setText(vo.dong_name);
 
+    db.close();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DBHelper helper = new DBHelper(ModifyItemActivity.this);
+        SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor2 = db.rawQuery("select * from animal order by animal_name", null);
+        spinner_Name.clear();
         while (cursor2.moveToNext()) {
             NameVO nvo = new NameVO();
             nvo._id = cursor2.getInt(0);
@@ -168,9 +178,11 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_simple_drop_item, spinner_Name);
         spinnerName.setAdapter(adapter);
-        for (int i = 0; i < spinner_Name.size(); i++) {
-            if (spinner_Name.get(i).equals(vo.name)){
-                selected = i;
+        if (selected == -1) {
+            for (int i = 0; i < spinner_Name.size(); i++) {
+                if (spinner_Name.get(i).equals(vo.name)) {
+                    selected = i;
+                }
             }
         }
         db.close();
@@ -189,12 +201,6 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         spinnerName.setSelection(selected);
     }
     public static void downKeyboard(Context context, EditText editText) {
