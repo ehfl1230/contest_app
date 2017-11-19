@@ -95,6 +95,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 keyword = "";
                 addItems(type_dong, type, keyword);
+                adapter.selectedRadioPosition = -1;
             }
 
             @Override
@@ -178,6 +179,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
                 setResult(RESULT_OK, intent);
                 finish();
             }
+            adapter.selectedRadioPosition = -1;
         }
         if (v == moveBookmark) {
             searchField.clearFocus();

@@ -15,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,10 +43,13 @@ public class Fragment3 extends Fragment {
     ListAdapter adapter2;
     TextView record;
     TextView bookmark;
+    Spinner nameSpinner;
     int type = 1;
+    final ArrayList<String> spinner_Name = new ArrayList<>();
     RelativeLayout no_data;
     RelativeLayout no_data2;
-
+    ArrayAdapter<String> spinner_adapter;
+    int selected = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +66,7 @@ public class Fragment3 extends Fragment {
         no_data.setVisibility(View.GONE);
         no_data2 = (RelativeLayout) viewGroup.findViewById(R.id.no_data2);
         no_data2.setVisibility(View.GONE);
+        nameSpinner = (Spinner) viewGroup.findViewById(R.id.spinner_name);
 
         // mGroupList = new ArrayList<>();
         //  mChildList = new ArrayList<ArrayList<RecordItemVO>>();
@@ -98,7 +104,23 @@ public class Fragment3 extends Fragment {
         });
         //searchBtn = (ImageView) findViewById(R.id.search_bnt);
         //searchField = (EditText) findViewById(R.id.search_blank);
+        spinner_adapter = new ArrayAdapter<String>(getContext(), R.layout.custom_simple_drop_item, spinner_Name);
+        nameSpinner.setAdapter(spinner_adapter);
 
+        nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                selected = position;
+                onResume();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
         return viewGroup;
     }
 
@@ -107,16 +129,49 @@ public class Fragment3 extends Fragment {
         super.onResume();
         no_data.setVisibility(View.GONE);
         no_data2.setVisibility(View.GONE);
+        nameSpinner.setVisibility(View.GONE);
 
         DBHelper helper = new DBHelper(getContext());
         SQLiteDatabase db = helper.getWritableDatabase();
-        //mGroupList.clear();
-        //mChildList.clear();
-        //mChildListContent.clear();
 
         if (type == 1) {
+            spinner_Name.clear();
+            nameSpinner.setVisibility(View.VISIBLE);
+            Cursor cursor2 = db.rawQuery("select * from animal order by animal_name", null);
+            spinner_Name.add("전체보기");
+            while (cursor2.moveToNext()) {
+                NameVO vo = new NameVO();
+                vo._id = cursor2.getInt(0);
+                vo.name = cursor2.getString(1);
+                spinner_Name.add(vo.name);
+            }
+            spinner_adapter.notifyDataSetChanged();
+            if (spinner_Name.size() == 1|| spinner_Name.size() <= selected) {
+                nameSpinner.setSelection(0);
+            }else {
+                nameSpinner.setSelection(selected);
+            }
+            String animal_name ="";
+            if (nameSpinner.getSelectedItem() == null) {
+                nameSpinner.setSelection(0);
+                animal_name = "전체보기";
+            } else {
+                animal_name =  nameSpinner.getSelectedItem().toString();
+            }
+            Cursor cursor;
+            if (animal_name.equals("전체보기")) {
+
+                cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id order by date", null);
+            } else {
+                Cursor cursor_name = db.rawQuery("select * from animal where animal_name=?", new String[]{animal_name});
+                NameVO vo = new NameVO();
+                while (cursor_name.moveToNext()) {
+                    vo._id = cursor_name.getInt(0);
+                    vo.name = cursor_name.getString(1);
+                }
+                cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id and mr.name=" + vo._id +" order by date", null);
+            }
             datas.clear();
-            Cursor cursor = db.rawQuery("select * from medical_record mr, animal an where mr.name=an._id order by date", null);
             while (cursor.moveToNext()) {
                 RecordItemVO vo = new RecordItemVO();
                 vo._id = cursor.getInt(0);

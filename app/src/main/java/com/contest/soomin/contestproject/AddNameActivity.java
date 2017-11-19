@@ -108,6 +108,7 @@ public class AddNameActivity extends AppCompatActivity implements View.OnClickLi
                 } else {
                     db.execSQL("insert into animal (animal_name) values (?)", new String[]{new_name_str});
                     Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    new_name.setText("");
                 }
                 db.close();
                 adapter.notifyDataSetChanged();

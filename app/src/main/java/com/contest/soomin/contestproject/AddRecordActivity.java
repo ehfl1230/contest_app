@@ -219,8 +219,11 @@ public class AddRecordActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) {
 
             }
-        });
-        nameSpinner.setSelection(selected);
+        });if (spinner_Name.size() == 1|| spinner_Name.size() <= selected) {
+            nameSpinner.setSelection(-1);
+        }else {
+            nameSpinner.setSelection(selected);
+        }
 
     }
 

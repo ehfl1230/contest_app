@@ -201,7 +201,11 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
-        spinnerName.setSelection(selected);
+        if (spinner_Name.size() == 1|| spinner_Name.size() <= selected) {
+            spinnerName.setSelection(-1);
+        }else {
+            spinnerName.setSelection(selected);
+        }
     }
     public static void downKeyboard(Context context, EditText editText) {
         InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
