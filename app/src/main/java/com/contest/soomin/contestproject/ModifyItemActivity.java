@@ -318,10 +318,8 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                                     nvo.name = cursor.getString(1);
                                 }
                                 if (type == null || type.equals("")) {
-                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
-                                                    "where _id=?",
-                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id),
-                                                    old_address, lat, lng, item_id});
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, name=? where _id=?",
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(),  Integer.toString(nvo._id), item_id});
 
                                 }else {
                                     db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
@@ -411,14 +409,13 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                                     nvo._id = cursor.getInt(0);
                                     nvo.name = cursor.getString(1);
                                 }
+
                                 if (type == null || type.equals("")) {
-                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_tel=?, dong_address=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
-                                                    "where _id=?",
-                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), tel, address, Integer.toString(nvo._id),
-                                                    old_address, lat, lng, item_id});
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, name=? where _id=?",
+                                            new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), Integer.toString(nvo._id),item_id});
 
                                 }else {
-                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=?" +
+                                    db.execSQL("update medical_record set title=?, memo=?, date=?, dong_name=?, dong_tel=?, dong_address=?, type=?, name=?, dong_old_address=?, dong_lat=?, dong_lng=? " +
                                                     "where _id=?",
                                             new String[]{modify_title.getText().toString(), modify_contents.getText().toString(), origin_date.getText().toString(), origin_dong.getText().toString(), tel, address, type, Integer.toString(nvo._id),
                                                     old_address, lat, lng, item_id});
@@ -450,7 +447,18 @@ public class ModifyItemActivity extends AppCompatActivity implements View.OnClic
                     mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
-                    String add_date_str = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+                    String add_date_str = "";
+                    if (mMonth + 1 < 10 || mDay < 10){
+                        if (mMonth +1 < 10 && mDay <10)
+                            add_date_str=String.format("%d/0%d/0%d", mYear, mMonth + 1, mDay);
+                        else if (mMonth +1 < 10)
+                            add_date_str=String.format("%d/0%d/%d", mYear, mMonth + 1, mDay);
+                        else if (mDay +1 < 10)
+                            add_date_str=String.format("%d/%d/0%d", mYear, mMonth + 1, mDay);
+
+                    }else {
+                        add_date_str = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+                    }
                     origin_date.setText(add_date_str);
 
                 }

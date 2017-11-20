@@ -7,13 +7,13 @@ android {
         applicationId "com.contest.soomin.contestproject"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 12
-        versionName "1.0.3"
+        versionCode 13
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            debuggable false
+          debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -99,8 +99,18 @@ public class AddRecordActivity extends AppCompatActivity {
         addDongBtn = (TextView) findViewById(R.id.move_search);
         moveSearch = (TextView) findViewById(R.id.move_bookmark);
         nameSpinner = (Spinner) findViewById(R.id.spinner_name);
+        String add_init_date  = "";
+        if (mMonth + 1 < 10 || mDay < 10){
+            if (mMonth +1 < 10 && mDay <10)
+                add_init_date=String.format("%d/0%d/0%d", mYear, mMonth + 1, mDay);
+            else if (mMonth +1 < 10)
+                add_init_date=String.format("%d/0%d/%d", mYear, mMonth + 1, mDay);
+            else if (mDay +1 < 10)
+                add_init_date=String.format("%d/%d/0%d", mYear, mMonth + 1, mDay);
 
-        String add_init_date = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+        }else {
+            add_init_date = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+        }
         date.setText(add_init_date);
         addDateBtn = (TextView) findViewById(R.id.add_date_btn);
         manageNameBtn = (TextView) findViewById(R.id.manage_name);
@@ -325,8 +335,19 @@ public class AddRecordActivity extends AppCompatActivity {
                     mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
-                    String add_date_str = String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
-                    date.setText(add_date_str);
+                    String add_date_str = "";
+                    if (mMonth + 1 < 10 || mDay < 10){
+                        if (mMonth +1 < 10 && mDay <10)
+                        add_date_str=String.format("%d/0%d/0%d", mYear, mMonth + 1, mDay);
+                        else if (mMonth +1 < 10)
+                            add_date_str=String.format("%d/0%d/%d", mYear, mMonth + 1, mDay);
+                        else if (mDay +1 < 10)
+                            add_date_str=String.format("%d/%d/0%d", mYear, mMonth + 1, mDay);
+
+                    }else {
+                        add_date_str=String.format("%d/%d/%d", mYear, mMonth + 1, mDay);
+                    }
+                        date.setText(add_date_str);
                 }
             };
 }
