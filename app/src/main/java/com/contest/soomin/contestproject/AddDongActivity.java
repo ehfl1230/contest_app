@@ -156,7 +156,7 @@ public class AddDongActivity extends AppCompatActivity implements View.OnClickLi
             }
             keyword = searchField.getText().toString();
             addItems(type_dong, type, keyword);
-
+            adapter.selectedRadioPosition = -1;
         }
         if (v == save_btn) {
             searchField.clearFocus();
